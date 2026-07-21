@@ -26,6 +26,355 @@
       rel="stylesheet"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<!-- ================================================================== -->
+<!--  TAILWIND (CDN)                                                     -->
+<!-- ================================================================== -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- ================================================================== -->
+<!--  FLOWBITE (CDN)                                                     -->
+<!-- ================================================================== -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css" rel="stylesheet" />
+
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Playfair Display"', "serif"],
+          sans: ['"Inter"', "sans-serif"],
+        },
+        colors: {
+          bg: {
+            DEFAULT: "#120d19",
+            deep: "#0c0812",
+            panel: "#1a1424",
+            card: "#1e1830",
+            card2: "#221b36",
+            line: "rgba(255,255,255,0.07)",
+          },
+          brand: {
+            50: "#fff3e8",
+            100: "#ffe3c4",
+            200: "#ffc985",
+            300: "#ffab4d",
+            400: "#fb9231",
+            500: "#f0730a",
+            600: "#d15f06",
+            700: "#a84a06",
+          },
+          violet: {
+            DEFAULT: "#8b5cf6",
+            deep: "#6d3fd6",
+            soft: "#a78bfa",
+          },
+          teal: {
+            DEFAULT: "#2dd4bf",
+            deep: "#0f9488",
+          },
+          cream: "#f6efe4",
+          ink: {
+            100: "#efe9f2",
+            300: "#c3bcd1",
+            400: "#9c93ac",
+            500: "#7c7390",
+            600: "#5d5670",
+          },
+        },
+        boxShadow: {
+          "glow-brand": "0 0 0 1px rgba(240,115,10,0.25), 0 20px 50px -15px rgba(240,115,10,0.45)",
+          "glow-violet": "0 0 0 1px rgba(139,92,246,0.25), 0 20px 50px -15px rgba(139,92,246,0.45)",
+          card: "0 12px 40px -14px rgba(0,0,0,0.65)",
+          "card-hover": "0 26px 60px -16px rgba(0,0,0,0.75)",
+        },
+        animation: {
+          "fade-up": "fadeUp 0.7s cubic-bezier(0.16,1,0.3,1) both",
+          float: "float 7s ease-in-out infinite",
+          "pulse-soft": "pulseSoft 2.4s ease-in-out infinite",
+          shimmer: "shimmer 2.2s linear infinite",
+          "heart-pop": "heartPop 0.4s cubic-bezier(0.34,1.56,0.64,1) both",
+          "scale-in": "scaleIn 0.45s cubic-bezier(0.16,1,0.3,1) both",
+          "slide-fade": "slideFade 0.5s ease both",
+        },
+        keyframes: {
+          fadeUp: {
+            "0%": { opacity: 0, transform: "translateY(22px)" },
+            "100%": { opacity: 1, transform: "translateY(0)" },
+          },
+          float: {
+            "0%, 100%": { transform: "translateY(0px)" },
+            "50%": { transform: "translateY(-10px)" },
+          },
+          pulseSoft: {
+            "0%, 100%": { opacity: 1, transform: "scale(1)" },
+            "50%": { opacity: 0.7, transform: "scale(1.06)" },
+          },
+          shimmer: {
+            "0%": { backgroundPosition: "-400px 0" },
+            "100%": { backgroundPosition: "400px 0" },
+          },
+          heartPop: {
+            "0%": { transform: "scale(1)" },
+            "40%": { transform: "scale(1.35)" },
+            "100%": { transform: "scale(1)" },
+          },
+          scaleIn: {
+            "0%": { opacity: 0, transform: "scale(0.94)" },
+            "100%": { opacity: 1, transform: "scale(1)" },
+          },
+          slideFade: {
+            "0%": { opacity: 0, transform: "translateX(8px)" },
+            "100%": { opacity: 1, transform: "translateX(0)" },
+          },
+        },
+      },
+    },
+  };
+</script>
+
+<!-- ================================================================== -->
+<!--  CUSTOM STYLES                                                      -->
+<!-- ================================================================== -->
+<style>
+  * { scroll-behavior: smooth; }
+  html, body { background: #120d19; }
+  body {
+    font-family: "Inter", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, .font-display { font-family: "Playfair Display", serif; }
+
+  ::-webkit-scrollbar { width: 9px; height: 9px; }
+  ::-webkit-scrollbar-track { background: #0c0812; }
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #f0730a, #8b5cf6);
+    border-radius: 10px;
+  }
+  ::selection { background: #f0730a; color: #fff; }
+
+  .grad-text {
+    background: linear-gradient(90deg, #ffab4d, #f0730a 45%, #8b5cf6 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .btn-grad {
+    background-image: linear-gradient(90deg, #8b5cf6, #f0730a, #ffab4d, #8b5cf6);
+    background-size: 300% 100%;
+    transition: background-position 0.6s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-grad:hover {
+    background-position: 100% 0;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px -10px rgba(240, 115, 10, 0.55);
+  }
+  .btn-grad:active { transform: translateY(0) scale(0.97); }
+
+  /* ---------- range slider ---------- */
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f0730a var(--val, 40%), rgba(255,255,255,0.1) var(--val, 40%));
+    outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ffab4d, #f0730a);
+    border: 2px solid #1a1424;
+    box-shadow: 0 4px 10px rgba(240,115,10,0.5);
+    cursor: pointer;
+    transition: transform 0.25s ease;
+  }
+  input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+  input[type="range"]::-moz-range-thumb {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: linear-gradient(135deg, #ffab4d, #f0730a);
+    border: 2px solid #1a1424; cursor: pointer;
+  }
+
+  /* ---------- checkbox ---------- */
+  .fancy-check {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px; height: 18px;
+    border-radius: 6px;
+    border: 1.5px solid rgba(255,255,255,0.18);
+    background: rgba(255,255,255,0.03);
+    display: inline-grid;
+    place-content: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+  .fancy-check::before {
+    content: "";
+    width: 10px; height: 10px;
+    transform: scale(0);
+    transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    box-shadow: inset 1em 1em white;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+  }
+  .fancy-check:checked {
+    background: linear-gradient(135deg, #ffab4d, #f0730a);
+    border-color: transparent;
+  }
+  .fancy-check:checked::before { transform: scale(1); }
+
+  /* ---------- room pill radio ---------- */
+  .room-pill {
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .room-pill:hover { transform: translateY(-2px); }
+  .room-pill.active {
+    background: linear-gradient(135deg, #ffab4d, #f0730a);
+    color: #17120e;
+    border-color: transparent;
+    box-shadow: 0 8px 20px -6px rgba(240,115,10,0.55);
+  }
+
+  /* ---------- view tabs ---------- */
+  .view-tab {
+    transition: all 0.35s cubic-bezier(0.16,1,0.3,1);
+  }
+  .view-tab.active {
+    background: linear-gradient(135deg, #ffab4d, #f0730a);
+    color: #17120e;
+    box-shadow: 0 8px 20px -6px rgba(240,115,10,0.5);
+  }
+  .view-tab:not(.active):hover {
+    background: rgba(255,255,255,0.06);
+    color: #f6efe4;
+  }
+
+  /* ---------- property card ---------- */
+  .p-card {
+    transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease, border-color 0.5s ease;
+  }
+  .p-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 26px 60px -16px rgba(0,0,0,0.75);
+    border-color: rgba(240,115,10,0.35);
+  }
+  .p-card .p-img { transition: transform 1s cubic-bezier(0.16,1,0.3,1); }
+  .p-card:hover .p-img { transform: scale(1.08); }
+  .p-card .p-overlay {
+    background: linear-gradient(180deg, rgba(10,8,15,0) 40%, rgba(10,8,15,0.85) 100%);
+    transition: opacity 0.4s ease;
+  }
+  .p-card .p-btn {
+    transition: all 0.3s ease;
+  }
+  .p-card:hover .p-btn {
+    box-shadow: 0 10px 26px -8px rgba(240,115,10,0.6);
+  }
+
+  /* ---------- heart / favorite ---------- */
+  .heart-btn svg { transition: all 0.3s ease; }
+  .heart-btn:hover svg { transform: scale(1.15); }
+  .heart-btn.active svg {
+    fill: #f0730a;
+    stroke: #f0730a;
+    animation: heartPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  /* ---------- badge shimmer ---------- */
+  .badge-shimmer { position: relative; overflow: hidden; }
+  .badge-shimmer::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -60%;
+    width: 40%; height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.55), transparent);
+    transform: skewX(-20deg);
+    animation: badgeShine 3.2s ease-in-out infinite;
+  }
+  @keyframes badgeShine {
+    0% { left: -60%; }
+    45%, 100% { left: 130%; }
+  }
+
+  /* ---------- stat icon hover ---------- */
+  .stat-item { transition: color 0.25s ease, transform 0.25s ease; }
+  .p-card:hover .stat-item { color: #d8d1e6; }
+
+  /* ---------- pagination ---------- */
+  .page-btn {
+    transition: all 0.3s cubic-bezier(0.16,1,0.3,1);
+  }
+  .page-btn:hover:not(.active) {
+    background: rgba(255,255,255,0.07);
+    transform: translateY(-2px);
+  }
+  .page-btn.active {
+    background: linear-gradient(135deg, #ffab4d, #f0730a);
+    color: #17120e;
+    box-shadow: 0 8px 22px -6px rgba(240,115,10,0.55);
+  }
+
+  /* ---------- sidebar sticky glow ---------- */
+  .sidebar-glow::before {
+    content: "";
+    position: absolute;
+    top: -80px; left: -80px;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, rgba(139,92,246,0.18), transparent 70%);
+    pointer-events: none;
+  }
+
+  /* ---------- reveal ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.in-view { opacity: 1; transform: translateY(0); }
+  .rd-1 { transition-delay: .05s; }
+  .rd-2 { transition-delay: .1s; }
+  .rd-3 { transition-delay: .15s; }
+  .rd-4 { transition-delay: .2s; }
+
+  /* ---------- dropdown chevron ---------- */
+  .dd-chevron { transition: transform 0.3s ease; }
+  [aria-expanded="true"] .dd-chevron { transform: rotate(180deg); }
+
+  /* ---------- skeleton shimmer for loading demo ---------- */
+  .skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.09) 37%, rgba(255,255,255,0.04) 63%);
+    background-size: 400% 100%;
+    animation: shimmer 1.6s ease infinite;
+  }
+
+  /* ---------- image carousel dots on card ---------- */
+  .img-dot { transition: all 0.3s ease; }
+  .img-dot.active { width: 16px; background: #f0730a; }
+
+  /* ---------- a11y focus ---------- */
+  a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid #ffab4d;
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
 
 
     <style>
@@ -467,7 +816,371 @@ footer p:last-child {
     </header>
 
 
-    <main></main>
+    <section class="max-w-[1400px] mx-auto px-6 lg:px-10 pt-10 pb-6">
+    <p class="text-ink-500 text-xs uppercase tracking-widest mb-2 reveal">Bosh sahifa / Ko'chmas mulk</p>
+    <h1 class="reveal font-display text-3xl sm:text-4xl font-semibold text-cream">
+      E'lonlar <span class="grad-text italic">ro'yxati</span>
+    </h1>
+  </section>
+
+  <!-- ================================================================ -->
+  <!--  MAIN LAYOUT: FILTERS + GRID                                      -->
+  <!-- ================================================================ -->
+  <main class="max-w-[1400px] mx-auto px-6 lg:px-10 pb-24 grid lg:grid-cols-[300px_1fr] gap-6">
+    <!-- ============================================================ -->
+    <!--  SIDEBAR — FILTERS                                            -->
+    <!-- ============================================================ -->
+    <aside class="reveal relative">
+      <div class="sidebar-glow relative overflow-hidden lg:sticky lg:top-28 rounded-3xl border border-white/10 bg-bg-panel p-6 shadow-card">
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="font-display text-lg font-semibold text-cream">Filtrlar</h2>
+          <button class="text-xs text-ink-500 hover:text-brand-300 transition-colors font-medium">Tozalash</button>
+        </div>
+
+        <!-- price range -->
+        <div class="mb-7">
+          <div class="flex items-center justify-between mb-3">
+            <label class="text-xs font-semibold text-ink-400 uppercase tracking-wide">Narx (mlrd so'm)</label>
+            <span id="priceLabel" class="text-xs font-semibold text-brand-300">0 – 5.0</span>
+          </div>
+          <input type="range" min="0" max="5" step="0.1" value="2" id="priceRange" style="--val: 40%" class="w-full" />
+        </div>
+
+        <!-- property type -->
+        <div class="mb-7">
+          <p class="text-xs font-semibold text-ink-400 uppercase tracking-wide mb-3">Mulk turi</p>
+          <div class="space-y-3">
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="fancy-check" />
+              <span class="text-sm text-ink-300 group-hover:text-cream transition-colors">Hovli</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="fancy-check" checked />
+              <span class="text-sm text-ink-300 group-hover:text-cream transition-colors">Kvartira</span>
+            </label>
+            <label class="flex items-center gap-3 cursor-pointer group">
+              <input type="checkbox" class="fancy-check" />
+              <span class="text-sm text-ink-300 group-hover:text-cream transition-colors">Yer</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- rooms -->
+        <div class="mb-7">
+          <p class="text-xs font-semibold text-ink-400 uppercase tracking-wide mb-3">Xonalar soni</p>
+          <div class="flex flex-wrap gap-2" id="roomGroup">
+            <button class="room-pill w-10 h-10 rounded-xl border border-white/10 text-sm font-semibold text-ink-300 hover:border-brand-400/50">1</button>
+            <button class="room-pill active w-10 h-10 rounded-xl border border-white/10 text-sm font-semibold">2</button>
+            <button class="room-pill w-10 h-10 rounded-xl border border-white/10 text-sm font-semibold text-ink-300 hover:border-brand-400/50">3</button>
+            <button class="room-pill w-10 h-10 rounded-xl border border-white/10 text-sm font-semibold text-ink-300 hover:border-brand-400/50">4</button>
+            <button class="room-pill w-12 h-10 rounded-xl border border-white/10 text-sm font-semibold text-ink-300 hover:border-brand-400/50">5+</button>
+          </div>
+        </div>
+
+        <!-- area -->
+        <div class="mb-7">
+          <p class="text-xs font-semibold text-ink-400 uppercase tracking-wide mb-3">Maydon (m²)</p>
+          <div class="flex items-center gap-3">
+            <input type="text" placeholder="dan" class="w-full bg-white/5 border border-white/10 focus:border-brand-400 rounded-xl px-3 py-2.5 text-sm text-cream placeholder:text-ink-600 outline-none transition-colors" />
+            <span class="text-ink-600 text-xs">—</span>
+            <input type="text" placeholder="gacha" class="w-full bg-white/5 border border-white/10 focus:border-brand-400 rounded-xl px-3 py-2.5 text-sm text-cream placeholder:text-ink-600 outline-none transition-colors" />
+          </div>
+        </div>
+
+        <!-- location -->
+        <div class="mb-2">
+          <p class="text-xs font-semibold text-ink-400 uppercase tracking-wide mb-3">Manzil</p>
+          <button id="locDropdownBtn" data-dropdown-toggle="locDropdown" class="w-full flex items-center justify-between bg-white/5 border border-white/10 hover:border-white/20 rounded-xl px-3.5 py-3 text-sm text-ink-200 transition-colors">
+            <span class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-brand-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.5" stroke-width="1.8" /></svg>
+              Toshkent, Mirzo Ulug'bek
+            </span>
+            <svg class="dd-chevron w-4 h-4 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          <div id="locDropdown" class="hidden z-10 w-full bg-bg-card2 border border-white/10 rounded-xl shadow-card overflow-hidden">
+            <ul class="text-sm text-ink-300">
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Toshkent, Mirzo Ulug'bek</a></li>
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Toshkent, Yunusobod</a></li>
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Samarqand viloyati</a></li>
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Buxoro shahri</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn-grad w-full mt-7 py-3 rounded-full text-sm font-semibold text-white shadow-glow-brand">Qidirish</button>
+      </div>
+    </aside>
+
+    <!-- ============================================================ -->
+    <!--  RESULTS: TOOLBAR + GRID + PAGINATION                          -->
+    <!-- ============================================================ -->
+    <div>
+      <!-- toolbar -->
+      <div class="reveal rd-1 flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 rounded-2xl border border-white/10 bg-bg-panel px-4 py-3">
+        <div class="flex items-center gap-1 bg-white/5 rounded-xl p-1 w-full sm:w-auto" role="tablist">
+          <button class="view-tab active flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold" data-view="grid">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" stroke-width="1.8"/><rect x="14" y="3" width="7" height="7" rx="1.5" stroke-width="1.8"/><rect x="3" y="14" width="7" height="7" rx="1.5" stroke-width="1.8"/><rect x="14" y="14" width="7" height="7" rx="1.5" stroke-width="1.8"/></svg>
+            Grid
+          </button>
+          <button class="view-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-ink-400" data-view="list">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16" /></svg>
+            Ro'yxat
+          </button>
+          <button class="view-tab flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold text-ink-400" data-view="map">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" /></svg>
+            Xarita
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2 shrink-0">
+          <span class="text-xs text-ink-500 hidden sm:inline">Saralash:</span>
+          <button id="sortBtn" data-dropdown-toggle="sortDropdown" class="flex items-center gap-2 text-sm font-semibold text-cream px-3 py-2 rounded-lg hover:bg-white/5 transition-colors">
+            Yangi e'lonlar
+            <svg class="dd-chevron w-4 h-4 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+          </button>
+          <div id="sortDropdown" class="hidden z-10 w-52 bg-bg-card2 border border-white/10 rounded-xl shadow-card overflow-hidden">
+            <ul class="text-sm text-ink-300">
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Yangi e'lonlar</a></li>
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Arzon narx</a></li>
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Qimmat narx</a></li>
+              <li><a href="#" class="block px-4 py-2.5 hover:bg-white/5 hover:text-cream transition-colors">Katta maydon</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- grid of cards -->
+      <div id="cardGrid" class="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+        <!-- CARD 1 -->
+        <article class="p-card reveal rd-1 group rounded-3xl border border-white/10 bg-bg-card overflow-hidden shadow-card">
+          <div class="relative h-48 overflow-hidden">
+            <img class="p-img w-full h-full object-cover" loading="lazy"
+                 src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=900&auto=format&fit=crop" alt="Yangi zamonaviy villa" />
+            <div class="p-overlay absolute inset-0"></div>
+            <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+              <span class="badge-shimmer px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-brand-500 text-white shadow">Yangi</span>
+              <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-black/50 backdrop-blur border border-white/20 text-white">UyBozor Premium</span>
+            </div>
+            <button class="heart-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 backdrop-blur border border-white/20 grid place-items-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 10-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-cream mb-1.5 group-hover:text-brand-300 transition-colors">Yangi zamonaviy villa</h3>
+            <p class="flex items-center gap-1.5 text-xs text-ink-500 mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.3" stroke-width="1.8" /></svg>
+              Toshkent, Mirzo Ulug'bek tumani
+            </p>
+            <div class="flex items-center gap-4 text-xs text-ink-400 mb-4">
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>4 xona</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z" /></svg>240 m²</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" /></svg>2 qavat</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xl font-bold text-cream">1.2 mlrd</p>
+                <p class="text-[11px] text-ink-500">so'm</p>
+              </div>
+              <a href="#" class="p-btn btn-grad px-4 py-2.5 rounded-full text-xs font-semibold text-white">Batafsil</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 2 -->
+        <article class="p-card reveal rd-2 group rounded-3xl border border-white/10 bg-bg-card overflow-hidden shadow-card">
+          <div class="relative h-48 overflow-hidden">
+            <img class="p-img w-full h-full object-cover" loading="lazy"
+                 src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?q=80&w=900&auto=format&fit=crop" alt="Elite Residence kvartirasi" />
+            <div class="p-overlay absolute inset-0"></div>
+            <button class="heart-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 backdrop-blur border border-white/20 grid place-items-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 10-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-cream mb-1.5 group-hover:text-brand-300 transition-colors">Elite Residence kvartirasi</h3>
+            <p class="flex items-center gap-1.5 text-xs text-ink-500 mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.3" stroke-width="1.8" /></svg>
+              Toshkent, Yunusobod, 19-kvartal
+            </p>
+            <div class="flex items-center gap-4 text-xs text-ink-400 mb-4">
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>3 xona</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z" /></svg>115 m²</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" /></svg>8/12 qavat</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xl font-bold text-cream">850 mln</p>
+                <p class="text-[11px] text-ink-500">so'm</p>
+              </div>
+              <a href="#" class="p-btn btn-grad px-4 py-2.5 rounded-full text-xs font-semibold text-white">Batafsil</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 3 -->
+        <article class="p-card reveal rd-3 group rounded-3xl border border-white/10 bg-bg-card overflow-hidden shadow-card">
+          <div class="relative h-48 overflow-hidden">
+            <img class="p-img w-full h-full object-cover" loading="lazy"
+                 src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=900&auto=format&fit=crop" alt="Shahar chetidagi yer maydoni" />
+            <div class="p-overlay absolute inset-0"></div>
+            <div class="absolute top-3 left-3">
+              <span class="badge-shimmer px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-teal text-bg-deep shadow">Sotuvda</span>
+            </div>
+            <button class="heart-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 backdrop-blur border border-white/20 grid place-items-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 10-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-cream mb-1.5 group-hover:text-brand-300 transition-colors">Shahar chetidagi yer maydoni</h3>
+            <p class="flex items-center gap-1.5 text-xs text-ink-500 mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.3" stroke-width="1.8" /></svg>
+              Samarqand viloyati, Daryo bo'yi
+            </p>
+            <div class="flex items-center gap-4 text-xs text-ink-400 mb-4">
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M12 3l9 6-9 6-9-6 9-6zm0 12v6" /></svg>Bo'sh yer</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z" /></svg>600 m²</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>Hujjatlar tayyor</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xl font-bold text-cream">420 mln</p>
+                <p class="text-[11px] text-ink-500">so'm</p>
+              </div>
+              <a href="#" class="p-btn btn-grad px-4 py-2.5 rounded-full text-xs font-semibold text-white">Batafsil</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 4 (with mini image carousel — flowbite-style) -->
+        <article class="p-card reveal rd-4 group rounded-3xl border border-white/10 bg-bg-card overflow-hidden shadow-card">
+          <div class="relative h-48 overflow-hidden" id="cardCarousel">
+            <div class="absolute inset-0">
+              <img data-slide="0" class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                   src="https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=900&auto=format&fit=crop" alt="Yevro uslubidagi kvartira 1" />
+              <img data-slide="1" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
+                   src="https://images.unsplash.com/photo-1615874959474-d609969a20ed?q=80&w=900&auto=format&fit=crop" alt="Yevro uslubidagi kvartira 2" />
+              <img data-slide="2" class="carousel-img absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
+                   src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=900&auto=format&fit=crop" alt="Yevro uslubidagi kvartira 3" />
+            </div>
+            <div class="p-overlay absolute inset-0"></div>
+            <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 z-10">
+              <button class="img-dot active w-2 h-2 rounded-full bg-white/50" data-goto="0"></button>
+              <button class="img-dot w-2 h-2 rounded-full bg-white/50" data-goto="1"></button>
+              <button class="img-dot w-2 h-2 rounded-full bg-white/50" data-goto="2"></button>
+            </div>
+            <button class="heart-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 backdrop-blur border border-white/20 grid place-items-center z-10">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 10-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-cream mb-1.5 group-hover:text-brand-300 transition-colors">Yevro uslubidagi kvartira</h3>
+            <p class="flex items-center gap-1.5 text-xs text-ink-500 mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.3" stroke-width="1.8" /></svg>
+              Buxoro shahri, Markaz
+            </p>
+            <div class="flex items-center gap-4 text-xs text-ink-400 mb-4">
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>2 xona</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z" /></svg>75 m²</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" /></svg>3/4 qavat</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xl font-bold text-cream">540 mln</p>
+                <p class="text-[11px] text-ink-500">so'm</p>
+              </div>
+              <a href="#" class="p-btn btn-grad px-4 py-2.5 rounded-full text-xs font-semibold text-white">Batafsil</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 5 (extra, filled in for a fuller grid) -->
+        <article class="p-card reveal rd-1 group rounded-3xl border border-white/10 bg-bg-card overflow-hidden shadow-card">
+          <div class="relative h-48 overflow-hidden">
+            <img class="p-img w-full h-full object-cover" loading="lazy"
+                 src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=900&auto=format&fit=crop" alt="Hovlili uy" />
+            <div class="p-overlay absolute inset-0"></div>
+            <div class="absolute top-3 left-3">
+              <span class="badge-shimmer px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide bg-violet text-white shadow">Kelishiladi</span>
+            </div>
+            <button class="heart-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 backdrop-blur border border-white/20 grid place-items-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 10-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-cream mb-1.5 group-hover:text-brand-300 transition-colors">Keng hovlili zamonaviy uy</h3>
+            <p class="flex items-center gap-1.5 text-xs text-ink-500 mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.3" stroke-width="1.8" /></svg>
+              Toshkent, Chilonzor tumani
+            </p>
+            <div class="flex items-center gap-4 text-xs text-ink-400 mb-4">
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>5 xona</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z" /></svg>320 m²</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" /></svg>1 qavat</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xl font-bold text-cream">2.1 mlrd</p>
+                <p class="text-[11px] text-ink-500">so'm</p>
+              </div>
+              <a href="#" class="p-btn btn-grad px-4 py-2.5 rounded-full text-xs font-semibold text-white">Batafsil</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- CARD 6 (extra) -->
+        <article class="p-card reveal rd-2 group rounded-3xl border border-white/10 bg-bg-card overflow-hidden shadow-card">
+          <div class="relative h-48 overflow-hidden">
+            <img class="p-img w-full h-full object-cover" loading="lazy"
+                 src="https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=900&auto=format&fit=crop" alt="Ofis binosi" />
+            <div class="p-overlay absolute inset-0"></div>
+            <button class="heart-btn absolute top-3 right-3 w-9 h-9 rounded-full bg-black/40 backdrop-blur border border-white/20 grid place-items-center">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 10-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+            </button>
+          </div>
+          <div class="p-5">
+            <h3 class="font-display text-lg font-semibold text-cream mb-1.5 group-hover:text-brand-300 transition-colors">Biznes-markazda ofis</h3>
+            <p class="flex items-center gap-1.5 text-xs text-ink-500 mb-4">
+              <svg class="w-3.5 h-3.5 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" /><circle cx="12" cy="11" r="2.3" stroke-width="1.8" /></svg>
+              Toshkent, Yashnobod tumani
+            </p>
+            <div class="flex items-center gap-4 text-xs text-ink-400 mb-4">
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M4 4h7v7H4V4zm9 0h7v7h-7V4zM4 13h7v7H4v-7zm9 0h7v7h-7v-7z" /></svg>90 m²</span>
+              <span class="stat-item flex items-center gap-1.5"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m4 0h1m-6 4h1m4 0h1m-6 4h1m4 0h1" /></svg>5/9 qavat</span>
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="font-display text-xl font-bold text-cream">690 mln</p>
+                <p class="text-[11px] text-ink-500">so'm</p>
+              </div>
+              <a href="#" class="p-btn btn-grad px-4 py-2.5 rounded-full text-xs font-semibold text-white">Batafsil</a>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- pagination -->
+      <div class="reveal flex items-center justify-center gap-2 mt-10" id="pagination">
+        <button class="page-btn w-9 h-9 rounded-full border border-white/10 text-ink-400 grid place-items-center" data-page="prev">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button class="page-btn active w-9 h-9 rounded-full text-sm font-semibold" data-page="1">1</button>
+        <button class="page-btn w-9 h-9 rounded-full border border-white/10 text-sm font-semibold text-ink-300" data-page="2">2</button>
+        <button class="page-btn w-9 h-9 rounded-full border border-white/10 text-sm font-semibold text-ink-300" data-page="3">3</button>
+        <span class="text-ink-600 px-1">…</span>
+        <button class="page-btn w-9 h-9 rounded-full border border-white/10 text-sm font-semibold text-ink-300" data-page="12">12</button>
+        <button class="page-btn w-9 h-9 rounded-full border border-white/10 text-ink-400 grid place-items-center" data-page="next">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================================================================ -->
+  <!--  BACK TO TOP                                                      -->
+  <!-- ================================================================ -->
+  <button id="backToTop" class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-gradient-to-br from-brand-400 to-violet text-white grid place-items-center shadow-glow-brand opacity-0 pointer-events-none translate-y-3 transition-all duration-300" aria-label="Yuqoriga qaytish">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" /></svg>
+  </button>
 
 
  <footer class="relative z-10 border-t border-white/5 pt-16 pb-8">
@@ -646,5 +1359,129 @@ footer p:last-child {
         </p>
       </div>
     </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // ---------------------------------------------------------------
+      // Scroll reveal
+      // ---------------------------------------------------------------
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in-view");
+              io.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      // ---------------------------------------------------------------
+      // Price range slider fill + label
+      // ---------------------------------------------------------------
+      const priceRange = document.getElementById("priceRange");
+      const priceLabel = document.getElementById("priceLabel");
+      function updateRange() {
+        const pct = (priceRange.value / priceRange.max) * 100;
+        priceRange.style.setProperty("--val", pct + "%");
+        priceLabel.textContent = `0 – ${parseFloat(priceRange.value).toFixed(1)}`;
+      }
+      priceRange.addEventListener("input", updateRange);
+      updateRange();
+
+      // ---------------------------------------------------------------
+      // Room pill single-select
+      // ---------------------------------------------------------------
+      document.querySelectorAll("#roomGroup .room-pill").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          document.querySelectorAll("#roomGroup .room-pill").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+        });
+      });
+
+      // ---------------------------------------------------------------
+      // View tabs (Grid / Ro'yxat / Xarita)
+      // ---------------------------------------------------------------
+      const viewTabs = document.querySelectorAll(".view-tab");
+      const grid = document.getElementById("cardGrid");
+      viewTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          viewTabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          const view = tab.dataset.view;
+          grid.classList.remove("sm:grid-cols-2", "xl:grid-cols-3", "grid-cols-1");
+          if (view === "grid") {
+            grid.classList.add("sm:grid-cols-2", "xl:grid-cols-3");
+          } else if (view === "list") {
+            grid.classList.add("grid-cols-1");
+          } else {
+            grid.classList.add("sm:grid-cols-2", "xl:grid-cols-3");
+          }
+          grid.querySelectorAll(".p-card").forEach((card) => {
+            card.classList.remove("animate-fade-up");
+            void card.offsetWidth;
+            card.classList.add("animate-fade-up");
+          });
+        });
+      });
+
+      // ---------------------------------------------------------------
+      // Favorite heart toggle
+      // ---------------------------------------------------------------
+      document.querySelectorAll(".heart-btn").forEach((btn) => {
+        btn.addEventListener("click", () => btn.classList.toggle("active"));
+      });
+
+      // ---------------------------------------------------------------
+      // Pagination
+      // ---------------------------------------------------------------
+      document.querySelectorAll("#pagination .page-btn[data-page]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          if (btn.dataset.page === "prev" || btn.dataset.page === "next") return;
+          document.querySelectorAll("#pagination .page-btn").forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          window.scrollTo({ top: document.getElementById("cardGrid").offsetTop - 140, behavior: "smooth" });
+        });
+      });
+
+      // ---------------------------------------------------------------
+      // Mini image carousel (card 4)
+      // ---------------------------------------------------------------
+      const carousel = document.getElementById("cardCarousel");
+      if (carousel) {
+        const imgs = carousel.querySelectorAll(".carousel-img");
+        const dots = carousel.querySelectorAll(".img-dot");
+        let idx = 0;
+        function showImg(i) {
+          idx = (i + imgs.length) % imgs.length;
+          imgs.forEach((img, n) => img.classList.toggle("opacity-0", n !== idx));
+          dots.forEach((d, n) => d.classList.toggle("active", n === idx));
+        }
+        dots.forEach((dot) => {
+          dot.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showImg(parseInt(dot.dataset.goto, 10));
+          });
+        });
+        setInterval(() => showImg(idx + 1), 3200);
+      }
+
+      // ---------------------------------------------------------------
+      // Back to top
+      // ---------------------------------------------------------------
+      const backToTop = document.getElementById("backToTop");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+          backToTop.classList.remove("opacity-0", "pointer-events-none", "translate-y-3");
+        } else {
+          backToTop.classList.add("opacity-0", "pointer-events-none", "translate-y-3");
+        }
+      });
+      backToTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    });
+  </script>
 </body>
 </html>
