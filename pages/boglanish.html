@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Biz bilan bog'laning</title>
+
+<!-- Google Fonts: Playfair Display (sarlavhalar uchun) + Manrope (matn uchun) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<!-- Tailwind CSS (CDN) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['"Playfair Display"', 'serif'],
+          body: ['"Manrope"', 'sans-serif'],
+        },
+        colors: {
+          bgbase: '#0b0710',
+          panel: '#171029',
+          panel2: '#1c1533',
+          panelBorder: '#2c2347',
+          cream: '#f3ece0',
+          muted: '#9c93a8',
+          amber: {
+            DEFAULT: '#e4a25c',
+            soft: '#e9b285',
+          },
+          violet: {
+            DEFAULT: '#9d7ce8',
+          },
+        },
+        boxShadow: {
+          glow: '0 0 40px -10px rgba(157,124,232,0.35)',
+          card: '0 20px 45px -20px rgba(0,0,0,0.65)',
+        },
+        keyframes: {
+          floatSlow: {
+            '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+            '50%': { transform: 'translateY(-18px) translateX(10px)' },
+          },
+          floatSlower: {
+            '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
+            '50%': { transform: 'translateY(14px) translateX(-14px)' },
+          },
+          shimmer: {
+            '0%': { backgroundPosition: '0% 50%' },
+            '100%': { backgroundPosition: '200% 50%' },
+          },
+          fadeUp: {
+            '0%': { opacity: '0', transform: 'translateY(24px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+          pulseSoft: {
+            '0%, 100%': { opacity: '1' },
+            '50%': { opacity: '0.55' },
+          },
+          spinSlow: {
+            '0%': { transform: 'rotate(0deg)' },
+            '100%': { transform: 'rotate(360deg)' },
+          },
+        },
+        animation: {
+          floatSlow: 'floatSlow 8s ease-in-out infinite',
+          floatSlower: 'floatSlower 11s ease-in-out infinite',
+          shimmer: 'shimmer 3.5s linear infinite',
+          fadeUp: 'fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both',
+          pulseSoft: 'pulseSoft 2.6s ease-in-out infinite',
+          spinSlow: 'spinSlow 14s linear infinite',
+        },
+      },
+    },
+  };
+</script>
+
+<!-- Flowbite (accordion, carousel, tabs) -->
+<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+</head>
+
+<body class="bg-bgbase font-body text-cream antialiased selection:bg-violet/40 selection:text-white overflow-x-hidden">
+
+  <!-- ============================================================ -->
+  <!-- BACKGROUND DECOR LAYER                                        -->
+  <!-- ============================================================ -->
+  <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+    <!-- Base gradient -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#1a1130_0%,_#0b0710_55%,_#08050c_100%)]"></div>
+
+    <!-- Subtle grain / noise texture -->
+    <div class="absolute inset-0 opacity-[0.05] mix-blend-overlay"
+         style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')"></div>
+
+    <!-- Floating soft blobs -->
+    <div class="absolute -top-24 left-1/4 w-[420px] h-[420px] rounded-full bg-violet/10 blur-[120px] animate-floatSlow"></div>
+    <div class="absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full bg-amber/10 blur-[140px] animate-floatSlower"></div>
+    <div class="absolute bottom-0 left-0 w-[380px] h-[380px] rounded-full bg-violet/10 blur-[130px] animate-floatSlow" style="animation-delay:2s"></div>
+
+    <!-- Top hairline -->
+    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-panelBorder to-transparent"></div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- MAIN WRAPPER                                                  -->
+  <!-- ============================================================ -->
+  <main class="relative max-w-6xl mx-auto px-5 sm:px-8 lg:px-6 py-16 sm:py-20">
+
+    <!-- ============================================================ -->
+    <!-- SECTION: HERO / TITLE                                         -->
+    <!-- ============================================================ -->
+    <section class="mb-12 sm:mb-16 animate-fadeUp">
+      <h1 class="font-display italic text-4xl sm:text-5xl text-cream tracking-tight mb-3">
+        Biz bilan bog'laning
+      </h1>
+      <p class="text-muted text-sm sm:text-base max-w-xl leading-relaxed">
+        Sizga qanday yordam berishimiz mumkin? Savollaringiz bo'lsa, xabar qoldiring
+        yoki ofisimizga tashrif buyuring.
+      </p>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION: CONTACT FORM + INFO CARDS                            -->
+    <!-- ============================================================ -->
+    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24 sm:mb-32">
+
+      <!-- ---------------------------------------------------------- -->
+      <!-- FORM CARD                                                   -->
+      <!-- ---------------------------------------------------------- -->
+      <div class="lg:col-span-2 group/card relative rounded-2xl bg-panel border border-panelBorder p-6 sm:p-8
+                  shadow-card transition-all duration-500 hover:border-violet/40 hover:shadow-glow
+                  animate-fadeUp" style="animation-delay:0.05s">
+
+        <!-- corner glow accent on hover -->
+        <div class="pointer-events-none absolute -top-1 -left-1 w-24 h-24 rounded-full bg-violet/20 blur-3xl opacity-0
+                    group-hover/card:opacity-100 transition-opacity duration-700"></div>
+
+        <h2 class="font-display italic text-2xl sm:text-[26px] text-cream mb-6 relative">
+          Xabar yuborish
+        </h2>
+
+        <form class="space-y-4 relative" onsubmit="return false;">
+
+          <!-- Name + Email row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="relative">
+              <input type="text" name="fullname" placeholder="To'liq ismingiz"
+                     class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
+                            placeholder:text-muted/70 outline-none transition-all duration-300
+                            focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
+                            hover:border-panelBorder hover:bg-panel2" />
+              <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                           bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
+            </div>
+
+            <div class="relative">
+              <input type="email" name="email" placeholder="Email manzilingiz"
+                     class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
+                            placeholder:text-muted/70 outline-none transition-all duration-300
+                            focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
+                            hover:border-panelBorder hover:bg-panel2" />
+              <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                           bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
+            </div>
+          </div>
+
+          <!-- Phone -->
+          <div class="relative">
+            <input type="tel" name="phone" placeholder="Telefon raqamingiz"
+                   class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
+                          placeholder:text-muted/70 outline-none transition-all duration-300
+                          focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
+                          hover:border-panelBorder hover:bg-panel2" />
+            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                         bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
+          </div>
+
+          <!-- Message -->
+          <div class="relative">
+            <textarea name="message" rows="5" placeholder="Xabaringiz"
+                      class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
+                             placeholder:text-muted/70 outline-none transition-all duration-300 resize-none
+                             focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
+                             hover:border-panelBorder hover:bg-panel2"></textarea>
+            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                         bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
+          </div>
+
+          <!-- Submit button -->
+          <button type="submit"
+                  class="relative w-full overflow-hidden rounded-xl py-3.5 text-sm font-semibold text-white
+                         bg-[length:200%_100%] bg-gradient-to-r from-violet via-fuch-400 to-amber
+                         shadow-[0_10px_30px_-8px_rgba(157,124,232,0.55)]
+                         transition-all duration-500 hover:bg-[position:100%_0] hover:shadow-[0_14px_38px_-6px_rgba(228,162,92,0.6)]
+                         active:scale-[0.98] group/btn">
+            <span class="relative z-10 flex items-center justify-center gap-2">
+              Yuborish
+              <svg class="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
+            </span>
+            <span class="absolute inset-0 bg-white/10 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 skew-x-12"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- ---------------------------------------------------------- -->
+      <!-- INFO CARDS COLUMN                                           -->
+      <!-- ---------------------------------------------------------- -->
+      <div class="flex flex-col gap-4">
+
+        <!-- Address -->
+        <div class="group relative flex gap-4 items-start rounded-2xl bg-panel border border-panelBorder p-5
+                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
+                    animate-fadeUp" style="animation-delay:0.1s">
+          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-panel2 border border-panelBorder flex items-center justify-center
+                      text-violet transition-all duration-400 group-hover:bg-violet group-hover:text-white group-hover:rotate-6 group-hover:scale-110">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-cream mb-1">Bizning manzil</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              Toshkent shahri, Yunusobod tumani, Amir Temur ko'chasi, 108-uy
+            </p>
+          </div>
+        </div>
+
+        <!-- Phone -->
+        <div class="group relative flex gap-4 items-start rounded-2xl bg-panel border border-panelBorder p-5
+                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
+                    animate-fadeUp" style="animation-delay:0.15s">
+          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-panel2 border border-panelBorder flex items-center justify-center
+                      text-violet transition-all duration-400 group-hover:bg-violet group-hover:text-white group-hover:rotate-6 group-hover:scale-110">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372a1.125 1.125 0 00-.85-1.09l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a1.125 1.125 0 01-1.21.38 12.035 12.035 0 01-7.143-7.143 1.125 1.125 0 01.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.6a1.125 1.125 0 00-1.09-.85H4.5A2.25 2.25 0 002.25 5v1.75z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-cream mb-1">Telefon raqamlar</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              +998 71 200 00 00<br />
+              +998 90 123 45 67
+            </p>
+          </div>
+        </div>
+
+        <!-- Working hours -->
+        <div class="group relative flex gap-4 items-start rounded-2xl bg-panel border border-panelBorder p-5
+                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
+                    animate-fadeUp" style="animation-delay:0.2s">
+          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-panel2 border border-panelBorder flex items-center justify-center
+                      text-violet transition-all duration-400 group-hover:bg-violet group-hover:text-white group-hover:rotate-6 group-hover:scale-110">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+              <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-cream mb-1">Ish vaqti</h3>
+            <p class="text-xs text-muted leading-relaxed">
+              Dushanba - Juma: 09:00 - 18:00<br />
+              Shanba: 10:00 - 15:00
+            </p>
+          </div>
+        </div>
+
+        <!-- Social -->
+        <div class="group relative rounded-2xl bg-panel border border-panelBorder p-5
+                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
+                    animate-fadeUp" style="animation-delay:0.25s">
+          <h3 class="text-sm font-semibold text-cream mb-4">Ijtimoiy tarmoqlar</h3>
+          <div class="flex items-center gap-3">
+            <a href="#" aria-label="Veb-sayt"
+               class="w-9 h-9 rounded-lg bg-panel2 border border-panelBorder flex items-center justify-center text-cream/80
+                      transition-all duration-300 hover:bg-violet hover:text-white hover:-translate-y-1 hover:shadow-glow">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3c2.5 2.7 3.75 6 3.75 9s-1.25 6.3-3.75 9c-2.5-2.7-3.75-6-3.75-9S9.5 5.7 12 3z" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Email"
+               class="w-9 h-9 rounded-lg bg-panel2 border border-panelBorder flex items-center justify-center text-cream/80
+                      transition-all duration-300 hover:bg-violet hover:text-white hover:-translate-y-1 hover:shadow-glow">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0v1.5a2.25 2.25 0 004.5 0V12a9 9 0 10-4.42 7.74" />
+              </svg>
+            </a>
+            <a href="#" aria-label="Telegram"
+               class="w-9 h-9 rounded-lg bg-panel2 border border-panelBorder flex items-center justify-center text-cream/80
+                      transition-all duration-300 hover:bg-violet hover:text-white hover:-translate-y-1 hover:shadow-glow">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21.5 4.5L2.7 11.9c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.5 0 .7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.6-1.4z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <!-- SECTION: MAP (bonus — implied by "ofisimizga tashrif buyuring") -->
+    <!-- kept minimal / decorative, faithful to source which has no map -->
+    <!-- ============================================================ -->
+
+    <!-- ============================================================ -->
+    <!-- SECTION: FAQ                                                  -->
+    <!-- ============================================================ -->
+    <section class="animate-fadeUp" style="animation-delay:0.1s">
+      <h2 class="font-display italic text-3xl sm:text-4xl text-center text-cream mb-10">
+        Ko'p so'raladigan savollar
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
+
+        <!-- ---------------- COLUMN 1: Xarid va to'lov ---------------- -->
+        <div>
+          <h3 class="text-amber font-semibold text-base mb-4">Xarid va to'lov</h3>
+
+          <div id="accordion-purchase" data-accordion="collapse" class="space-y-3">
+
+            <!-- Item 1 -->
+            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
+              <h4 id="pq-heading-1">
+                <button type="button"
+                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
+                        data-accordion-target="#pq-body-1" aria-expanded="false" aria-controls="pq-body-1">
+                  <span>Qanday qilib buyurtma berish mumkin?</span>
+                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h4>
+              <div id="pq-body-1" class="hidden" aria-labelledby="pq-heading-1">
+                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
+                  Saytimizdagi mahsulotni tanlab, savatga qo'shing va buyurtma
+                  ma'lumotlarini to'ldiring. Buyurtmangiz tasdiqlanganidan so'ng operatorimiz
+                  siz bilan bog'lanadi.
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
+              <h4 id="pq-heading-2">
+                <button type="button"
+                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
+                        data-accordion-target="#pq-body-2" aria-expanded="false" aria-controls="pq-body-2">
+                  <span>Bo'lib to'lash imkoniyati bormi?</span>
+                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h4>
+              <div id="pq-body-2" class="hidden" aria-labelledby="pq-heading-2">
+                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
+                  Ha, hamkor banklarimiz orqali 3, 6 va 12 oylik muddatlarga bo'lib
+                  to'lash xizmati mavjud. Batafsil ma'lumot uchun menejerimizga murojaat qiling.
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
+              <h4 id="pq-heading-3">
+                <button type="button"
+                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
+                        data-accordion-target="#pq-body-3" aria-expanded="false" aria-controls="pq-body-3">
+                  <span>Qaysi to'lov usullari qabul qilinadi?</span>
+                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h4>
+              <div id="pq-body-3" class="hidden" aria-labelledby="pq-heading-3">
+                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
+                  Naqd pul, plastik kartalar (Uzcard, Humo, Visa, Mastercard) va
+                  onlayn to'lov tizimlari orqali to'lovni amalga oshirishingiz mumkin.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ---------------- COLUMN 2: Xizmatlar ---------------- -->
+        <div>
+          <h3 class="text-amber font-semibold text-base mb-4">Xizmatlar</h3>
+
+          <div id="accordion-services" data-accordion="collapse" class="space-y-3">
+
+            <!-- Item 1 -->
+            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
+              <h4 id="sq-heading-1">
+                <button type="button"
+                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
+                        data-accordion-target="#sq-body-1" aria-expanded="false" aria-controls="sq-body-1">
+                  <span>Yetkazib berish bepulmi?</span>
+                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h4>
+              <div id="sq-body-1" class="hidden" aria-labelledby="sq-heading-1">
+                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
+                  Toshkent shahri bo'ylab 500 000 so'mdan yuqori buyurtmalar uchun
+                  yetkazib berish bepul. Boshqa hududlarga tarif buyurtma summasiga qarab hisoblanadi.
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
+              <h4 id="sq-heading-2">
+                <button type="button"
+                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
+                        data-accordion-target="#sq-body-2" aria-expanded="false" aria-controls="sq-body-2">
+                  <span>Kafolat muddati qancha?</span>
+                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h4>
+              <div id="sq-body-2" class="hidden" aria-labelledby="sq-heading-2">
+                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
+                  Barcha mahsulotlarga standart 12 oylik rasmiy kafolat beriladi.
+                  Ayrim mahsulotlar uchun kafolat muddatini uzaytirish xizmati ham mavjud.
+                </div>
+              </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
+              <h4 id="sq-heading-3">
+                <button type="button"
+                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
+                        data-accordion-target="#sq-body-3" aria-expanded="false" aria-controls="sq-body-3">
+                  <span>Mahsulotni qaytarish mumkinmi?</span>
+                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </h4>
+              <div id="sq-body-3" class="hidden" aria-labelledby="sq-heading-3">
+                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
+                  Xarid qilingan sanadan 14 kun ichida, mahsulot asl holatini
+                  saqlagan taqdirda uni qaytarish yoki almashtirish mumkin.
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================ -->
+  <!-- Rotate the chevron icon on open (Flowbite handles show/hide;   -->
+  <!-- this tiny listener only toggles the arrow direction & border)  -->
+  <!-- ============================================================ -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.querySelectorAll('.faq-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var expandedNow = btn.getAttribute('aria-expanded') === 'true';
+          var icon = btn.querySelector('.faq-icon');
+          document.querySelectorAll('.faq-toggle').forEach(function (other) {
+            if (other !== btn) {
+              other.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+            }
+          });
+          setTimeout(function () {
+            var nowExpanded = btn.getAttribute('aria-expanded') === 'true';
+            icon.style.transform = nowExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+          }, 10);
+        });
+      });
+    });
+  </script>
+
+</body>
+</html>
