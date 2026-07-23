@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UyBozor — Uy jihozlari</title>
+
+<!-- ============================================================
+     UyBozor — Uy jihozlari katalog sahifasi (v2, qayta ishlangan)
+     Yagona HTML fayl: Tailwind (CDN) + Flowbite (CDN) + vanilla JS
+     ============================================================ -->
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          display: ['Fraunces', 'serif'],
+          body: ['Inter', 'sans-serif'],
+        },
+        colors: {
+          ink: {
+            950: '#0f0b1a',
+            900: '#150f22',
+            800: '#1c1530',
+            700: '#241c3d',
+            600: '#2c2349',
+          },
+          gold: {
+            300: '#f0cf8a',
+            400: '#d9a441',
+            500: '#c48c30',
+            600: '#a06e24',
+          },
+          jewel: {
+            DEFAULT: '#3f9d72',
+          },
+          rose: {
+            DEFAULT: '#d95b6b',
+          },
+        },
+        boxShadow: {
+          soft: '0 18px 40px -20px rgba(0,0,0,0.6)',
+          gold: '0 12px 28px -12px rgba(217,164,65,0.45)',
+        },
+        keyframes: {
+          fadeUp: { '0%': { opacity: 0, transform: 'translateY(16px)' }, '100%': { opacity: 1, transform: 'translateY(0)' } },
+          popIn: { '0%': { opacity: 0, transform: 'scale(.9)' }, '100%': { opacity: 1, transform: 'scale(1)' } },
+          drift: { '0%,100%': { transform: 'translate(0,0)' }, '50%': { transform: 'translate(20px,-14px)' } },
+          ringPulse: { '0%': { boxShadow: '0 0 0 0 rgba(217,91,107,.55)' }, '100%': { boxShadow: '0 0 0 16px rgba(217,91,107,0)' } },
+          wave: { '0%,100%': { transform: 'scaleY(.35)' }, '50%': { transform: 'scaleY(1)' } },
+        },
+        animation: {
+          fadeUp: 'fadeUp .6s cubic-bezier(.2,.8,.2,1) both',
+          popIn: 'popIn .35s cubic-bezier(.2,1.3,.4,1) both',
+          drift: 'drift 9s ease-in-out infinite',
+          ringPulse: 'ringPulse 1.5s cubic-bezier(.4,0,.6,1) infinite',
+          wave: 'wave .8s ease-in-out infinite',
+        },
+      },
+    },
+  };
+</script>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
+
+<style>
+  /* ---------------------------------------------------------
+     Design tokens & global feel — warm dusk palette, editorial
+     serif headings, quiet gold accent, soft glass surfaces.
+     --------------------------------------------------------- */
+  * { scrollbar-width: thin; scrollbar-color: #3a3157 #150f22; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #150f22; }
+  ::-webkit-scrollbar-thumb { background: #3a3157; border-radius: 20px; }
+  ::-webkit-scrollbar-thumb:hover { background: #d9a441; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background:
+      radial-gradient(900px 500px at 8% -8%, rgba(217,164,65,0.09), transparent 60%),
+      radial-gradient(700px 500px at 100% 10%, rgba(63,157,114,0.07), transparent 55%),
+      #150f22;
+    font-family: 'Inter', sans-serif;
+    color: #f2ede4;
+  }
+
+  .font-display { font-family: 'Fraunces', serif; font-optical-sizing: auto; }
+
+  /* faint drifting orbs for ambience, low opacity, no clutter */
+  .orb { position: fixed; border-radius: 999px; filter: blur(70px); opacity: .16; z-index: 0; pointer-events: none; }
+
+  .glass {
+    background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.015));
+    border: 1px solid rgba(255,255,255,0.07);
+    backdrop-filter: blur(14px);
+  }
+
+  .hairline { border-color: rgba(255,255,255,0.08); }
+
+  /* ---- header search ---- */
+  .search-wrap { transition: box-shadow .3s ease, border-color .3s ease, background .3s ease; }
+  .search-wrap:focus-within {
+    border-color: rgba(217,164,65,0.55);
+    box-shadow: 0 0 0 5px rgba(217,164,65,0.12);
+    background: rgba(255,255,255,0.045);
+  }
+
+  /* ---- nav underline, understated ---- */
+  .nav-link { position: relative; color: #b6adcf; transition: color .25s ease; }
+  .nav-link::after {
+    content: ''; position: absolute; left: 0; bottom: -7px; height: 1.5px; width: 0%;
+    background: #d9a441; transition: width .3s cubic-bezier(.3,.8,.4,1);
+  }
+  .nav-link:hover { color: #f2ede4; }
+  .nav-link:hover::after, .nav-link.active-nav::after { width: 100%; }
+  .nav-link.active-nav { color: #f0cf8a; }
+
+  /* ---- icon buttons ---- */
+  .icon-btn { transition: background .25s ease, color .25s ease, transform .25s ease; }
+  .icon-btn:hover { background: rgba(255,255,255,0.06); color: #f0cf8a; transform: translateY(-1px); }
+
+  /* ---- mic button + listening state ---- */
+  #mic-btn { transition: background .3s ease, color .3s ease, box-shadow .3s ease; }
+  .mic-idle:hover { background: rgba(217,164,65,0.16); color: #f0cf8a; }
+  .mic-listening { background: #d95b6b !important; color: #fff !important; animation: ringPulse 1.5s cubic-bezier(.4,0,.6,1) infinite; }
+  .mic-bars span { display: inline-block; width: 2.5px; margin: 0 1.5px; background: #fff; border-radius: 2px; animation: wave .8s ease-in-out infinite; }
+  .mic-bars span:nth-child(2) { animation-delay: .14s; }
+  .mic-bars span:nth-child(3) { animation-delay: .28s; }
+  #mic-status { transition: opacity .25s ease, transform .25s ease; }
+
+  /* ---- sidebar categories ---- */
+  .cat-row { position: relative; transition: background .3s ease, color .3s ease, border-color .3s ease; border: 1px solid transparent; }
+  .cat-row:hover { background: rgba(255,255,255,0.045); }
+  .cat-row.active {
+    background: rgba(217,164,65,0.12);
+    border-color: rgba(217,164,65,0.4);
+    color: #f0cf8a;
+  }
+  .cat-row.active svg { color: #d9a441 !important; }
+  .cat-row svg { transition: transform .3s ease; }
+  .cat-row:hover svg { transform: translateX(2px); }
+
+  /* ---- filter chips ---- */
+  .filter-chip { transition: border-color .25s ease, background .25s ease, color .25s ease, transform .2s ease; }
+  .filter-chip:hover { border-color: rgba(217,164,65,0.5); color: #f0cf8a; transform: translateY(-1px); }
+
+  .swatch { transition: transform .2s ease, box-shadow .2s ease; cursor: pointer; }
+  .swatch:hover { transform: scale(1.2); }
+  .swatch.selected { box-shadow: 0 0 0 2px #150f22, 0 0 0 4px #d9a441; }
+
+  /* ---- buttons ---- */
+  .btn-gold {
+    background: #d9a441; color: #201406;
+    transition: background .25s ease, transform .2s ease, box-shadow .25s ease;
+  }
+  .btn-gold:hover { background: #e6b657; transform: translateY(-1px); box-shadow: 0 12px 24px -10px rgba(217,164,65,.5); }
+  .btn-gold:active { transform: translateY(0); }
+
+  .btn-ghost-gold {
+    border: 1px solid rgba(217,164,65,0.45); color: #f0cf8a; transition: all .25s ease;
+  }
+  .btn-ghost-gold:hover { background: rgba(217,164,65,0.12); }
+
+  /* ---- product card ---- */
+  .product-card {
+    background: linear-gradient(165deg, #201933, #1a1429);
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: transform .5s cubic-bezier(.2,.85,.25,1), box-shadow .5s ease, border-color .35s ease;
+  }
+  .product-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 26px 48px -22px rgba(0,0,0,.7), 0 0 0 1px rgba(217,164,65,0.28);
+    border-color: rgba(217,164,65,0.35);
+  }
+  .card-img { transition: transform .8s cubic-bezier(.2,.8,.2,1), filter .5s ease; }
+  .product-card:hover .card-img { transform: scale(1.07); filter: saturate(1.08); }
+
+  .quick-overlay {
+    opacity: 0; transform: translateY(10px);
+    transition: opacity .35s ease, transform .35s ease;
+    background: linear-gradient(to top, rgba(15,11,26,0.88), rgba(15,11,26,0) 65%);
+  }
+  .product-card:hover .quick-overlay { opacity: 1; transform: translateY(0); }
+
+  .heart-btn svg { transition: transform .3s cubic-bezier(.2,1.4,.4,1), fill .25s ease, color .25s ease; }
+  .heart-btn:active svg { transform: scale(1.35); }
+  .heart-btn.liked svg { fill: #d95b6b; color: #d95b6b; }
+
+  .badge-premium { background: #f0cf8a; color: #241708; letter-spacing: .04em; }
+  .badge-discount { background: #d95b6b; color: #fff; letter-spacing: .04em; }
+
+  .star-gold { color: #e6b657; }
+
+  /* ---- pagination ---- */
+  .page-btn { transition: all .25s ease; border: 1px solid rgba(255,255,255,0.09); }
+  .page-btn:hover:not(.active-page) { background: rgba(217,164,65,0.12); color: #f0cf8a; }
+  .page-btn.active-page { background: #d9a441; color: #201406; border-color: #d9a441; }
+
+  .fade-in-card { animation: fadeUp .55s cubic-bezier(.2,.8,.2,1) both; }
+
+  #toast-stack { pointer-events: none; }
+  .toast-item { animation: popIn .35s cubic-bezier(.2,1.3,.4,1) both; }
+
+  .carousel-dot { transition: all .25s ease; }
+  .carousel-dot.active-dot { background: #d9a441; width: 18px; }
+
+  a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #d9a441; outline-offset: 2px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
+</head>
+
+<body class="min-h-screen font-body pb-10 relative overflow-x-hidden">
+
+<!-- ambient orbs -->
+<div class="orb w-[420px] h-[420px] bg-gold-500 top-[-120px] left-[-100px] animate-drift"></div>
+<div class="orb w-[380px] h-[380px] bg-jewel top-[220px] right-[-140px] animate-drift" style="animation-delay:2.4s"></div>
+
+<div id="toast-stack" class="fixed top-20 right-4 z-[100] flex flex-col gap-2 items-end"></div>
+
+<!-- ============================================================
+     HEADER
+     ============================================================ -->
+<header class="sticky top-0 z-50 bg-ink-900/85 backdrop-blur-xl border-b hairline">
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8 h-[78px] flex items-center justify-between gap-4">
+
+    <a href="#" class="flex items-center gap-2.5 shrink-0 group">
+      <span class="w-9 h-9 rounded-full border border-gold-400/50 flex items-center justify-center group-hover:border-gold-400 transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/>
+        </svg>
+      </span>
+      <span class="font-display font-semibold text-[22px] tracking-tight text-[#f5eede]">UyBozor</span>
+    </a>
+
+    <nav class="hidden lg:flex items-center gap-8 text-[14.5px] font-medium shrink-0">
+      <a href="#" class="nav-link py-1">Bosh sahifa</a>
+      <a href="#" class="nav-link py-1">Ko'chmas mulk</a>
+      <a href="#" class="nav-link active-nav py-1">Uy jihozlari</a>
+      <a href="#" class="nav-link py-1">Dekor</a>
+      <a href="#" class="nav-link py-1">Sotuvchi bo'ling</a>
+    </nav>
+
+    <div class="hidden md:flex flex-1 max-w-md flex-col relative">
+      <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+        <input id="search-input" type="text" placeholder="Qidiruv..." autocomplete="off"
+               class="bg-transparent outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
+        <button id="mic-btn" title="Ovoz orqali qidirish" aria-label="Ovoz orqali qidirish"
+                class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center relative">
+          <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/>
+          </svg>
+          <span id="mic-bars" class="mic-bars hidden absolute inset-0 items-center justify-center">
+            <span style="height:6px"></span><span style="height:11px"></span><span style="height:6px"></span>
+          </span>
+        </button>
+      </div>
+      <span id="mic-status" class="opacity-0 absolute -bottom-6 left-4 text-[11px] text-gold-300">Tinglanmoqda...</span>
+    </div>
+
+    <div class="flex items-center gap-1 md:gap-2 shrink-0">
+      <button id="mobile-search-toggle" class="md:hidden icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
+
+      <button id="wishlist-btn" class="relative icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
+        </svg>
+        <span id="wishlist-count" class="absolute -top-0.5 -right-0.5 bg-gold-400 text-ink-950 text-[10px] font-bold w-4.5 h-4.5 min-w-[18px] rounded-full flex items-center justify-center px-1">0</span>
+      </button>
+
+      <button id="cart-btn" class="relative icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
+        </svg>
+        <span id="cart-count" class="absolute -top-0.5 -right-0.5 bg-gold-400 text-ink-950 text-[10px] font-bold w-4.5 h-4.5 min-w-[18px] rounded-full flex items-center justify-center px-1">0</span>
+      </button>
+
+      <button class="icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6.5 8-6.5s6.5 2 8 6.5"/>
+        </svg>
+      </button>
+
+      <button id="mobile-menu-toggle" class="lg:hidden icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-search-bar" class="hidden md:hidden px-4 pb-3">
+    <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="search-input-mobile" type="text" placeholder="Qidiruv..." class="bg-transparent outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
+      <button id="mic-btn-mobile" class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <nav id="mobile-nav" class="hidden lg:hidden flex-col gap-1 px-4 pb-4 text-sm">
+    <a href="#" class="nav-link py-2 border-b hairline">Bosh sahifa</a>
+    <a href="#" class="nav-link py-2 border-b hairline active-nav">Uy jihozlari</a>
+    <a href="#" class="nav-link py-2 border-b hairline">Ko'chmas mulk</a>
+    <a href="#" class="nav-link py-2 border-b hairline">Dekor</a>
+    <a href="#" class="nav-link py-2">Sotuvchi bo'ling</a>
+  </nav>
+</header>
+
+<!-- ============================================================
+     MAIN LAYOUT
+     ============================================================ -->
+<main class="max-w-[1400px] mx-auto px-4 md:px-8 pt-7 flex gap-6 items-start relative z-10">
+
+  <aside class="hidden lg:block w-[236px] shrink-0 sticky top-[96px]">
+    <div class="glass rounded-2xl p-5 animate-fadeUp">
+      <h3 class="font-display font-semibold text-[16px] mb-4 flex items-center gap-2 text-[#f5eede]">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+        Kategoriyalar
+      </h3>
+      <div id="category-list" class="space-y-1.5 text-[14px]"></div>
+
+      <div class="mt-6 pt-5 border-t hairline">
+        <p class="text-[10.5px] tracking-[0.14em] text-[#8a80a8] font-semibold mb-2.5">SIFAT KAFOLATI</p>
+        <div class="flex items-start gap-2.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7 text-gold-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg>
+          <p class="text-[12.5px] text-[#a79fc0] leading-snug">Barcha mahsulotlar 2 yil kafolatga ega.</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <section class="flex-1 min-w-0">
+
+    <div class="lg:hidden mb-4 -mx-1 overflow-x-auto">
+      <div id="category-list-mobile" class="flex gap-2 px-1 pb-1"></div>
+    </div>
+
+    <div class="flex flex-wrap items-center gap-2.5 mb-6">
+      <div class="relative">
+        <button data-dropdown-toggle="dd-price" class="filter-chip flex items-center gap-1.5 border hairline bg-white/[0.03] rounded-full px-4 py-2 text-[13px] text-[#c9c1e0]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 1 0 0 7h5a3.5 3.5 0 1 1 0 7H6"/></svg>
+          Narx
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="dd-price" class="hidden z-30 bg-ink-800 border hairline rounded-xl shadow-soft p-4 w-64">
+          <p class="text-xs text-[#a79fc0] mb-2">Narx oralig'i (UZS)</p>
+          <div class="flex items-center gap-2 mb-3">
+            <input id="price-min" type="number" placeholder="Min" class="w-1/2 bg-ink-900 border hairline rounded-lg px-2 py-1.5 text-xs outline-none focus:border-gold-400 text-[#f2ede4]">
+            <span class="text-[#8a80a8]">—</span>
+            <input id="price-max" type="number" placeholder="Max" class="w-1/2 bg-ink-900 border hairline rounded-lg px-2 py-1.5 text-xs outline-none focus:border-gold-400 text-[#f2ede4]">
+          </div>
+          <button id="price-apply" class="btn-gold w-full rounded-lg py-1.5 text-xs font-semibold">Qo'llash</button>
+        </div>
+      </div>
+
+      <div class="relative">
+        <button data-dropdown-toggle="dd-material" class="filter-chip flex items-center gap-1.5 border hairline bg-white/[0.03] rounded-full px-4 py-2 text-[13px] text-[#c9c1e0]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 8.4 12 3 3.4 8.4 12 13.8l8.6-5.4Z"/><path d="M3.4 8.4v7.2L12 21l8.6-5.4V8.4"/></svg>
+          Material
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="dd-material" class="hidden z-30 bg-ink-800 border hairline rounded-xl shadow-soft p-3 w-52 text-sm" data-filter-group="material"></div>
+      </div>
+
+      <div class="relative">
+        <button data-dropdown-toggle="dd-color" class="filter-chip flex items-center gap-1.5 border hairline bg-white/[0.03] rounded-full px-4 py-2 text-[13px] text-[#c9c1e0]">
+          Rang
+          <span class="flex -space-x-1">
+            <span class="w-3 h-3 rounded-full bg-emerald-500 ring-2 ring-ink-800"></span>
+            <span class="w-3 h-3 rounded-full bg-sky-500 ring-2 ring-ink-800"></span>
+            <span class="w-3 h-3 rounded-full bg-rose-400 ring-2 ring-ink-800"></span>
+          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="dd-color" class="hidden z-30 bg-ink-800 border hairline rounded-xl shadow-soft p-4 w-56" data-filter-group="color"></div>
+      </div>
+
+      <div class="relative">
+        <button data-dropdown-toggle="dd-brand" class="filter-chip flex items-center gap-1.5 border hairline bg-white/[0.03] rounded-full px-4 py-2 text-[13px] text-[#c9c1e0]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5Z"/><path d="m2 17 10 5 10-5M2 12l10 5 10-5"/></svg>
+          Brend
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="dd-brand" class="hidden z-30 bg-ink-800 border hairline rounded-xl shadow-soft p-3 w-52 text-sm" data-filter-group="brand"></div>
+      </div>
+
+      <div class="relative">
+        <button data-dropdown-toggle="dd-size" class="filter-chip flex items-center gap-1.5 border hairline bg-white/[0.03] rounded-full px-4 py-2 text-[13px] text-[#c9c1e0]">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+          O'lcham
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3 ml-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div id="dd-size" class="hidden z-30 bg-ink-800 border hairline rounded-xl shadow-soft p-3 w-48 text-sm" data-filter-group="size"></div>
+      </div>
+
+      <button id="clear-filters" class="text-[12.5px] text-[#8a80a8] hover:text-gold-300 underline underline-offset-4 transition-colors ml-1">
+        Tozalash
+      </button>
+
+      <div class="relative ml-auto">
+        <button data-dropdown-toggle="dd-sort" class="btn-gold flex items-center gap-2 rounded-full px-5 py-2.5 text-[13px] font-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+          <span id="sort-label">Saralash</span>
+        </button>
+        <div id="dd-sort" class="hidden z-30 bg-ink-800 border hairline rounded-xl shadow-soft py-2 w-56 text-sm right-0">
+          <button data-sort="popular" class="sort-opt w-full text-left px-4 py-2 hover:bg-white/5 text-[#d8d2ea]">Ommabop</button>
+          <button data-sort="price-asc" class="sort-opt w-full text-left px-4 py-2 hover:bg-white/5 text-[#d8d2ea]">Narx: arzondan qimmatga</button>
+          <button data-sort="price-desc" class="sort-opt w-full text-left px-4 py-2 hover:bg-white/5 text-[#d8d2ea]">Narx: qimmatdan arzonga</button>
+          <button data-sort="rating" class="sort-opt w-full text-left px-4 py-2 hover:bg-white/5 text-[#d8d2ea]">Reyting bo'yicha</button>
+          <button data-sort="new" class="sort-opt w-full text-left px-4 py-2 hover:bg-white/5 text-[#d8d2ea]">Yangilari</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-between mb-4">
+      <p class="text-sm text-[#a79fc0]"><span id="result-count" class="text-[#f5eede] font-semibold">0</span> ta mahsulot topildi</p>
+      <p id="active-category-label" class="text-sm text-gold-400 font-semibold hidden md:block"></p>
+    </div>
+
+    <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5"></div>
+
+    <div id="empty-state" class="hidden flex-col items-center justify-center text-center py-20">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-16 h-16 text-[#3a3157] mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <p class="text-[#d8d2ea] font-semibold mb-1">Hech narsa topilmadi</p>
+      <p class="text-[#8a80a8] text-sm">Boshqa kalit so'z yoki filtr bilan urinib ko'ring.</p>
+    </div>
+
+    <div id="pagination" class="flex items-center justify-center gap-2 mt-10 flex-wrap"></div>
+  </section>
+</main>
+
+<!-- ============================================================
+     QUICK VIEW MODAL
+     ============================================================ -->
+<div id="quickview-backdrop" class="hidden fixed inset-0 bg-black/75 backdrop-blur-sm z-[90] items-center justify-center p-4">
+  <div class="bg-ink-800 border hairline rounded-2xl max-w-3xl w-full grid grid-cols-1 md:grid-cols-2 overflow-hidden animate-popIn relative">
+    <button id="quickview-close" class="absolute top-3 right-3 z-10 w-8 h-8 rounded-full bg-black/40 hover:bg-gold-400 hover:text-ink-950 flex items-center justify-center text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="relative h-64 md:h-full">
+      <img id="qv-img" src="" class="w-full h-full object-cover">
+      <div id="qv-dots" class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5"></div>
+    </div>
+    <div class="p-6 flex flex-col">
+      <span id="qv-cat" class="text-xs text-gold-400 font-semibold mb-1"></span>
+      <h3 id="qv-title" class="font-display text-xl font-semibold text-[#f5eede] mb-2"></h3>
+      <div id="qv-stars" class="flex items-center gap-1 mb-3"></div>
+      <div class="flex items-baseline gap-2 mb-4">
+        <span id="qv-price" class="text-2xl font-bold text-gold-400"></span>
+        <span id="qv-old-price" class="text-sm text-[#8a80a8] line-through"></span>
+      </div>
+      <p id="qv-material" class="text-sm text-[#a79fc0] mb-5"></p>
+      <div class="flex gap-3 mt-auto">
+        <button id="qv-add-cart" class="btn-gold flex-1 rounded-xl py-3 font-bold text-sm">Savatga qo'shish</button>
+        <button id="qv-like" class="heart-btn w-12 h-12 rounded-xl border hairline flex items-center justify-center text-[#b6adcf] hover:border-gold-400">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="bg-[#100b18] border-t hairline mt-16 pt-14 pb-8 relative z-10">
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8 grid grid-cols-1 md:grid-cols-4 gap-10">
+
+    <div>
+      <a href="#" class="flex items-center gap-2.5 mb-4">
+        <span class="w-8 h-8 rounded-full border border-gold-400/50 flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/></svg>
+        </span>
+        <span class="font-display font-semibold text-lg text-[#f5eede]">UyBozor</span>
+      </a>
+      <p class="text-[#8a80a8] text-sm leading-relaxed mb-5">O'zbekistondagi eng yirik ko'chmas mulk va uy jihozlari platformasi. Bir klik uzoqligidagi uyni yarating.</p>
+      <div class="flex items-center gap-2.5">
+        <a href="#" class="w-9 h-9 rounded-full border hairline flex items-center justify-center text-[#8a80a8] hover:text-ink-950 hover:bg-gold-400 hover:border-gold-400 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.5h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg>
+        </a>
+        <a href="#" class="w-9 h-9 rounded-full border hairline flex items-center justify-center text-[#8a80a8] hover:text-ink-950 hover:bg-gold-400 hover:border-gold-400 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+        </a>
+        <a href="#" class="w-9 h-9 rounded-full border hairline flex items-center justify-center text-[#8a80a8] hover:text-ink-950 hover:bg-gold-400 hover:border-gold-400 transition-all">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 4.01c-1 .49-1.98.689-3 .99-1.121-1.265-2.783-1.335-4.38-.737S11.977 6.323 12 8v1c-3.245.083-6.135-1.395-8-4 0 0-4.182 7.433 4 11-1.872 1.247-3.739 2.088-6 2 3.308 1.803 6.913 2.416 10.034 1.517 3.58-1.03 6.522-3.723 7.651-7.742a13.84 13.84 0 0 0 .497-3.753C20.18 6.9 21.16 5.55 22 4.009Z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div>
+      <h4 class="font-display font-semibold text-[#f5eede] mb-4 text-[15px]">Bo'limlar</h4>
+      <ul class="space-y-2.5 text-sm text-[#8a80a8]">
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Ko'chmas mulk</a></li>
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Uy jihozlari</a></li>
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Yordam</a></li>
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Sotuvchi bo'ling</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-display font-semibold text-[#f5eede] mb-4 text-[15px]">Kompaniya</h4>
+      <ul class="space-y-2.5 text-sm text-[#8a80a8]">
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Biz haqimizda</a></li>
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Bog'lanish</a></li>
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Xizmat ko'rsatish shartlari</a></li>
+        <li><a href="#" class="hover:text-gold-300 transition-colors">Maxfiylik siyosati</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-display font-semibold text-[#f5eede] mb-4 text-[15px]">Yangi takliflar</h4>
+      <p class="text-sm text-[#8a80a8] mb-4 leading-relaxed">Eng so'nggi chegirmalar va yangi mahsulotlar haqida birinchilardan bo'lib bilib oling.</p>
+      <form id="newsletter-form" class="flex items-stretch gap-2">
+        <input id="newsletter-email" type="email" required placeholder="Email address"
+               class="flex-1 min-w-0 bg-white/[0.04] border hairline rounded-lg px-3 py-2.5 text-sm outline-none focus:border-gold-400 placeholder:text-[#8a80a8] text-[#f2ede4]">
+        <button type="submit" class="btn-gold rounded-lg px-4 text-sm font-bold shrink-0">Yuborish</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8 border-t hairline mt-10 pt-6 text-center text-[#5f5680] text-xs">
+    © 2024 UyBozor. Barcha huquqlar himoyalangan.
+  </div>
+</footer>
+
+<!-- ============================================================
+     SCRIPT
+     ============================================================ -->
+<script>
+(function () {
+  "use strict";
+
+  const CATEGORIES = [
+    { id: 'divan-kreslo', label: "Divan va kreslo", kw: 'armchair,sofa,livingroom',
+      icon: '<path d="M4 12v5a1 1 0 0 0 1 1h1v2h2v-2h8v2h2v-2h1a1 1 0 0 0 1-1v-5"/><path d="M5 12V8a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4"/><path d="M4 12h16"/><path d="M6 9v3M18 9v3"/>' },
+    { id: 'stol-stul', label: "Stol-stul", kw: 'wooden,table,diningtable',
+      icon: '<path d="M3 8h18l-1.5 3H4.5L3 8Z"/><path d="M6 11v9M18 11v9M9 20h-3M18 20h-3"/>' },
+    { id: 'karovot', label: "Karovot", kw: 'bed,bedroom,interior',
+      icon: '<path d="M3 18v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6"/><path d="M3 18v2M21 18v2"/><path d="M3 13V7a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v3"/>' },
+    { id: 'yoritish', label: "Yoritish", kw: 'floorlamp,light,lighting',
+      icon: '<circle cx="12" cy="9" r="5"/><path d="M9 20h6M10 22h4M12 14v2"/>' },
+    { id: 'saqlash', label: "Saqlash mebeli", kw: 'cabinet,shelf,storage',
+      icon: '<rect x="3" y="3" width="18" height="6" rx="1"/><rect x="3" y="11" width="18" height="10" rx="1"/><path d="M7 16h.01M7 6h.01"/>' },
+    { id: 'gilamlar', label: "Gilamlar", kw: 'rug,carpet,pattern',
+      icon: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 5v14M17 5v14M3 9h18M3 15h18"/>' },
+  ];
+
+  const MATERIALS = ["Yog'och", "Metall", "Shisha", "Bukle mato", "Ipak", "Rattan"];
+  const BRANDS = ["UyBozor Home", "Nordika", "LoftLine", "SoftNest", "ArtWeave", "MetroCraft"];
+  const SIZES = ["S", "M", "L", "XL"];
+  const COLORS = [
+    { id: 'green', hex: '#3fae6a' }, { id: 'blue', hex: '#3b82c9' }, { id: 'gray', hex: '#9099a8' },
+    { id: 'orange', hex: '#e08a2c' }, { id: 'white', hex: '#eef0f4' }, { id: 'black', hex: '#23222a' },
+    { id: 'cream', hex: '#e8d9b8' },
+  ];
+
+  const SEED = [
+    { id: 'p1', title: "Nordik Velvet Kreslo", category: 'divan-kreslo', material: "Bukle mato", brand: "Nordika", size: "M", colors: ['green','blue','gray'], price: 4200000, oldPrice: null, rating: 5, badge: 'premium', img: 1 },
+    { id: 'p2', title: "Yong'oq Yog'och Stol", category: 'stol-stul', material: "Yog'och", brand: "MetroCraft", size: "L", colors: ['orange','white'], price: 8500000, oldPrice: 10000000, rating: 5, badge: 'discount15', img: 2 },
+    { id: 'p3', title: "Minimalist Pol Lampasi", category: 'yoritish', material: "Metall", brand: "LoftLine", size: "S", colors: ['orange','white'], price: 1850000, oldPrice: null, rating: 4, badge: null, img: 3 },
+    { id: 'p4', title: "Bukle Modulli Divan", category: 'divan-kreslo', material: "Bukle mato", brand: "SoftNest", size: "XL", colors: ['cream','gray'], price: 12400000, oldPrice: null, rating: 5, badge: 'premium', img: 4 },
+    { id: 'p5', title: "Iron & Glass Shkafi", category: 'saqlash', material: "Shisha", brand: "LoftLine", size: "L", colors: ['black'], price: 5600000, oldPrice: null, rating: 4, badge: null, img: 5 },
+    { id: 'p6', title: "Abstrakt Ipak Gilam", category: 'gilamlar', material: "Ipak", brand: "ArtWeave", size: "M", colors: ['cream','orange'], price: 3900000, oldPrice: null, rating: 5, badge: null, img: 6 },
+  ];
+
+  const ADJ = ["Skandinaviya", "Loft", "Minimalist", "Klassik", "Boho", "Zamonaviy", "Vintage", "Art-Deco", "Retro", "Studio", "Premium", "Signature"];
+  const NOUN = {
+    'divan-kreslo': ["Kreslo", "Divan", "Pufik", "O'rindiq"],
+    'stol-stul': ["Stol", "Stul", "Konsol stol", "Bar stul"],
+    'karovot': ["Karovot", "Yotoq garnituri", "Bolalar karovoti", "Divan-karovot"],
+    'yoritish': ["Pol lampasi", "Osma chiroq", "Stol lampasi", "Devor chirog'i"],
+    'saqlash': ["Shkaf", "Javon", "Komod", "Kitob javoni"],
+    'gilamlar': ["Gilam", "Yo'lak gilami", "Bolalar gilami", "Yun gilam"],
+  };
+
+  function seededRand(seed) { const x = Math.sin(seed * 999) * 10000; return x - Math.floor(x); }
+
+  function buildCatalog() {
+    const list = [...SEED];
+    let counter = 100;
+    CATEGORIES.forEach((cat) => {
+      for (let i = 0; i < 30; i++) {
+        counter++;
+        const adj = ADJ[Math.floor(seededRand(counter) * ADJ.length)];
+        const noun = NOUN[cat.id][Math.floor(seededRand(counter + 1) * NOUN[cat.id].length)];
+        const price = Math.round((800000 + seededRand(counter + 2) * 13500000) / 10000) * 10000;
+        const hasDiscount = seededRand(counter + 3) > 0.78;
+        const rating = 3 + Math.floor(seededRand(counter + 4) * 3);
+        const colorsPool = [...COLORS].sort(() => seededRand(counter + 5) - 0.5).slice(0, 2 + Math.floor(seededRand(counter + 6) * 2));
+        list.push({
+          id: 'g' + counter, title: `${adj} ${noun}`, category: cat.id,
+          material: MATERIALS[Math.floor(seededRand(counter + 7) * MATERIALS.length)],
+          brand: BRANDS[Math.floor(seededRand(counter + 8) * BRANDS.length)],
+          size: SIZES[Math.floor(seededRand(counter + 9) * SIZES.length)],
+          colors: colorsPool.map(c => c.id), price,
+          oldPrice: hasDiscount ? Math.round(price * 1.18 / 10000) * 10000 : null,
+          rating, badge: hasDiscount ? 'discount' : (seededRand(counter + 10) > 0.88 ? 'premium' : null),
+          img: (counter % 9) + 1,
+        });
+      }
+    });
+    return list;
+  }
+
+  const PRODUCTS = buildCatalog();
+
+  function imgFor(p) {
+    const cat = CATEGORIES.find(c => c.id === p.category);
+    const kw = cat ? cat.kw : 'furniture';
+    return `https://loremflickr.com/480/360/${kw}?lock=${p.img}`;
+  }
+  function imgForAlt(p) {
+    const cat = CATEGORIES.find(c => c.id === p.category);
+    const kw = cat ? cat.kw.split(',')[0] : 'furniture';
+    return `https://loremflickr.com/480/360/${kw}?lock=${(p.img || 1) + 40}`;
+  }
+
+  const state = {
+    query: '', category: 'divan-kreslo', material: new Set(), brand: new Set(), size: new Set(), color: new Set(),
+    priceMin: null, priceMax: null, sort: 'popular', page: 1, perPage: 6, wishlist: new Set(), cart: [],
+  };
+
+  const fmt = n => n.toLocaleString('fr-FR').replace(/,/g, ' ') + " UZS";
+
+  const catListEl = document.getElementById('category-list');
+  const catListMobileEl = document.getElementById('category-list-mobile');
+
+  function renderCategories() {
+    catListEl.innerHTML = CATEGORIES.map(c => `
+      <button data-cat="${c.id}" class="cat-row ${state.category === c.id ? 'active' : ''} w-full flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-[#c9c1e0] text-left">
+        <svg class="w-4 h-4 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${c.icon}</svg>
+        <span class="truncate">${c.label}</span>
+      </button>`).join('');
+
+    catListMobileEl.innerHTML = CATEGORIES.map(c => `
+      <button data-cat="${c.id}" class="cat-row ${state.category === c.id ? 'active' : ''} shrink-0 flex items-center gap-1.5 rounded-full px-3.5 py-2 text-xs text-[#c9c1e0] border hairline whitespace-nowrap">
+        <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${c.icon}</svg>
+        ${c.label}
+      </button>`).join('');
+
+    document.querySelectorAll('[data-cat]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.category = btn.dataset.cat; state.page = 1;
+        renderCategories(); renderGrid();
+      });
+    });
+  }
+
+  function renderCheckboxGroup(containerId, items, stateSet) {
+    const el = document.getElementById(containerId);
+    el.innerHTML = items.map(item => `
+      <label class="flex items-center gap-2 py-1.5 cursor-pointer text-[#c9c1e0] hover:text-gold-300 transition-colors">
+        <input type="checkbox" value="${item}" class="w-3.5 h-3.5 accent-[#d9a441] rounded">
+        <span>${item}</span>
+      </label>`).join('');
+    el.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('change', () => {
+        if (inp.checked) stateSet.add(inp.value); else stateSet.delete(inp.value);
+        state.page = 1; renderGrid();
+      });
+    });
+  }
+
+  function renderColorGroup() {
+    const el = document.getElementById('dd-color');
+    el.innerHTML = `<div class="grid grid-cols-6 gap-2.5">` + COLORS.map(c => `
+      <button data-color="${c.id}" title="${c.id}" class="swatch w-6 h-6 rounded-full border border-white/15" style="background:${c.hex}"></button>`).join('') + `</div>`;
+    el.querySelectorAll('[data-color]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.dataset.color;
+        if (state.color.has(id)) { state.color.delete(id); btn.classList.remove('selected'); }
+        else { state.color.add(id); btn.classList.add('selected'); }
+        state.page = 1; renderGrid();
+      });
+    });
+  }
+
+  function getFiltered() {
+    let list = PRODUCTS.filter(p => p.category === state.category);
+    if (state.query.trim()) {
+      const q = state.query.trim().toLowerCase();
+      list = list.filter(p => p.title.toLowerCase().includes(q) || p.material.toLowerCase().includes(q) || p.brand.toLowerCase().includes(q));
+    }
+    if (state.material.size) list = list.filter(p => state.material.has(p.material));
+    if (state.brand.size) list = list.filter(p => state.brand.has(p.brand));
+    if (state.size.size) list = list.filter(p => state.size.has(p.size));
+    if (state.color.size) list = list.filter(p => p.colors.some(c => state.color.has(c)));
+    if (state.priceMin != null) list = list.filter(p => p.price >= state.priceMin);
+    if (state.priceMax != null) list = list.filter(p => p.price <= state.priceMax);
+    switch (state.sort) {
+      case 'price-asc': list = [...list].sort((a,b) => a.price - b.price); break;
+      case 'price-desc': list = [...list].sort((a,b) => b.price - a.price); break;
+      case 'rating': list = [...list].sort((a,b) => b.rating - a.rating); break;
+      case 'new': list = [...list].sort((a,b) => (b.id > a.id ? 1 : -1)); break;
+    }
+    return list;
+  }
+
+  const gridEl = document.getElementById('product-grid');
+  const emptyEl = document.getElementById('empty-state');
+  const resultCountEl = document.getElementById('result-count');
+  const activeCatLabelEl = document.getElementById('active-category-label');
+
+  function starsHtml(rating, size = 'w-3.5 h-3.5') {
+    let html = '';
+    for (let i = 0; i < 5; i++) html += `<svg class="${size} ${i < rating ? 'star-gold' : 'text-[#3a3157]'}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="m12 2 3.1 6.5 7.1.9-5.2 5 1.4 7.1L12 18l-6.4 3.5 1.4-7.1-5.2-5 7.1-.9L12 2Z"/></svg>`;
+    return html;
+  }
+  function colorDotsHtml(colors) {
+    return colors.map(cid => { const c = COLORS.find(x => x.id === cid); return `<span class="w-3 h-3 rounded-full border border-white/20" style="background:${c ? c.hex : '#999'}"></span>`; }).join('');
+  }
+  function badgeHtml(p) {
+    if (p.badge === 'premium') return `<span class="badge-premium absolute top-3 left-3 text-[10px] font-bold px-2.5 py-1 rounded-full z-10">PREMIUM</span>`;
+    if (p.badge === 'discount15') return `<span class="badge-discount absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full z-10">-15% CHEGIRMA</span>`;
+    if (p.badge === 'discount') return `<span class="badge-discount absolute top-3 right-3 text-[10px] font-bold px-2.5 py-1 rounded-full z-10">CHEGIRMA</span>`;
+    return '';
+  }
+
+  function cardHtml(p, idx) {
+    return `
+    <div class="product-card fade-in-card rounded-2xl overflow-hidden group" style="animation-delay:${idx * 45}ms">
+      <div class="relative h-48 overflow-hidden">
+        ${badgeHtml(p)}
+        <img loading="lazy" src="${imgFor(p)}" onerror="this.onerror=null;this.src='${imgForAlt(p)}'" alt="${p.title}" class="card-img w-full h-full object-cover">
+        <div class="quick-overlay absolute inset-0 flex items-end justify-center pb-3 gap-2">
+          <button data-qv="${p.id}" class="bg-[#f5eede] hover:bg-gold-400 text-ink-950 text-xs font-bold px-3.5 py-2 rounded-full flex items-center gap-1.5 shadow-soft transition-colors">
+            <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            Ko'rish
+          </button>
+        </div>
+        <button data-like="${p.id}" class="heart-btn ${state.wishlist.has(p.id) ? 'liked' : ''} absolute top-3 ${p.badge === 'premium' ? 'right-3' : 'left-3'} w-8 h-8 rounded-full bg-black/40 backdrop-blur flex items-center justify-center text-white z-10">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+        </button>
+      </div>
+      <div class="p-4">
+        <h3 class="font-display font-semibold text-[15px] text-[#f5eede] leading-snug mb-1.5">${p.title}</h3>
+        <div class="flex items-center gap-0.5 mb-2.5">${starsHtml(p.rating)}</div>
+        <div class="flex items-baseline gap-2 mb-3">
+          <span class="text-gold-400 font-bold text-[17px]">${fmt(p.price)}</span>
+          ${p.oldPrice ? `<span class="text-[#8a80a8] text-xs line-through">${fmt(p.oldPrice)}</span>` : ''}
+        </div>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-1.5">${colorDotsHtml(p.colors)}</div>
+          <span class="text-[11px] text-[#8a80a8]">${p.material}</span>
+        </div>
+        <button data-add="${p.id}" class="btn-gold w-full mt-4 rounded-xl py-2.5 text-[13px] font-bold flex items-center justify-center gap-2">
+          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+          Savatga qo'shish
+        </button>
+      </div>
+    </div>`;
+  }
+
+  function renderGrid() {
+    const filtered = getFiltered();
+    resultCountEl.textContent = filtered.length;
+    const catLabel = CATEGORIES.find(c => c.id === state.category);
+    activeCatLabelEl.textContent = catLabel ? catLabel.label : '';
+
+    const totalPages = Math.max(1, Math.ceil(filtered.length / state.perPage));
+    if (state.page > totalPages) state.page = totalPages;
+    const start = (state.page - 1) * state.perPage;
+    const pageItems = filtered.slice(start, start + state.perPage);
+
+    if (!pageItems.length) {
+      gridEl.classList.add('hidden'); emptyEl.classList.remove('hidden'); emptyEl.classList.add('flex');
+    } else {
+      gridEl.classList.remove('hidden'); emptyEl.classList.add('hidden'); emptyEl.classList.remove('flex');
+      gridEl.innerHTML = pageItems.map((p, i) => cardHtml(p, i)).join('');
+      bindCardEvents();
+    }
+    renderPagination(totalPages, filtered.length);
+  }
+
+  function bindCardEvents() {
+    gridEl.querySelectorAll('[data-like]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.dataset.like;
+        if (state.wishlist.has(id)) { state.wishlist.delete(id); btn.classList.remove('liked'); }
+        else { state.wishlist.add(id); btn.classList.add('liked'); showToast("Sevimlilarga qo'shildi"); }
+        updateCounts();
+      });
+    });
+    gridEl.querySelectorAll('[data-add]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const p = PRODUCTS.find(x => x.id === btn.dataset.add);
+        state.cart.push(p); updateCounts();
+        showToast(`${p.title} savatga qo'shildi`);
+      });
+    });
+    gridEl.querySelectorAll('[data-qv]').forEach(btn => btn.addEventListener('click', () => openQuickView(btn.dataset.qv)));
+  }
+
+  const pagEl = document.getElementById('pagination');
+  function renderPagination(totalPages, count) {
+    if (!count) { pagEl.innerHTML = ''; return; }
+    let pages = []; const cur = state.page;
+    pages.push(1);
+    if (cur > 3) pages.push('...');
+    for (let i = Math.max(2, cur - 1); i <= Math.min(totalPages - 1, cur + 1); i++) pages.push(i);
+    if (cur < totalPages - 2) pages.push('...');
+    if (totalPages > 1) pages.push(totalPages);
+    pages = [...new Set(pages)];
+
+    let html = `<button id="pg-prev" class="page-btn w-9 h-9 rounded-full flex items-center justify-center text-[#c9c1e0]" ${cur === 1 ? 'disabled' : ''}>
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>`;
+    pages.forEach(p => {
+      html += p === '...'
+        ? `<span class="w-9 h-9 flex items-center justify-center text-[#5f5680]">…</span>`
+        : `<button data-page="${p}" class="page-btn ${p === cur ? 'active-page' : ''} w-9 h-9 rounded-full text-[#c9c1e0] font-semibold text-sm">${p}</button>`;
+    });
+    html += `<button id="pg-next" class="page-btn w-9 h-9 rounded-full flex items-center justify-center text-[#c9c1e0]" ${cur === totalPages ? 'disabled' : ''}>
+      <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>`;
+    pagEl.innerHTML = html;
+
+    pagEl.querySelectorAll('[data-page]').forEach(btn => btn.addEventListener('click', () => { state.page = parseInt(btn.dataset.page); renderGrid(); scrollToGrid(); }));
+    document.getElementById('pg-prev').addEventListener('click', () => { if (state.page > 1) { state.page--; renderGrid(); scrollToGrid(); } });
+    document.getElementById('pg-next').addEventListener('click', () => { if (state.page < totalPages) { state.page++; renderGrid(); scrollToGrid(); } });
+  }
+  function scrollToGrid() { gridEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+
+  const qvBackdrop = document.getElementById('quickview-backdrop');
+  let qvCurrent = null;
+  function openQuickView(id) {
+    const p = PRODUCTS.find(x => x.id === id);
+    if (!p) return;
+    qvCurrent = p;
+    document.getElementById('qv-img').src = imgFor(p);
+    document.getElementById('qv-cat').textContent = CATEGORIES.find(c => c.id === p.category)?.label || '';
+    document.getElementById('qv-title').textContent = p.title;
+    document.getElementById('qv-stars').innerHTML = starsHtml(p.rating, 'w-4 h-4');
+    document.getElementById('qv-price').textContent = fmt(p.price);
+    document.getElementById('qv-old-price').textContent = p.oldPrice ? fmt(p.oldPrice) : '';
+    document.getElementById('qv-material').textContent = `Material: ${p.material} • Brend: ${p.brand} • O'lcham: ${p.size}`;
+    document.getElementById('qv-like').classList.toggle('liked', state.wishlist.has(p.id));
+
+    const dotsWrap = document.getElementById('qv-dots');
+    const images = [imgFor(p), imgForAlt(p)];
+    dotsWrap.innerHTML = images.map((_, i) => `<span data-dot="${i}" class="carousel-dot ${i === 0 ? 'active-dot' : ''} w-2 h-2 rounded-full bg-white/50 cursor-pointer"></span>`).join('');
+    dotsWrap.querySelectorAll('[data-dot]').forEach(dot => {
+      dot.addEventListener('click', () => {
+        const i = parseInt(dot.dataset.dot);
+        document.getElementById('qv-img').src = images[i];
+        dotsWrap.querySelectorAll('.carousel-dot').forEach(d => d.classList.remove('active-dot'));
+        dot.classList.add('active-dot');
+      });
+    });
+
+    qvBackdrop.classList.remove('hidden'); qvBackdrop.classList.add('flex');
+  }
+  document.getElementById('quickview-close').addEventListener('click', closeQuickView);
+  qvBackdrop.addEventListener('click', e => { if (e.target === qvBackdrop) closeQuickView(); });
+  function closeQuickView() { qvBackdrop.classList.add('hidden'); qvBackdrop.classList.remove('flex'); }
+  document.getElementById('qv-add-cart').addEventListener('click', () => {
+    if (!qvCurrent) return;
+    state.cart.push(qvCurrent); updateCounts();
+    showToast(`${qvCurrent.title} savatga qo'shildi`);
+  });
+  document.getElementById('qv-like').addEventListener('click', () => {
+    if (!qvCurrent) return;
+    const id = qvCurrent.id, btn = document.getElementById('qv-like');
+    if (state.wishlist.has(id)) { state.wishlist.delete(id); btn.classList.remove('liked'); }
+    else { state.wishlist.add(id); btn.classList.add('liked'); }
+    updateCounts(); renderGrid();
+  });
+
+  function showToast(msg) {
+    const stack = document.getElementById('toast-stack');
+    const el = document.createElement('div');
+    el.className = 'toast-item pointer-events-auto bg-ink-800 border border-gold-400/30 text-[#f2ede4] text-sm px-4 py-3 rounded-xl shadow-soft flex items-center gap-2';
+    el.innerHTML = `<svg class="w-4 h-4 text-gold-400 shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span>${msg}</span>`;
+    stack.appendChild(el);
+    setTimeout(() => {
+      el.style.transition = 'opacity .4s ease, transform .4s ease';
+      el.style.opacity = '0'; el.style.transform = 'translateX(20px)';
+      setTimeout(() => el.remove(), 400);
+    }, 2400);
+  }
+
+  function updateCounts() {
+    document.getElementById('wishlist-count').textContent = state.wishlist.size;
+    document.getElementById('cart-count').textContent = state.cart.length;
+  }
+
+  /* --------------------------------------------------------
+     SEARCH
+     -------------------------------------------------------- */
+  const searchInput = document.getElementById('search-input');
+  const searchInputMobile = document.getElementById('search-input-mobile');
+
+  function handleSearch(val) { state.query = val; state.page = 1; renderGrid(); }
+  let searchDebounce;
+  [searchInput, searchInputMobile].forEach(inp => {
+    inp.addEventListener('input', () => {
+      clearTimeout(searchDebounce);
+      const v = inp.value;
+      if (inp === searchInput) searchInputMobile.value = v; else searchInput.value = v;
+      searchDebounce = setTimeout(() => handleSearch(v), 200);
+    });
+  });
+
+  /* --------------------------------------------------------
+     VOICE SEARCH — tries several languages so it actually
+     recognises Uzbek/Russian speech in real browsers, asks
+     for microphone permission explicitly, and gives clear
+     visual + toast feedback at every step.
+     -------------------------------------------------------- */
+  const micBtn = document.getElementById('mic-btn');
+  const micBtnMobile = document.getElementById('mic-btn-mobile');
+  const micIcon = document.getElementById('mic-icon');
+  const micBars = document.getElementById('mic-bars');
+  const micStatus = document.getElementById('mic-status');
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+  const LANG_ATTEMPTS = ['uz-UZ', 'ru-RU', 'en-US'];
+  let langIndex = 0;
+  let recognition = null;
+  let listening = false;
+  let manualStop = false;
+
+  function buildRecognition(lang) {
+    const r = new SpeechRecognition();
+    r.lang = lang;
+    r.interimResults = true;
+    r.maxAlternatives = 1;
+    r.continuous = false;
+
+    r.onstart = () => {
+      listening = true;
+      [micBtn, micBtnMobile].forEach(b => { if (b) { b.classList.remove('mic-idle'); b.classList.add('mic-listening'); } });
+      micIcon.classList.add('hidden');
+      micBars.classList.remove('hidden'); micBars.classList.add('flex');
+      micStatus.style.opacity = '1';
+    };
+
+    r.onresult = (e) => {
+      let transcript = '';
+      for (let i = 0; i < e.results.length; i++) transcript += e.results[i][0].transcript;
+      searchInput.value = transcript;
+      searchInputMobile.value = transcript;
+      if (e.results[e.results.length - 1].isFinal) {
+        handleSearch(transcript);
+        showToast(`Qidiruv: "${transcript}"`);
+      }
+    };
+
+    r.onerror = (e) => {
+      if (e.error === 'no-speech') {
+        // try next language automatically before giving up
+        if (langIndex < LANG_ATTEMPTS.length - 1) { langIndex++; return; }
+        showToast("Ovoz eshitilmadi, qayta urinib ko'ring");
+      } else if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+        showToast("Mikrofonga ruxsat berilmadi — brauzer sozlamalarini tekshiring");
+      } else if (e.error === 'language-not-supported') {
+        if (langIndex < LANG_ATTEMPTS.length - 1) { langIndex++; startListening(true); return; }
+        showToast("Bu til qo'llab-quvvatlanmaydi");
+      } else {
+        showToast("Ovozli qidiruvda xatolik yuz berdi");
+      }
+      stopListeningUI();
+    };
+
+    r.onend = () => { stopListeningUI(); };
+    return r;
+  }
+
+  function stopListeningUI() {
+    listening = false;
+    [micBtn, micBtnMobile].forEach(b => { if (b) { b.classList.add('mic-idle'); b.classList.remove('mic-listening'); } });
+    micIcon.classList.remove('hidden');
+    micBars.classList.add('hidden'); micBars.classList.remove('flex');
+    micStatus.style.opacity = '0';
+  }
+
+  async function startListening(skipPermissionCheck) {
+    if (!SpeechRecognition) {
+      showToast("Brauzeringiz ovozli qidiruvni qo'llab-quvvatlamaydi. Chrome'dan foydalaning.");
+      return;
+    }
+    if (!skipPermissionCheck && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        stream.getTracks().forEach(t => t.stop());
+      } catch (err) {
+        showToast("Mikrofonga ruxsat kerak — brauzer so'rovini tasdiqlang");
+        return;
+      }
+    }
+    recognition = buildRecognition(LANG_ATTEMPTS[langIndex]);
+    manualStop = false;
+    try { recognition.start(); } catch (err) { /* already running */ }
+  }
+
+  function stopListening() {
+    manualStop = true;
+    if (recognition) { try { recognition.stop(); } catch (err) {} }
+    stopListeningUI();
+  }
+
+  function toggleMic() {
+    if (listening) stopListening(); else { langIndex = 0; startListening(false); }
+  }
+  micBtn.addEventListener('click', toggleMic);
+  if (micBtnMobile) micBtnMobile.addEventListener('click', toggleMic);
+
+  /* --------------------------------------------------------
+     FILTERS, SORT, CLEAR
+     -------------------------------------------------------- */
+  function initFilters() {
+    renderCheckboxGroup('dd-material', MATERIALS, state.material);
+    renderCheckboxGroup('dd-brand', BRANDS, state.brand);
+    renderCheckboxGroup('dd-size', SIZES, state.size);
+    renderColorGroup();
+
+    document.getElementById('price-apply').addEventListener('click', () => {
+      const min = document.getElementById('price-min').value;
+      const max = document.getElementById('price-max').value;
+      state.priceMin = min ? parseInt(min) : null;
+      state.priceMax = max ? parseInt(max) : null;
+      state.page = 1; renderGrid();
+      showToast("Narx filtri qo'llandi");
+    });
+
+    document.querySelectorAll('.sort-opt').forEach(btn => {
+      btn.addEventListener('click', () => {
+        state.sort = btn.dataset.sort;
+        document.getElementById('sort-label').textContent = btn.textContent;
+        state.page = 1; renderGrid();
+      });
+    });
+
+    document.getElementById('clear-filters').addEventListener('click', () => {
+      state.material.clear(); state.brand.clear(); state.size.clear(); state.color.clear();
+      state.priceMin = null; state.priceMax = null;
+      document.getElementById('price-min').value = ''; document.getElementById('price-max').value = '';
+      document.querySelectorAll('[id^="dd-"] input[type=checkbox]').forEach(c => c.checked = false);
+      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('selected'));
+      state.page = 1; renderGrid();
+      showToast('Filtrlar tozalandi');
+    });
+  }
+
+  document.getElementById('newsletter-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const emailInp = document.getElementById('newsletter-email');
+    if (emailInp.checkValidity()) { showToast("Obuna bo'lganingiz uchun rahmat!"); emailInp.value = ''; }
+    else showToast("Iltimos, to'g'ri email kiriting");
+  });
+
+  document.getElementById('mobile-search-toggle').addEventListener('click', () => document.getElementById('mobile-search-bar').classList.toggle('hidden'));
+  document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+    const nav = document.getElementById('mobile-nav');
+    nav.classList.toggle('hidden'); nav.classList.toggle('flex');
+  });
+
+  renderCategories();
+  initFilters();
+  renderGrid();
+  updateCounts();
+})();
+</script>
+</body>
+</html>

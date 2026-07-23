@@ -1,0 +1,2575 @@
+<!doctype html>
+<html lang="uz" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UyBozor — Orzuingizdagi Uyni Toping</title>
+    <meta
+      name="description"
+      content="O'zbekistondagi birinchi ko'chmas mulk va interyer dizayni yagona ekotizimi."
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Playfair Display"', "ui-serif", "Georgia", "serif"],
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            colors: {
+              ink: {
+                950: "#0f0a06",
+                900: "#150f09",
+                850: "#1a130d",
+                800: "#201811",
+              },
+              plum: {
+                950: "#1c1730",
+                900: "#241f3d",
+                850: "#2b2448",
+                800: "#332a56",
+                700: "#3c3166",
+              },
+              sand: {
+                50: "#faf6ee",
+                100: "#f3ede1",
+                200: "#e8dcc8",
+                300: "#c9bda3",
+                400: "#a8998a",
+              },
+              amber: {
+                300: "#f5c98a",
+                400: "#f0a860",
+                500: "#e8935a",
+                600: "#d97a3f",
+              },
+              lilac: {
+                300: "#d8c6fb",
+                400: "#c084fc",
+                500: "#a78bfa",
+              },
+            },
+            boxShadow: {
+              glow: "0 0 60px -12px rgba(240,168,96,0.35)",
+              card: "0 20px 45px -20px rgba(0,0,0,0.6)",
+            },
+            keyframes: {
+              floaty: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-14px)" },
+              },
+              floatySlow: {
+                "0%, 100%": { transform: "translateY(0px) translateX(0px)" },
+                "50%": { transform: "translateY(-20px) translateX(10px)" },
+              },
+              pulseGlow: {
+                "0%, 100%": { opacity: 0.55, transform: "scale(1)" },
+                "50%": { opacity: 0.9, transform: "scale(1.06)" },
+              },
+              fadeUp: {
+                "0%": { opacity: 0, transform: "translateY(28px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+              shimmer: {
+                "0%": { backgroundPosition: "-500px 0" },
+                "100%": { backgroundPosition: "500px 0" },
+              },
+              spinSlow: {
+                "0%": { transform: "rotate(0deg)" },
+                "100%": { transform: "rotate(360deg)" },
+              },
+              ringPulse: {
+                "0%": { boxShadow: "0 0 0 0 rgba(240,168,96,0.45)" },
+                "70%": { boxShadow: "0 0 0 14px rgba(240,168,96,0)" },
+                "100%": { boxShadow: "0 0 0 0 rgba(240,168,96,0)" },
+              },
+            },
+            animation: {
+              floaty: "floaty 6s ease-in-out infinite",
+              floatySlow: "floatySlow 10s ease-in-out infinite",
+              pulseGlow: "pulseGlow 4s ease-in-out infinite",
+              fadeUp: "fadeUp 0.9s cubic-bezier(0.16,1,0.3,1) forwards",
+              shimmer: "shimmer 2.2s linear infinite",
+              spinSlow: "spinSlow 14s linear infinite",
+              ringPulse: "ringPulse 2.4s ease-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      html,
+      body {
+        background-color: #150f09;
+        font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+      }
+
+      ::selection {
+        background: #f0a860;
+        color: #1c1416;
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #171012;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #a78bfa, #f0a860);
+        border-radius: 999px;
+        border: 2px solid #171012;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #c084fc, #f5c98a);
+      }
+
+      /* Focus visibility for accessibility */
+      a:focus-visible,
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible {
+        outline: 2px solid #f0a860;
+        outline-offset: 3px;
+        border-radius: 6px;
+      }
+
+      .font-display {
+        font-family: "Playfair Display", serif;
+      }
+
+      .text-gradient-warm {
+        background: linear-gradient(
+          92deg,
+          #f5c98a 0%,
+          #f0a860 45%,
+          #e8935a 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .text-gradient-cool {
+        background: linear-gradient(
+          92deg,
+          #d8c6fb 0%,
+          #a78bfa 55%,
+          #f0a860 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .ambient-orb {
+        position: absolute;
+        border-radius: 999px;
+        filter: blur(90px);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .grain-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.035;
+        mix-blend-mode: overlay;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+
+      .glass-card {
+        background: linear-gradient(
+          160deg,
+          rgba(36, 29, 60, 0.92),
+          rgba(24, 19, 42, 0.9)
+        );
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .glass-card-light {
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        border: 1px solid rgba(255, 255, 255, 0.07);
+      }
+
+      .btn-gradient {
+        position: relative;
+        background: linear-gradient(
+          100deg,
+          #a78bfa 0%,
+          #c084fc 35%,
+          #f0a860 100%
+        );
+        background-size: 200% 100%;
+        background-position: 0% 0%;
+        transition:
+          background-position 0.6s ease,
+          transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.35s ease;
+      }
+      .btn-gradient:hover {
+        background-position: 100% 0%;
+        transform: translateY(-2px);
+        box-shadow: 0 14px 34px -10px rgba(240, 168, 96, 0.55);
+      }
+      .btn-gradient:active {
+        transform: translateY(0px) scale(0.98);
+      }
+
+      .btn-shine::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+          120deg,
+          transparent,
+          rgba(255, 255, 255, 0.35),
+          transparent
+        );
+        transform: skewX(-20deg);
+        transition: left 0.7s ease;
+      }
+      .btn-shine:hover::after {
+        left: 130%;
+      }
+
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(90deg, #f0a860, #c084fc);
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #f5efe6;
+      }
+
+      .card-lift {
+        transition:
+          transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.5s ease,
+          border-color 0.5s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.65);
+        border-color: rgba(240, 168, 96, 0.35);
+      }
+
+      .icon-box {
+        transition:
+          transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          background 0.5s ease;
+      }
+      .card-lift:hover .icon-box {
+        transform: rotate(-6deg) scale(1.08);
+      }
+
+      .media-zoom {
+        overflow: hidden;
+      }
+      .media-zoom img {
+        transition:
+          transform 1s cubic-bezier(0.16, 1, 0.3, 1),
+          filter 0.6s ease;
+      }
+      .media-zoom:hover img {
+        transform: scale(1.08);
+        filter: brightness(0.85) saturate(1.05);
+      }
+
+      .media-caption {
+        transform: translateY(14px);
+        opacity: 0;
+        transition:
+          transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.55s ease;
+      }
+      .media-zoom:hover .media-caption {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .heart-btn svg {
+        transition:
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+          fill 0.35s ease,
+          stroke 0.35s ease;
+      }
+      .heart-btn:hover svg {
+        transform: scale(1.2);
+      }
+      .heart-btn.is-active svg {
+        fill: #f0a860;
+        stroke: #f0a860;
+        animation: heart-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      @keyframes heart-pop {
+        0% {
+          transform: scale(1);
+        }
+        35% {
+          transform: scale(1.45);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .pill {
+        transition:
+          background 0.35s ease,
+          color 0.35s ease,
+          transform 0.35s ease;
+      }
+      .pill:hover {
+        transform: translateY(-2px);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition:
+          opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-delay-1.in-view {
+        transition-delay: 0.08s;
+      }
+      .reveal-delay-2.in-view {
+        transition-delay: 0.16s;
+      }
+      .reveal-delay-3.in-view {
+        transition-delay: 0.24s;
+      }
+      .reveal-delay-4.in-view {
+        transition-delay: 0.32s;
+      }
+
+      .carousel-track {
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+      }
+      .carousel-track::-webkit-scrollbar {
+        display: none;
+      }
+      .carousel-item {
+        scroll-snap-align: start;
+      }
+
+      .carousel-arrow {
+        transition:
+          background 0.35s ease,
+          transform 0.35s ease,
+          border-color 0.35s ease;
+      }
+      .carousel-arrow:hover {
+        background: linear-gradient(100deg, #a78bfa, #f0a860);
+        border-color: transparent;
+        transform: scale(1.08);
+      }
+
+      .badge-pulse::before {
+        content: "";
+        position: absolute;
+        inset: -6px;
+        border-radius: 999px;
+        background: radial-gradient(
+          circle,
+          rgba(240, 168, 96, 0.55),
+          transparent 70%
+        );
+        animation: pulseGlow 3s ease-in-out infinite;
+        z-index: -1;
+      }
+
+      .field-shell {
+        transition:
+          border-color 0.3s ease,
+          box-shadow 0.3s ease,
+          background 0.3s ease;
+      }
+      .field-shell:focus-within,
+      .field-shell:hover {
+        border-color: rgba(240, 168, 96, 0.5);
+        box-shadow: 0 0 0 4px rgba(240, 168, 96, 0.08);
+      }
+      select.bare,
+      input.bare {
+        background: transparent;
+        color: inherit;
+      }
+      select.bare option {
+        background: #221a1c;
+        color: #f3ede1;
+      }
+
+      .counter {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .avatar-stack img {
+        transition:
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+          z-index 0s;
+        border: 3px solid #1c1416;
+      }
+      .avatar-stack:hover img {
+        transform: translateY(-4px);
+      }
+      .avatar-stack img:nth-child(1):hover {
+        transform: translateY(-4px) rotate(-4deg);
+      }
+      .avatar-stack img:nth-child(3):hover {
+        transform: translateY(-4px) rotate(4deg);
+      }
+
+      .arrow-link svg {
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+      .arrow-link:hover svg {
+        transform: translateX(6px);
+      }
+
+      .newsletter-card {
+        position: relative;
+      }
+      .newsletter-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 1px;
+  background: linear-gradient(
+    120deg,
+    rgba(167, 139, 250, 0.5),
+    rgba(240, 168, 96, 0.5),
+    rgba(167, 139, 250, 0.15)
+  );
+
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+      .browser-dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 999px;
+      }
+
+      .logo-mark {
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .logo-mark:hover {
+        transform: rotate(12deg) scale(1.06);
+      }
+
+      /* Social icon hover */
+      .social-icon {
+        transition:
+          background 0.35s ease,
+          transform 0.35s ease,
+          color 0.35s ease;
+      }
+      .social-icon:hover {
+        transform: translateY(-3px);
+      }
+
+      /* Divider fade line */
+      .fade-line {
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.14),
+          transparent
+        );
+        height: 1px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+
+      /* Mobile menu slide */
+      #mobile-menu {
+        transition:
+          max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+          opacity 0.4s ease;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-ink-900 text-sand-100 antialiased relative overflow-x-hidden selection:bg-amber-400"
+  >
+    <div class="grain-overlay"></div>
+
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      <div
+        class="ambient-orb w-[520px] h-[520px] bg-lilac-500/20 -top-40 -left-40 animate-floatySlow"
+      ></div>
+      <div
+        class="ambient-orb w-[460px] h-[460px] bg-amber-500/15 top-[30%] -right-32 animate-floaty"
+      ></div>
+      <div
+        class="ambient-orb w-[380px] h-[380px] bg-plum-700/40 bottom-0 left-[10%] animate-floatySlow"
+      ></div>
+      <div
+        class="ambient-orb w-[300px] h-[300px] bg-amber-400/10 bottom-[15%] right-[15%] animate-floaty"
+      ></div>
+    </div>
+
+    <header
+      class="sticky top-0 z-50 border-b border-white/5 bg-ink-900/80 backdrop-blur-xl"
+    >
+      <nav class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <a href="#top" class="flex items-center gap-2 shrink-0 group">
+            <span
+              class="logo-mark inline-flex w-8 h-8 items-center justify-center rounded-lg bg-gradient-to-br from-lilac-400 to-amber-400 text-ink-900 font-bold text-sm"
+              >U</span
+            >
+            <span
+              class="font-display text-2xl font-semibold text-gradient-warm tracking-tight"
+              >UyBozor</span
+            >
+          </a>
+
+          <div
+            class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-sand-200/90"
+          >
+            <a href="/" class="nav-link active pb-1">Bosh sahifa</a>
+            <a href="./pages/Ko'chmasMulk.html" class="nav-link pb-1"
+              >Ko'chmas mulk</a
+            >
+            <a href="./pages/UyJihoz.html" class="nav-link pb-1"
+              >Uy jihozlari</a
+            >
+            <a href="./pages/dekor.html" class="nav-link pb-1">Dekor</a>
+            <a href="./pages/sotuvchi.html" class="nav-link pb-1"
+              >Sotuvchi bo'ling</a
+            >
+          </div>
+
+          <div class="hidden md:flex items-center gap-4">
+            <div
+              class="field-shell flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2.5 w-56 lg:w-64"
+            >
+              <svg
+                class="w-4 h-4 text-sand-400 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.4 5.4a7.5 7.5 0 0011.25 11.25z"
+                />
+              </svg>
+              <input
+                type="text"
+                placeholder="Qidiruv..."
+                class="bare w-full text-sm placeholder:text-sand-400/70 focus:outline-none"
+              />
+            </div>
+
+            <button
+              aria-label="Sevimlilar"
+              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-[18px] h-[18px] text-sand-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center"
+                >0</span
+              >
+            </button>
+            <button
+              aria-label="Savatcha"
+              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-[18px] h-[18px] text-sand-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center"
+                >0</span
+              >
+            </button>
+            <button
+              aria-label="Profil"
+              class="w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-[18px] h-[18px] text-sand-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <!-- Mobile menu toggle -->
+          <button
+            id="menu-toggle"
+            class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
+            aria-label="Menyu"
+          >
+            <svg
+              id="menu-icon"
+              class="w-5 h-5 text-sand-100"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          id="mobile-menu"
+          class="lg:hidden overflow-hidden max-h-0 opacity-0"
+        >
+          <div
+            class="flex flex-col gap-4 pb-6 pt-2 text-sand-200/90 text-sm font-medium"
+          >
+            <a href="/" class="nav-link">Bosh sahifa</a>
+            <a href="./pages/Ko'chmasMulk.html" class="nav-link"
+              >Ko'chmas mulk</a
+            >
+            <a href="./pages/UyJihoz.html" class="nav-link">Uy jihozlari</a>
+            <a href="./pages/dekor.html" class="nav-link">Dekor</a>
+            <a href="./pages/sotuvchi.html" class="nav-link"
+              >Sotuvchi bo'ling</a
+            >
+          </div>
+        </div>
+      </nav>
+      <div class="fade-line"></div>
+    </header>
+
+    <section
+      id="top"
+      class="relative z-10 pt-16 pb-24 lg:pt-24 lg:pb-32 overflow-hidden"
+      style="
+        background: radial-gradient(
+          ellipse 900px 500px at 15% 0%,
+          rgba(232, 147, 90, 0.1),
+          transparent 60%
+        );
+      "
+    >
+      <div
+        class="max-w-7xl mx-auto px-5 lg:px-8 grid lg:grid-cols-2 gap-14 items-center"
+      >
+        <!-- Left: heading + search -->
+        <div class="reveal">
+          <h1
+            class="font-display text-[2.5rem] leading-[1.08] sm:text-5xl lg:text-[3.4rem] font-semibold text-sand-50 tracking-tight"
+          >
+            Orzuingizdagi uyni<br class="hidden sm:block" />
+            toping va uni<br class="hidden sm:block" />
+            <span class="text-gradient-warm italic">mukammal jihozlang</span>
+          </h1>
+
+          <p class="mt-6 text-sand-300/90 text-[15px] leading-relaxed max-w-md">
+            O'zbekistondagi birinchi ko'chmas mulk va interyer dizayni yagona
+            ekotizimi. Uyni sotib oling va uni o'sha zahotiyoq biz bilan
+            bezating.
+          </p>
+
+          <!-- Search filter card -->
+          <div class="mt-9 glass-card rounded-2xl p-4 sm:p-5 shadow-card">
+            <div class="grid sm:grid-cols-3 gap-3">
+              <div
+                class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 flex items-center gap-2.5"
+              >
+                <svg
+                  class="w-4 h-4 text-amber-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <div class="flex flex-col leading-tight text-left w-full">
+                  <span
+                    class="text-[10px] uppercase tracking-wider text-sand-400"
+                    >Joylashuv</span
+                  >
+                  <select class="bare text-sm font-medium focus:outline-none">
+                    <option>Toshkent sh.</option>
+                    <option>Samarqand</option>
+                    <option>Buxoro</option>
+                    <option>Andijon</option>
+                  </select>
+                </div>
+              </div>
+
+              <div
+                class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 flex items-center gap-2.5"
+              >
+                <svg
+                  class="w-4 h-4 text-amber-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 8h6m-5 4h4m-7 8h10a2 2 0 002-2V6a2 2 0 00-2-2H7a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+                <div class="flex flex-col leading-tight text-left w-full">
+                  <span
+                    class="text-[10px] uppercase tracking-wider text-sand-400"
+                    >Narx (max)</span
+                  >
+                  <input
+                    type="text"
+                    value="500,000,000"
+                    class="bare text-sm font-medium focus:outline-none w-full"
+                  />
+                </div>
+              </div>
+
+              <div
+                class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 flex items-center gap-2.5"
+              >
+                <svg
+                  class="w-4 h-4 text-amber-400 shrink-0"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
+                </svg>
+                <div class="flex flex-col leading-tight text-left w-full">
+                  <span
+                    class="text-[10px] uppercase tracking-wider text-sand-400"
+                    >Xonalar</span
+                  >
+                  <select class="bare text-sm font-medium focus:outline-none">
+                    <option>3+ xona</option>
+                    <option>1 xona</option>
+                    <option>2 xona</option>
+                    <option>4+ xona</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <button
+              class="btn-gradient btn-shine relative overflow-hidden mt-4 w-full rounded-xl text-ink-900 font-semibold text-sm py-3.5 flex items-center justify-center gap-2"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.4 5.4a7.5 7.5 0 0011.25 11.25z"
+                />
+              </svg>
+              Qidiruvni boshlash
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: hero image with browser mockup overlay -->
+        <div class="relative reveal reveal-delay-2">
+          <div
+            class="absolute -inset-10 bg-gradient-to-tr from-lilac-500/20 via-amber-400/10 to-transparent blur-3xl rounded-full"
+          ></div>
+
+          <div
+            class="relative rounded-[28px] overflow-hidden shadow-card border border-white/10 media-zoom"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80"
+              alt="Toshkentdagi zamonaviy uy interyeri"
+              class="w-full h-[420px] sm:h-[480px] object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"
+            ></div>
+
+            <!-- floating browser mockup card -->
+            <div
+              class="absolute top-6 left-6 right-6 sm:right-auto sm:w-72 glass-card-light rounded-2xl overflow-hidden shadow-card animate-floaty"
+            >
+              <div
+                class="flex items-center gap-1.5 px-4 py-2.5 border-b border-white/10 bg-ink-900/60"
+              >
+                <span class="browser-dot bg-red-400/80"></span>
+                <span class="browser-dot bg-amber-300/80"></span>
+                <span class="browser-dot bg-emerald-400/80"></span>
+                <div
+                  class="ml-3 flex-1 flex items-center gap-2 text-[10px] text-sand-400"
+                >
+                  <div class="flex-1 flex items-center gap-1 truncate">
+                    <span class="truncate">Sevimlilar</span>
+                    <span class="opacity-50">·</span>
+                    <span class="truncate">Mening E'lonlarim</span>
+                  </div>
+                  <svg
+                    class="w-3 h-3 shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.8"
+                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.1a7.5 7.5 0 0115 0"
+                    />
+                  </svg>
+                </div>
+              </div>
+              <div class="p-4">
+                <p
+                  class="font-display text-lg font-semibold text-sand-50 leading-snug"
+                >
+                  Toshkentdagi<br />Orzuyingizdagi Uy
+                </p>
+              </div>
+            </div>
+
+            <!-- floating +12% badge -->
+            <div
+              class="badge-pulse absolute bottom-6 right-6 glass-card-light rounded-2xl px-4 py-3 flex items-center gap-3 shadow-card"
+            >
+              <div
+                class="w-9 h-9 rounded-full bg-amber-400 flex items-center justify-center shrink-0"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2.2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  />
+                </svg>
+              </div>
+              <div class="leading-tight">
+                <p class="text-amber-300 font-bold text-sm">+12%</p>
+                <p class="text-[10px] text-sand-300">Yillik o'sish</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+   
+    <section class="relative z-10 py-20 lg:py-28">
+      <div class="max-w-6xl mx-auto px-5 lg:px-8">
+        <h2
+          class="reveal font-display text-center text-3xl sm:text-4xl font-semibold text-sand-50 mb-14"
+        >
+          Ikki bozor,
+          <span class="text-gradient-warm italic">bitta manzil</span>
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <!-- Premium Ko'chmas Mulk -->
+          <div
+            class="card-lift reveal reveal-delay-1 glass-card rounded-3xl p-8 border border-white/5"
+          >
+            <div
+              class="icon-box w-14 h-14 rounded-2xl bg-[#4a3323] flex items-center justify-center mb-6"
+            >
+              <svg
+                class="w-6 h-6 text-amber-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"
+                  d="M3 12l9-9 9 9M5 10v10a1 1 0 001 1h4v-6h4v6h4a1 1 0 001-1V10"
+                />
+              </svg>
+            </div>
+            <h3 class="font-display text-2xl font-semibold text-sand-50 mb-3">
+              Premium Ko'chmas Mulk
+            </h3>
+            <p class="text-sand-300/90 text-sm leading-relaxed mb-6">
+              Eksklyuziv kvartiralar, shahar tashqarisidagi kottejlar va tijorat
+              maydonlari. Har bir e'lon qat'iy tekshiruvdan o'tadi.
+            </p>
+            <div class="flex flex-wrap gap-2.5">
+              <span
+                class="pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-sand-200 hover:bg-amber-400 hover:text-ink-900 hover:border-amber-400 cursor-default"
+                >Yangi binolar</span
+              >
+              <span
+                class="pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-sand-200 hover:bg-amber-400 hover:text-ink-900 hover:border-amber-400 cursor-default"
+                >Premium klas</span
+              >
+            </div>
+          </div>
+
+          <!-- Ekskluziv Jihozlar -->
+          <div
+            class="card-lift reveal reveal-delay-2 glass-card rounded-3xl p-8 border border-white/5"
+          >
+            <div
+              class="icon-box w-14 h-14 rounded-2xl bg-[#3c5f8a] flex items-center justify-center mb-6"
+            >
+              <svg
+                class="w-6 h-6 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"
+                  d="M4 18v-3a2 2 0 012-2h12a2 2 0 012 2v3M5 13V9a2 2 0 012-2h10a2 2 0 012 2v4M4 18h16M6 18v2m12-2v2"
+                />
+              </svg>
+            </div>
+            <h3 class="font-display text-2xl font-semibold text-sand-50 mb-3">
+              Ekskluziv Jihozlar
+            </h3>
+            <p class="text-sand-300/90 text-sm leading-relaxed mb-6">
+              Italiya mebellari va mahalliy hunarmandlarning qo'l mehnati
+              namunalarini to'g'ridan-to'g'ri uyingizga yetkazamiz.
+            </p>
+            <div class="flex flex-wrap gap-2.5">
+              <span
+                class="pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-sand-200 hover:bg-lilac-400 hover:text-ink-900 hover:border-lilac-400 cursor-default"
+                >Italiya mebeli</span
+              >
+              <span
+                class="pill px-4 py-1.5 rounded-full text-xs font-medium bg-white/5 border border-white/10 text-sand-200 hover:bg-lilac-400 hover:text-ink-900 hover:border-lilac-400 cursor-default"
+                >Qo'lda ishlangan</span
+              >
+            </div>
+          </div>
+        </div>
+        <div
+          class="grid md:grid-cols-[minmax(0,0.62fr)_minmax(0,1fr)] gap-5 mt-5"
+        >
+          <!-- Dizayn xizmati -->
+          <div
+            class="card-lift reveal glass-card rounded-3xl p-7 border border-white/5 flex items-center gap-4"
+          >
+            <div
+              class="icon-box w-12 h-12 rounded-2xl bg-[#4a3323] flex items-center justify-center shrink-0"
+            >
+              <svg
+                class="w-5 h-5 text-amber-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.7"
+                  d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                />
+              </svg>
+            </div>
+            <div>
+              <p
+                class="font-semibold text-sand-50 text-sm tracking-wide uppercase"
+              >
+                Dizayn Xizmati
+              </p>
+              <p class="text-sand-400 text-xs mt-1">Interyer loyihalar</p>
+            </div>
+          </div>
+
+          <!-- 360 Virtual Tur -->
+          <div
+            class="card-lift reveal reveal-delay-1 relative rounded-3xl overflow-hidden border border-white/5 grid sm:grid-cols-[1fr_1.1fr] min-h-[140px]"
+          >
+            <div class="glass-card p-7 flex flex-col justify-center">
+              <h3
+                class="font-display text-xl font-semibold text-sand-50 flex items-baseline gap-1"
+              >
+                360<span class="text-xs align-super">°</span> Virtual Tur
+              </h3>
+              <p class="text-sand-300/90 text-sm leading-relaxed mt-2">
+                Uyni sotib olishdan oldin uning ichida virtual sayohat qiling.
+              </p>
+            </div>
+            <div class="media-zoom relative">
+              <img
+                src="https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?auto=format&fit=crop&w=900&q=80"
+                alt="360 virtual tur interyer"
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-ink-900 via-ink-900/30 to-transparent"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  
+    <section
+      id="listings"
+      class="relative z-10 py-20 lg:py-28 border-t border-white/5"
+    >
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="flex items-end justify-between flex-wrap gap-6 mb-10">
+          <div class="reveal">
+            <p
+              class="text-amber-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3"
+            >
+              Tavsiya etamiz
+            </p>
+            <h2
+              class="font-display text-3xl sm:text-4xl font-semibold text-sand-50"
+            >
+              Saralangan ko'chmas mulklar
+            </h2>
+          </div>
+          <div class="flex items-center gap-3 reveal">
+            <button
+              id="carousel-prev"
+              aria-label="Oldingi"
+              class="carousel-arrow w-11 h-11 rounded-full border border-white/15 flex items-center justify-center text-sand-200"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <button
+              id="carousel-next"
+              aria-label="Keyingi"
+              class="carousel-arrow w-11 h-11 rounded-full border border-white/15 flex items-center justify-center text-sand-200"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Carousel track -->
+        <div
+          id="carousel-track"
+          class="carousel-track flex gap-5 overflow-x-auto pb-4 -mx-5 px-5 lg:mx-0 lg:px-0"
+        >
+          <!-- Card 1 -->
+          <article
+            class="carousel-item card-lift reveal shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden border border-white/5 glass-card"
+          >
+            <div class="relative media-zoom h-48">
+              <img
+                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+                alt="Miran International City villa"
+                class="w-full h-full object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-semibold bg-[#1f5c9e] text-white shadow"
+                >PREMIUM</span
+              >
+              <button
+                class="heart-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold text-sand-50 text-[15px] leading-snug">
+                  Miran International City
+                </h3>
+                <span
+                  class="text-amber-300 font-bold text-sm whitespace-nowrap shrink-0"
+                  >1 250 000 000 so'm</span
+                >
+              </div>
+              <p class="flex items-center gap-1 text-sand-400 text-xs mt-2">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Mirobod tumani, Oybek ko'chasi
+              </p>
+              <div
+                class="flex items-center gap-4 text-sand-300 text-xs mt-4 pt-4 border-t border-white/5"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    /></svg
+                  >120 m²</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a1 1 0 001 1h1v-4h14v4h1a1 1 0 001-1V7m-18 0h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"
+                    /></svg
+                  >3 xona</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m-1 4h1m4-4h1m-1 4h1M9 21v-4h6v4"
+                    /></svg
+                  >12/16 etaj</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 2 -->
+          <article
+            class="carousel-item card-lift reveal reveal-delay-1 shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden border border-white/5 glass-card"
+          >
+            <div class="relative media-zoom h-48">
+              <img
+                src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80"
+                alt="Infinity Residence tungi manzara"
+                class="w-full h-full object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-400 text-ink-900 shadow"
+                >YANGI</span
+              >
+              <button
+                class="heart-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold text-sand-50 text-[15px] leading-snug">
+                  Infinity Residence
+                </h3>
+                <span
+                  class="text-amber-300 font-bold text-sm whitespace-nowrap shrink-0"
+                  >890 000 000 so'm</span
+                >
+              </div>
+              <p class="flex items-center gap-1 text-sand-400 text-xs mt-2">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Shayxontohur tumani, Labzak
+              </p>
+              <div
+                class="flex items-center gap-4 text-sand-300 text-xs mt-4 pt-4 border-t border-white/5"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    /></svg
+                  >85 m²</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a1 1 0 001 1h1v-4h14v4h1a1 1 0 001-1V7m-18 0h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"
+                    /></svg
+                  >2 xona</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m-1 4h1m4-4h1m-1 4h1M9 21v-4h6v4"
+                    /></svg
+                  >5/9 etaj</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 3 -->
+          <article
+            class="carousel-item card-lift reveal reveal-delay-2 shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden border border-white/5 glass-card"
+          >
+            <div class="relative media-zoom h-48">
+              <img
+                src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=80"
+                alt="Dream House villa"
+                class="w-full h-full object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-400 text-ink-900 shadow"
+                >TOP</span
+              >
+              <button
+                class="heart-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold text-sand-50 text-[15px] leading-snug">
+                  Dream House Villa
+                </h3>
+                <span
+                  class="text-amber-300 font-bold text-sm whitespace-nowrap shrink-0"
+                  >2 100 000 000 so'm</span
+                >
+              </div>
+              <p class="flex items-center gap-1 text-sand-400 text-xs mt-2">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Qibray tumani, Bog'bo'ston
+              </p>
+              <div
+                class="flex items-center gap-4 text-sand-300 text-xs mt-4 pt-4 border-t border-white/5"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    /></svg
+                  >359 m²</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a1 1 0 001 1h1v-4h14v4h1a1 1 0 001-1V7m-18 0h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"
+                    /></svg
+                  >5 xona</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m-1 4h1m4-4h1m-1 4h1M9 21v-4h6v4"
+                    /></svg
+                  >2 qavat</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 4 -->
+          <article
+            class="carousel-item card-lift reveal reveal-delay-3 shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden border border-white/5 glass-card"
+          >
+            <div class="relative media-zoom h-48">
+              <img
+                src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80"
+                alt="Chilonzor kvartira"
+                class="w-full h-full object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-semibold bg-[#1f5c9e] text-white shadow"
+                >PREMIUM</span
+              >
+              <button
+                class="heart-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold text-sand-50 text-[15px] leading-snug">
+                  Chilonzor Panorama
+                </h3>
+                <span
+                  class="text-amber-300 font-bold text-sm whitespace-nowrap shrink-0"
+                  >640 000 000 so'm</span
+                >
+              </div>
+              <p class="flex items-center gap-1 text-sand-400 text-xs mt-2">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Chilonzor tumani, 19-kvartal
+              </p>
+              <div
+                class="flex items-center gap-4 text-sand-300 text-xs mt-4 pt-4 border-t border-white/5"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    /></svg
+                  >72 m²</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a1 1 0 001 1h1v-4h14v4h1a1 1 0 001-1V7m-18 0h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"
+                    /></svg
+                  >2 xona</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m-1 4h1m4-4h1m-1 4h1M9 21v-4h6v4"
+                    /></svg
+                  >7/9 etaj</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 5 -->
+          <article
+            class="carousel-item card-lift reveal reveal-delay-4 shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden border border-white/5 glass-card"
+          >
+            <div class="relative media-zoom h-48">
+              <img
+                src="https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=800&q=80"
+                alt="Yunusobod kvartira"
+                class="w-full h-full object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-400 text-ink-900 shadow"
+                >YANGI</span
+              >
+              <button
+                class="heart-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold text-sand-50 text-[15px] leading-snug">
+                  Yunusobod Sky Tower
+                </h3>
+                <span
+                  class="text-amber-300 font-bold text-sm whitespace-nowrap shrink-0"
+                  >980 000 000 so'm</span
+                >
+              </div>
+              <p class="flex items-center gap-1 text-sand-400 text-xs mt-2">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Yunusobod tumani, Minor
+              </p>
+              <div
+                class="flex items-center gap-4 text-sand-300 text-xs mt-4 pt-4 border-t border-white/5"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    /></svg
+                  >96 m²</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a1 1 0 001 1h1v-4h14v4h1a1 1 0 001-1V7m-18 0h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"
+                    /></svg
+                  >3 xona</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m-1 4h1m4-4h1m-1 4h1M9 21v-4h6v4"
+                    /></svg
+                  >18/22 etaj</span
+                >
+              </div>
+            </div>
+          </article>
+
+          <!-- Card 6 -->
+          <article
+            class="carousel-item card-lift reveal shrink-0 w-[300px] sm:w-[340px] rounded-2xl overflow-hidden border border-white/5 glass-card"
+          >
+            <div class="relative media-zoom h-48">
+              <img
+                src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80"
+                alt="Zamonaviy kottej"
+                class="w-full h-full object-cover"
+              />
+              <span
+                class="absolute top-3 left-3 px-3 py-1 rounded-full text-[11px] font-semibold bg-emerald-400 text-ink-900 shadow"
+                >TOP</span
+              >
+              <button
+                class="heart-btn absolute top-3 right-3 w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+              >
+                <svg
+                  class="w-4 h-4 text-ink-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <div class="p-5">
+              <div class="flex items-start justify-between gap-3">
+                <h3 class="font-semibold text-sand-50 text-[15px] leading-snug">
+                  Boshi Bog' Kottej
+                </h3>
+                <span
+                  class="text-amber-300 font-bold text-sm whitespace-nowrap shrink-0"
+                  >1 750 000 000 so'm</span
+                >
+              </div>
+              <p class="flex items-center gap-1 text-sand-400 text-xs mt-2">
+                <svg
+                  class="w-3.5 h-3.5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                Zangiota tumani
+              </p>
+              <div
+                class="flex items-center gap-4 text-sand-300 text-xs mt-4 pt-4 border-t border-white/5"
+              >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+                    /></svg
+                  >280 m²</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 7v10a1 1 0 001 1h1v-4h14v4h1a1 1 0 001-1V7m-18 0h18M6 7V5a2 2 0 012-2h8a2 2 0 012 2v2"
+                    /></svg
+                  >4 xona</span
+                >
+                <span class="flex items-center gap-1.5"
+                  ><svg
+                    class="w-3.5 h-3.5 text-amber-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3 21h18M5 21V7l7-4 7 4v14M9 9h1m-1 4h1m4-4h1m-1 4h1M9 21v-4h6v4"
+                    /></svg
+                  >2 qavat</span
+                >
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="gallery"
+      class="relative z-10 py-20 lg:py-28 border-t border-white/5"
+    >
+      <div class="max-w-6xl mx-auto px-5 lg:px-8">
+        <div class="text-center mb-14 reveal">
+          <h2
+            class="font-display text-3xl sm:text-4xl font-semibold text-sand-50"
+          >
+            Sizning uyingiz uchun
+            <span class="text-gradient-warm italic">estetika</span>
+          </h2>
+          <p class="text-sand-400 text-sm mt-3">
+            Dizaynerlarimiz tomonidan saralangan mebel va dekorlar
+          </p>
+        </div>
+
+        <div
+          class="grid grid-cols-3 gap-4 auto-rows-[170px] sm:auto-rows-[200px]"
+        >
+          <!-- Column 1, row 1: armchair -->
+          <div
+            class="reveal col-span-1 row-span-1 media-zoom rounded-2xl overflow-hidden relative border border-white/5"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?auto=format&fit=crop&w=700&q=80"
+              alt="Yumshoq kreslo"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"
+            ></div>
+          </div>
+
+          <!-- Column 2, spans both rows: abstract art -->
+          <div
+            class="reveal reveal-delay-1 col-span-1 row-span-2 media-zoom rounded-2xl overflow-hidden relative border border-white/5"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1615529162924-f8605388461d?auto=format&fit=crop&w=700&q=80"
+              alt="Abstrakt san'at asari"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"
+            ></div>
+          </div>
+
+          <!-- Column 3, row 1: blue sofa -->
+          <div
+            class="reveal reveal-delay-2 col-span-1 row-span-1 media-zoom rounded-2xl overflow-hidden relative border border-white/5"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1550254478-ead40cc54513?auto=format&fit=crop&w=700&q=80"
+              alt="Ko'k divan"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"
+            ></div>
+          </div>
+
+          <!-- Column 1, row 2: UI mockup card -->
+          <div
+            class="reveal reveal-delay-2 col-span-1 row-span-1 rounded-2xl overflow-hidden relative border border-white/10 glass-card p-5 flex flex-col justify-between card-lift"
+          >
+            <div class="flex items-center gap-2">
+              <span
+                class="w-6 h-6 rounded-md bg-gradient-to-br from-lilac-400 to-amber-400 flex items-center justify-center text-[10px] font-bold text-ink-900"
+                >U</span
+              >
+              <span
+                class="font-display text-sm font-semibold text-gradient-warm"
+                >UyBozor</span
+              >
+            </div>
+            <div>
+              <p class="text-sand-100 text-sm font-medium leading-snug">
+                Sezamika Vazalar To'plami
+              </p>
+              <p class="text-amber-300 text-xs font-semibold mt-1">
+                narxi 850 000 so'm
+              </p>
+            </div>
+          </div>
+
+          <!-- Column 3, row 2: floor lamp -->
+          <div
+            class="reveal reveal-delay-3 col-span-1 row-span-1 media-zoom rounded-2xl overflow-hidden relative border border-white/5"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=700&q=80"
+              alt="Chiroq va kreslo"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950/70 via-transparent to-transparent"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="relative z-10 py-20 lg:py-28 border-t border-white/5">
+      <div class="max-w-6xl mx-auto px-5 lg:px-8">
+        <div class="grid lg:grid-cols-[1.1fr_1fr] gap-5 mb-14">
+          <!-- Why choose card -->
+          <div
+            class="reveal glass-card rounded-3xl p-9 flex flex-col justify-center card-lift"
+          >
+            <h3
+              class="font-display text-2xl sm:text-3xl font-semibold text-sand-50 leading-tight"
+            >
+              Nega uyingizni<br /><span class="text-gradient-warm italic"
+                >UyBozor</span
+              >
+              bilan topasiz?
+            </h3>
+            <p class="text-sand-300/90 text-sm leading-relaxed mt-4 max-w-md">
+              Biz faqat ko'chmas mulk emas, balki hayot tarzi taklif qilamiz.
+              Bizning platforma har bir mijoz uchun ishonch va sifat
+              kafolatidir.
+            </p>
+            <button
+              class="btn-shine relative overflow-hidden mt-6 w-fit rounded-full border border-amber-400/50 text-amber-300 text-sm font-semibold px-6 py-3 hover:bg-amber-400 hover:text-ink-900 transition-all duration-400 hover:-translate-y-0.5"
+            >
+              Batafsil ma'lumot
+            </button>
+          </div>
+
+          <div class="flex flex-col gap-6 justify-between">
+            <!-- Stat numbers (plain, no card background — matches reference) -->
+            <div class="reveal reveal-delay-1 grid grid-cols-2 gap-8 px-2 pt-2">
+              <div>
+                <p
+                  class="counter font-display text-4xl sm:text-5xl font-bold text-gradient-warm"
+                  data-target="2500"
+                  data-suffix="K+"
+                >
+                  0K+
+                </p>
+                <p
+                  class="text-sand-400 text-[11px] tracking-[0.15em] uppercase mt-2 font-medium"
+                >
+                  Sotilgan uylar
+                </p>
+              </div>
+              <div>
+                <p
+                  class="counter font-display text-4xl sm:text-5xl font-bold text-gradient-warm"
+                  data-target="12000"
+                  data-suffix="K+"
+                >
+                  0K+
+                </p>
+                <p
+                  class="text-sand-400 text-[11px] tracking-[0.15em] uppercase mt-2 font-medium"
+                >
+                  Baxtli mijozlar
+                </p>
+              </div>
+            </div>
+
+            <!-- Designers card -->
+            <div
+              class="reveal reveal-delay-2 bg-[#2a1f16] rounded-3xl p-6 flex items-center gap-5 card-lift border border-white/5"
+            >
+              <div class="avatar-stack flex -space-x-3 shrink-0">
+                <img
+                  src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=100&q=80"
+                  class="w-11 h-11 rounded-full object-cover"
+                  alt="Dizayner avatari 1"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1600180758890-6b94519a8ba6?auto=format&fit=crop&w=100&q=80"
+                  class="w-11 h-11 rounded-full object-cover"
+                  alt="Dizayner avatari 2"
+                />
+                <img
+                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80"
+                  class="w-11 h-11 rounded-full object-cover"
+                  alt="Dizayner avatari 3"
+                />
+                <div
+                  class="w-11 h-11 rounded-full bg-amber-400 border-[3px] border-[#2a1f16] flex items-center justify-center text-[11px] font-bold text-ink-900"
+                >
+                  +45
+                </div>
+              </div>
+              <div>
+                <p class="text-sand-50 text-sm font-semibold">
+                  Hamkor Dizaynerlar
+                </p>
+                <p class="text-sand-400 text-xs mt-1 leading-relaxed">
+                  O'zbekistondagi eng kuchli ijodkorlar bilan ishlaymiz.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       COLLECTIONS
+  ============================================================ -->
+    <section id="collections" class="relative z-10 pb-20 lg:pb-28">
+      <div class="max-w-6xl mx-auto px-5 lg:px-8">
+        <div class="text-center mb-12 reveal">
+          <p
+            class="text-amber-400 text-xs font-semibold tracking-[0.2em] uppercase mb-3"
+          >
+            Dizaynerlarimizdan
+          </p>
+          <h2
+            class="font-display text-3xl sm:text-4xl font-semibold text-sand-50"
+          >
+            Maxsus Kolleksiyalar
+          </h2>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5">
+          <div
+            class="reveal reveal-delay-1 media-zoom card-lift relative rounded-3xl overflow-hidden border border-white/5 h-[340px] group"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=900&q=80"
+              alt="Minimalist uy interyeri"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/30 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 right-0 p-7">
+              <h3 class="font-display text-2xl font-semibold text-sand-50">
+                Minimalist Uy
+              </h3>
+              <p class="text-sand-300 text-sm mt-2 max-w-xs">
+                Sokinlik va tartibni sevuvchilar uchun maxsus saralangan
+                interyer elementlari.
+              </p>
+              <button
+                class="arrow-link mt-5 inline-flex items-center gap-2 text-sm font-semibold bg-sand-50 text-ink-900 px-5 py-2.5 rounded-full hover:bg-amber-400 transition-colors duration-300"
+              >
+                Ko'rish
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="reveal reveal-delay-2 media-zoom card-lift relative rounded-3xl overflow-hidden border border-white/5 h-[340px] group"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1617104551722-3b2d51366400?auto=format&fit=crop&w=900&q=80"
+              alt="Zamonaviy sharq uslubidagi interyer"
+              class="absolute inset-0 w-full h-full object-cover"
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/30 to-transparent"
+            ></div>
+            <div class="absolute bottom-0 left-0 right-0 p-7">
+              <h3 class="font-display text-2xl font-semibold text-sand-50">
+                Zamonaviy Sharq
+              </h3>
+              <p class="text-sand-300 text-sm mt-2 max-w-xs">
+                Milliy an'analar va zamonaviy ergonomikaning mukammal
+                uyg'unligi.
+              </p>
+              <button
+                class="arrow-link mt-5 inline-flex items-center gap-2 text-sm font-semibold bg-sand-50 text-ink-900 px-5 py-2.5 rounded-full hover:bg-amber-400 transition-colors duration-300"
+              >
+                Ko'rish
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       NEWSLETTER
+  ============================================================ -->
+    <section id="newsletter" class="relative z-10 pb-24">
+      <div class="max-w-6xl mx-auto px-5 lg:px-8">
+        <div
+          class="newsletter-card reveal glass-card rounded-[28px] px-7 py-10 sm:px-12 sm:py-12 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8"
+        >
+          <div class="max-w-lg">
+            <h3
+              class="font-display text-2xl sm:text-3xl font-semibold text-sand-50 leading-snug"
+            >
+              Yangi imkoniyatlarni o'tkazib yubormang
+            </h3>
+            <p class="text-sand-400 text-sm mt-3 leading-relaxed">
+              Haftalik yangiliklar, chegirmalar va yangi e'lonlar
+              to'g'ridan-to'g'ri pochtangizga.
+            </p>
+          </div>
+          <form
+            class="w-full lg:w-auto flex flex-col sm:flex-row gap-3 shrink-0"
+          >
+            <div
+              class="field-shell rounded-full border border-white/10 bg-white/[0.03] px-5 py-3.5 w-full sm:w-72"
+            >
+              <input
+                type="email"
+                required
+                placeholder="Sizning email manzilingiz"
+                class="bare w-full text-sm placeholder:text-sand-400/70 focus:outline-none"
+              />
+            </div>
+            <button
+              type="submit"
+              class="btn-gradient btn-shine relative overflow-hidden rounded-full text-ink-900 font-semibold text-sm px-7 py-3.5 whitespace-nowrap"
+            >
+              Obuna bo'lish
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+    <footer class="relative z-10 border-t border-white/5 pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div
+          class="grid sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 mb-14"
+        >
+          <div>
+            <a href="#top" class="flex items-center gap-2 mb-4 w-fit">
+              <span
+                class="logo-mark inline-flex w-7 h-7 items-center justify-center rounded-lg bg-gradient-to-br from-lilac-400 to-amber-400 text-ink-900 font-bold text-xs"
+                >U</span
+              >
+              <span
+                class="font-display text-xl font-semibold text-gradient-warm"
+                >UyBozor</span
+              >
+            </a>
+            <p class="text-sand-400 text-sm leading-relaxed max-w-xs">
+              O'zbekistonning eng ishonchli va zamonaviy ko'chmas mulk va
+              jihozlar bozori. Sizning orzuingizdagi uy bizdan boshlanadi.
+            </p>
+            <div class="flex items-center gap-3 mt-6">
+              <a
+                href="#"
+                aria-label="Ijtimoiy tarmoq"
+                class="social-icon w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-sand-300 hover:bg-amber-400 hover:text-ink-900 hover:border-amber-400"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="Veb-sayt"
+                class="social-icon w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-sand-300 hover:bg-amber-400 hover:text-ink-900 hover:border-amber-400"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14.5 14.5 0 013 9 14.5 14.5 0 01-3 9 14.5 14.5 0 01-3-9 14.5 14.5 0 013-9z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <p
+              class="text-sand-200 text-xs font-semibold tracking-[0.15em] uppercase mb-5"
+            >
+              Xizmatlar
+            </p>
+            <ul class="space-y-3.5 text-sm text-sand-400">
+              <li>
+                <a
+                  href="#listings"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Ko'chmas mulk</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Uy jihozlari</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Interyer dizayn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >3D turlar</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p
+              class="text-sand-200 text-xs font-semibold tracking-[0.15em] uppercase mb-5"
+            >
+              Kompaniya
+            </p>
+            <ul class="space-y-3.5 text-sm text-sand-400">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Biz haqimizda</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Sotuvchi bo'ling</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Vakansiyalar</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Hamkorlik</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p
+              class="text-sand-200 text-xs font-semibold tracking-[0.15em] uppercase mb-5"
+            >
+              Yordam
+            </p>
+            <ul class="space-y-3.5 text-sm text-sand-400">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Yordam markazi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Bog'lanish</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Foydalanish shartlari</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Maxfiylik siyosati</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fade-line mb-7"></div>
+
+        <p class="text-center text-sand-500 text-xs">
+          © 2024 UyBozor. Barcha huquqlar himoyalangan.
+        </p>
+      </div>
+    </footer>
+
+    <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+    <script>
+      // ---------- Mobile menu toggle ----------
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.getElementById("menu-icon");
+      let menuOpen = false;
+
+      menuToggle.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+          mobileMenu.style.opacity = "1";
+          menuIcon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+        } else {
+          mobileMenu.style.maxHeight = "0px";
+          mobileMenu.style.opacity = "0";
+          menuIcon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        }
+      });
+
+      // ---------- Favorite heart toggle ----------
+      document.querySelectorAll(".heart-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          btn.classList.toggle("is-active");
+        });
+      });
+
+      // ---------- Listings carousel scroll buttons ----------
+      const track = document.getElementById("carousel-track");
+      const prevBtn = document.getElementById("carousel-prev");
+      const nextBtn = document.getElementById("carousel-next");
+      const scrollAmount = 360;
+
+      prevBtn.addEventListener("click", () => {
+        track.scrollBy({ left: -scrollAmount, behavior: "smooth" });
+      });
+      nextBtn.addEventListener("click", () => {
+        track.scrollBy({ left: scrollAmount, behavior: "smooth" });
+      });
+
+      // ---------- Scroll-reveal via IntersectionObserver ----------
+      const revealEls = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in-view");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15, rootMargin: "0px 0px -40px 0px" },
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
+
+      // ---------- Animated counters ----------
+      function animateCounter(el) {
+        const target = parseInt(el.getAttribute("data-target"), 10);
+        const suffix = el.getAttribute("data-suffix") || "";
+        const duration = 1800;
+        const start = performance.now();
+
+        function displayValue(v) {
+          if (target >= 1000) {
+            return (v / 1000).toFixed(1).replace(/\.0$/, "") + suffix;
+          }
+          return Math.round(v) + suffix;
+        }
+        function tick(now) {
+          const progress = Math.min((now - start) / duration, 1);
+          const eased = 1 - Math.pow(1 - progress, 3);
+          el.textContent = displayValue(target * eased);
+          if (progress < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      const counterEls = document.querySelectorAll(".counter");
+      const counterObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              animateCounter(entry.target);
+              counterObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 },
+      );
+      counterEls.forEach((el) => counterObserver.observe(el));
+
+      // ---------- Smooth scroll for in-page anchors ----------
+      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          const targetId = this.getAttribute("href");
+          if (targetId.length > 1) {
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+              if (menuOpen) menuToggle.click();
+            }
+          }
+        });
+      });
+
+      // ---------- Active nav link on scroll ----------
+      const sections = [
+        "top",
+        "listings",
+        "gallery",
+        "collections",
+        "newsletter",
+      ]
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+      const navLinks = document.querySelectorAll(".nav-link");
+
+      const navObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              navLinks.forEach((link) => {
+                link.classList.toggle(
+                  "active",
+                  link.getAttribute("href") === "#" + entry.target.id,
+                );
+              });
+            }
+          });
+        },
+        { threshold: 0.4, rootMargin: "-80px 0px -60% 0px" },
+      );
+      sections.forEach((sec) => navObserver.observe(sec));
+    </script>
+  </body>
+</html>
