@@ -77,83 +77,9 @@
                 "70%": { transform: "scale(1.8)", opacity: 0 },
                 "100%": { opacity: 0 },
               },
-            },
-            animation: {
-              fadeUp: "fadeUp 0.8s cubic-bezier(.16,.84,.44,1) both",
-              floatSlow: "floatSlow 6s ease-in-out infinite",
-              shimmer: "shimmer 2.5s linear infinite",
-              pin: "pin 2.4s ease-in-out infinite",
-              pulseRing: "pulseRing 2s cubic-bezier(0,0,0.2,1) infinite",
-            },
-          },
-        },
-      };
-    </script>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              display: ['"Playfair Display"', "serif"],
-              body: ['"Inter"', "sans-serif"],
-            },
-            colors: {
-              base: {
-                DEFAULT: "#120c0a",
-                50: "#241d3f",
-                100: "#1c1633",
-                900: "#171110",
-                950: "#0d0908",
-              },
-              panel: {
-                DEFAULT: "#1c1633",
-                light: "#241d3f",
-                border: "#33294f",
-              },
-              gold: {
-                DEFAULT: "#e0a955",
-                light: "#f0c98a",
-                dark: "#b9832f",
-                300: "#f0c98a",
-                400: "#e0a955",
-                500: "#e0a955",
-              },
-              orchid: {
-                DEFAULT: "#8b5fd6",
-                light: "#a97ff0",
-                dark: "#6a3fb5",
-              },
-              cream: "#f3ece1",
-              muted: "#a79a9a",
-            },
-            boxShadow: {
-              glow: "0 0 40px -8px rgba(224, 169, 85, 0.35)",
-              purpleglow: "0 0 40px -8px rgba(139, 95, 214, 0.45)",
-              card: "0 10px 30px -12px rgba(0,0,0,0.6)",
-            },
-            keyframes: {
-              fadeUp: {
-                "0%": { opacity: 0, transform: "translateY(24px)" },
-                "100%": { opacity: 1, transform: "translateY(0)" },
-              },
-              floatSlow: {
-                "0%, 100%": { transform: "translateY(0px)" },
-                "50%": { transform: "translateY(-10px)" },
-              },
-              shimmer: {
-                "0%": { backgroundPosition: "-200% 0" },
-                "100%": { backgroundPosition: "200% 0" },
-              },
-              pin: {
-                "0%,100%": { transform: "translateY(0) scale(1)" },
-                "50%": { transform: "translateY(-6px) scale(1.05)" },
-              },
-              pulseRing: {
-                "0%": { transform: "scale(0.9)", opacity: 0.6 },
-                "70%": { transform: "scale(1.8)", opacity: 0 },
-                "100%": { opacity: 0 },
+              toastIn: {
+                "0%": { opacity: 0, transform: "translate(-50%, 12px)" },
+                "100%": { opacity: 1, transform: "translate(-50%, 0)" },
               },
             },
             animation: {
@@ -162,6 +88,7 @@
               shimmer: "shimmer 2.5s linear infinite",
               pin: "pin 2.4s ease-in-out infinite",
               pulseRing: "pulseRing 2s cubic-bezier(0,0,0.2,1) infinite",
+              toastIn: "toastIn 0.35s cubic-bezier(.16,.84,.44,1) both",
             },
           },
         },
@@ -445,289 +372,12 @@
         outline-offset: 2px;
       }
 
-      @media (prefers-reduced-motion: reduce) {
-        * {
-          animation-duration: 0.001ms !important;
-          animation-iteration-count: 1 !important;
-          transition-duration: 0.001ms !important;
-        }
-      }
-    </style>
-    <style>
-      :root {
-        scroll-behavior: smooth;
-      }
-      body {
-        background-color: #120c0a;
-        background-image:
-          radial-gradient(
-            ellipse 90% 60% at 15% -10%,
-            rgba(139, 95, 214, 0.12),
-            transparent 60%
-          ),
-          radial-gradient(
-            ellipse 70% 50% at 100% 0%,
-            rgba(224, 169, 85, 0.08),
-            transparent 60%
-          );
-      }
-
-      ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #120c0a;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, #8b5fd6, #e0a955);
-        border-radius: 10px;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition:
-          opacity 0.8s cubic-bezier(0.16, 0.84, 0.44, 1),
-          transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
-      }
-      .reveal.in-view {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .grad-text {
-        background: linear-gradient(
-          90deg,
-          #f0c98a 0%,
-          #e0a955 45%,
-          #a97ff0 100%
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
-
-      .btn-glow {
-        background: linear-gradient(
-          100deg,
-          #a97ff0 0%,
-          #8b5fd6 35%,
-          #e0a955 100%
-        );
-        background-size: 200% 100%;
-        transition:
-          background-position 0.6s ease,
-          transform 0.35s cubic-bezier(0.16, 0.84, 0.44, 1),
-          box-shadow 0.35s ease;
-      }
-      .btn-glow:hover {
-        background-position: 100% 0;
-        transform: translateY(-2px) scale(1.015);
-        box-shadow:
-          0 10px 30px -6px rgba(139, 95, 214, 0.55),
-          0 6px 20px -6px rgba(224, 169, 85, 0.4);
-      }
-      .btn-glow:active {
-        transform: translateY(0) scale(0.99);
-      }
-
-      .btn-outline {
-        transition: all 0.35s cubic-bezier(0.16, 0.84, 0.44, 1);
-      }
-      .btn-outline:hover {
-        background: rgba(224, 169, 85, 0.08);
-        border-color: #e0a955;
-        transform: translateY(-2px);
-        box-shadow: 0 8px 22px -10px rgba(224, 169, 85, 0.4);
-      }
-
-      .img-zoom {
-        overflow: hidden;
-      }
-      .img-zoom img {
-        transition:
-          transform 1s cubic-bezier(0.16, 0.84, 0.44, 1),
-          filter 0.6s ease;
-      }
-      .img-zoom:hover img {
-        transform: scale(1.12);
-        filter: brightness(0.85) saturate(1.15);
-      }
-
-      .shine {
-        position: relative;
-        overflow: hidden;
-      }
-      .shine::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          120deg,
-          transparent 30%,
-          rgba(255, 255, 255, 0.16) 50%,
-          transparent 70%
-        );
-        background-size: 200% 100%;
-        background-position: -200% 0;
-        transition: background-position 1.1s ease;
+      #share-toast {
+        position: fixed;
+        left: 50%;
+        bottom: 28px;
+        z-index: 60;
         pointer-events: none;
-      }
-      .shine:hover::after {
-        background-position: 200% 0;
-      }
-
-      .heart-btn svg {
-        transition:
-          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-          fill 0.3s ease,
-          stroke 0.3s ease;
-      }
-      .heart-btn.active svg {
-        fill: #e0a955;
-        stroke: #e0a955;
-        transform: scale(1.18);
-      }
-      .heart-btn:hover svg {
-        transform: scale(1.12);
-      }
-
-      .icon-tile {
-        transition:
-          transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1),
-          background-color 0.4s ease,
-          border-color 0.4s ease;
-      }
-      .icon-tile:hover {
-        transform: translateY(-4px);
-        background-color: rgba(139, 95, 214, 0.12);
-        border-color: rgba(224, 169, 85, 0.4);
-      }
-      .icon-tile:hover .icon-wrap {
-        transform: rotate(-6deg) scale(1.08);
-      }
-      .icon-wrap {
-        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
-      .nav-link {
-        position: relative;
-      }
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -4px;
-        width: 0;
-        height: 1.5px;
-        background: linear-gradient(90deg, #e0a955, #a97ff0);
-        transition: width 0.35s cubic-bezier(0.16, 0.84, 0.44, 1);
-      }
-      .nav-link:hover::after,
-      .nav-link.active::after {
-        width: 100%;
-      }
-      .nav-link.active {
-        color: #e0a955;
-      }
-
-      input[type="range"] {
-        -webkit-appearance: none;
-        appearance: none;
-        height: 6px;
-        border-radius: 999px;
-        background: linear-gradient(90deg, #e0a955, #8b5fd6);
-        outline: none;
-      }
-      input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: #f3ece1;
-        border: 3px solid #8b5fd6;
-        cursor: pointer;
-        box-shadow: 0 0 0 5px rgba(139, 95, 214, 0.18);
-        transition:
-          box-shadow 0.3s ease,
-          transform 0.3s ease;
-      }
-      input[type="range"]::-webkit-slider-thumb:hover {
-        box-shadow: 0 0 0 8px rgba(224, 169, 85, 0.22);
-        transform: scale(1.08);
-      }
-      input[type="range"]::-moz-range-thumb {
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        background: #f3ece1;
-        border: 3px solid #8b5fd6;
-        cursor: pointer;
-      }
-
-      .carousel-arrow {
-        transition: all 0.3s ease;
-      }
-      .carousel-arrow:hover {
-        background: linear-gradient(100deg, #a97ff0, #e0a955);
-        border-color: transparent;
-        transform: scale(1.08);
-      }
-
-      .carousel-track {
-        scroll-snap-type: x mandatory;
-        scroll-behavior: smooth;
-      }
-      .carousel-track > * {
-        scroll-snap-align: start;
-      }
-      .carousel-track::-webkit-scrollbar {
-        display: none;
-      }
-
-      .badge-premium {
-        background: linear-gradient(100deg, #e0a955, #f0c98a 40%, #e0a955);
-        background-size: 200% 100%;
-        animation: shimmer 3s linear infinite;
-      }
-
-      .marker-dot::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        border-radius: 50%;
-        background: rgba(224, 169, 85, 0.5);
-        animation: pulseRing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-      }
-
-      .tab-btn {
-        transition:
-          color 0.3s ease,
-          border-color 0.3s ease;
-      }
-      .tab-btn[aria-selected="true"] {
-        color: #e0a955;
-        border-color: #e0a955;
-      }
-
-      .divider-fade {
-        height: 1px;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(224, 169, 85, 0.4),
-          transparent
-        );
-      }
-
-      input:focus,
-      textarea:focus,
-      button:focus-visible,
-      a:focus-visible {
-        outline: 2px solid #e0a955;
-        outline-offset: 2px;
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -741,6 +391,7 @@
   </head>
 
   <body
+    id="top"
     class="relative bg-base text-cream font-body antialiased selection:bg-gold/30 selection:text-gold-light overflow-x-hidden"
   >
     <!-- top accent bar -->
@@ -808,11 +459,13 @@
             </div>
 
             <button
+              id="header-fav-btn"
               aria-label="Sevimlilar"
               class="relative w-10 h-10 rounded-full flex items-center justify-center border border-panel-border btn-outline text-muted"
             >
               <svg
-                class="w-[18px] h-[18px]"
+                id="header-fav-icon"
+                class="w-[18px] h-[18px] transition-all duration-300"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -825,7 +478,8 @@
                 />
               </svg>
               <span
-                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-[10px] font-bold text-base-950 flex items-center justify-center"
+                id="header-fav-count"
+                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-[10px] font-bold text-base-950 flex items-center justify-center transition-transform duration-300"
                 >0</span
               >
             </button>
@@ -1054,7 +708,6 @@
       </div>
     </section>
 
-  
     <section class="max-w-7xl mx-auto px-5 lg:px-8 mt-6 reveal" data-reveal>
       <div
         class="flex flex-col md:flex-row md:items-start md:justify-between gap-4"
@@ -1087,9 +740,10 @@
             <p class="text-muted text-sm">≈ $67 500</p>
           </div>
           <button
+            id="hero-like-btn"
             class="heart-btn w-11 h-11 rounded-full bg-panel border border-panel-border grid place-items-center text-muted btn-outline"
-            onclick="this.classList.toggle('active')"
-            aria-label="Saqlash"
+            aria-pressed="false"
+            aria-label="Sevimlilarga saqlash"
           >
             <svg
               class="w-5 h-5"
@@ -1104,6 +758,7 @@
             </svg>
           </button>
           <button
+            id="hero-share-btn"
             class="w-11 h-11 rounded-full bg-panel border border-panel-border grid place-items-center text-muted btn-outline"
             aria-label="Ulashish"
           >
@@ -1649,7 +1304,6 @@
       </aside>
     </section>
 
-    
     <footer class="relative z-10 border-t border-panel-border/60 pt-16 pb-8">
       <div class="max-w-7xl mx-auto px-5 lg:px-8">
         <div
@@ -1671,8 +1325,10 @@
             </p>
             <div class="flex items-center gap-3 mt-6">
               <a
-                href="#"
-                aria-label="Ijtimoiy tarmoq"
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
                 class="w-9 h-9 rounded-full border border-panel-border flex items-center justify-center text-muted btn-outline"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -1682,7 +1338,7 @@
                 </svg>
               </a>
               <a
-                href="#"
+                href="/"
                 aria-label="Veb-sayt"
                 class="w-9 h-9 rounded-full border border-panel-border flex items-center justify-center text-muted btn-outline"
               >
@@ -1825,8 +1481,14 @@
       </div>
     </footer>
 
+    <!-- Share toast (feedback for copy-link fallback) -->
+    <div
+      id="share-toast"
+      class="hidden opacity-0 px-5 py-3 rounded-full bg-panel border border-gold/40 text-cream text-sm font-medium shadow-glow"
+    ></div>
+
     <script>
-    
+      
       const menuToggle = document.getElementById("menu-toggle");
       const mobileMenu = document.getElementById("mobile-menu");
       if (menuToggle && mobileMenu) {
@@ -1841,7 +1503,6 @@
         });
       }
 
-    
       const revealEls = document.querySelectorAll("[data-reveal]");
       const io = new IntersectionObserver(
         (entries) => {
@@ -1856,7 +1517,7 @@
       );
       revealEls.forEach((el) => io.observe(el));
 
-      
+      // ---------- Hero image carousel ----------
       (function () {
         const slides = document.querySelectorAll(".carousel-slide");
         const thumbs = document.querySelectorAll(".thumb-btn");
@@ -1896,6 +1557,7 @@
         goTo(0);
       })();
 
+      // ---------- Tabs ----------
       (function () {
         const tabButtons = document.querySelectorAll(".tab-btn[data-tab]");
         const panels = {
@@ -1927,7 +1589,7 @@
         const track = document.getElementById("similar-track");
         const prev = document.getElementById("similar-prev");
         const next = document.getElementById("similar-next");
-        if (!track || !prev || !next) return; // guard: avoid breaking the rest of the script if markup is missing
+        if (!track || !prev || !next) return;
         prev.addEventListener("click", () =>
           track.scrollBy({ left: -300, behavior: "smooth" }),
         );
@@ -1975,6 +1637,131 @@
         duration.addEventListener("input", recalc);
         recalc();
       })();
+
+      // ---------- Favorites (like) — synced with header badge + localStorage ----------
+      (function () {
+        const LISTING_ID = "villa-modern-hightech-01";
+        const FAV_KEY = "uybozor_favorites";
+
+        const heroLikeBtn = document.getElementById("hero-like-btn");
+        const headerFavCount = document.getElementById("header-fav-count");
+        const headerFavIcon = document.getElementById("header-fav-icon");
+
+        function getFavorites() {
+          try {
+            const raw = localStorage.getItem(FAV_KEY);
+            const parsed = raw ? JSON.parse(raw) : [];
+            return Array.isArray(parsed) ? parsed : [];
+          } catch (e) {
+            return [];
+          }
+        }
+
+        function saveFavorites(list) {
+          try {
+            localStorage.setItem(FAV_KEY, JSON.stringify(list));
+          } catch (e) {
+            /* localStorage unavailable — favorites just won't persist */
+          }
+        }
+
+        function render() {
+          const favs = getFavorites();
+          const isLiked = favs.includes(LISTING_ID);
+
+          if (heroLikeBtn) {
+            heroLikeBtn.classList.toggle("active", isLiked);
+            heroLikeBtn.setAttribute("aria-pressed", String(isLiked));
+          }
+          if (headerFavCount) {
+            headerFavCount.textContent = String(favs.length);
+          }
+          if (headerFavIcon) {
+            const hasFavs = favs.length > 0;
+            headerFavIcon.setAttribute("fill", hasFavs ? "#e0a955" : "none");
+            headerFavIcon.setAttribute(
+              "stroke",
+              hasFavs ? "#e0a955" : "currentColor",
+            );
+          }
+        }
+
+        if (heroLikeBtn) {
+          heroLikeBtn.addEventListener("click", () => {
+            const favs = getFavorites();
+            const idx = favs.indexOf(LISTING_ID);
+            if (idx === -1) {
+              favs.push(LISTING_ID);
+            } else {
+              favs.splice(idx, 1);
+            }
+            saveFavorites(favs);
+            render();
+          });
+        }
+
+        // Keep in sync if favorites change in another tab
+        window.addEventListener("storage", (e) => {
+          if (e.key === FAV_KEY) render();
+        });
+
+        render();
+      })();
+
+      // ---------- Share ----------
+      (function () {
+        const shareBtn = document.getElementById("hero-share-btn");
+        const toast = document.getElementById("share-toast");
+        if (!shareBtn) return;
+
+        let toastTimer = null;
+        function showToast(message) {
+          if (!toast) return;
+          toast.textContent = message;
+          toast.classList.remove("hidden");
+          requestAnimationFrame(() => {
+            toast.style.animation = "none";
+            void toast.offsetWidth;
+            toast.style.animation = "";
+            toast.classList.add("animate-toastIn");
+            toast.style.opacity = "1";
+          });
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => {
+            toast.style.opacity = "0";
+            setTimeout(() => toast.classList.add("hidden"), 300);
+          }, 2200);
+        }
+
+        shareBtn.addEventListener("click", async () => {
+          const shareData = {
+            title: "Modern High-Tech Villa — UyBozor",
+            text: "Toshkent, Yunusobod tumanidagi ushbu villani ko'ring:",
+            url: window.location.href,
+          };
+
+          if (navigator.share) {
+            try {
+              await navigator.share(shareData);
+            } catch (err) {
+              // user cancelled the native share sheet — nothing to do
+            }
+            return;
+          }
+
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            try {
+              await navigator.clipboard.writeText(shareData.url);
+              showToast("Havola nusxalandi!");
+            } catch (err) {
+              showToast(shareData.url);
+            }
+          } else {
+            showToast(shareData.url);
+          }
+        });
+      })();
     </script>
   </body>
 </html>
+
