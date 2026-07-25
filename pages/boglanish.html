@@ -1,90 +1,527 @@
-<!DOCTYPE html>
+
+
+<!doctype html>
 <html lang="uz">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Biz bilan bog'laning</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dekor — UyBozor</title>
+    <meta
+      name="description"
+      content="O'zbekistondagi birinchi ko'chmas mulk va interyer dizayni yagona ekotizimi."
+    />
 
-<!-- Google Fonts: Playfair Display (sarlavhalar uchun) + Manrope (matn uchun) -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
 
-<!-- Tailwind CSS (CDN) -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        fontFamily: {
-          display: ['"Playfair Display"', 'serif'],
-          body: ['"Manrope"', 'sans-serif'],
-        },
-        colors: {
-          bgbase: '#0b0710',
-          panel: '#171029',
-          panel2: '#1c1533',
-          panelBorder: '#2c2347',
-          cream: '#f3ece0',
-          muted: '#9c93a8',
-          amber: {
-            DEFAULT: '#e4a25c',
-            soft: '#e9b285',
-          },
-          violet: {
-            DEFAULT: '#9d7ce8',
-          },
-        },
-        boxShadow: {
-          glow: '0 0 40px -10px rgba(157,124,232,0.35)',
-          card: '0 20px 45px -20px rgba(0,0,0,0.65)',
-        },
-        keyframes: {
-          floatSlow: {
-            '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
-            '50%': { transform: 'translateY(-18px) translateX(10px)' },
-          },
-          floatSlower: {
-            '0%, 100%': { transform: 'translateY(0px) translateX(0px)' },
-            '50%': { transform: 'translateY(14px) translateX(-14px)' },
-          },
-          shimmer: {
-            '0%': { backgroundPosition: '0% 50%' },
-            '100%': { backgroundPosition: '200% 50%' },
-          },
-          fadeUp: {
-            '0%': { opacity: '0', transform: 'translateY(24px)' },
-            '100%': { opacity: '1', transform: 'translateY(0)' },
-          },
-          pulseSoft: {
-            '0%, 100%': { opacity: '1' },
-            '50%': { opacity: '0.55' },
-          },
-          spinSlow: {
-            '0%': { transform: 'rotate(0deg)' },
-            '100%': { transform: 'rotate(360deg)' },
-          },
-        },
-        animation: {
-          floatSlow: 'floatSlow 8s ease-in-out infinite',
-          floatSlower: 'floatSlower 11s ease-in-out infinite',
-          shimmer: 'shimmer 3.5s linear infinite',
-          fadeUp: 'fadeUp 0.8s cubic-bezier(0.22,1,0.36,1) both',
-          pulseSoft: 'pulseSoft 2.6s ease-in-out infinite',
-          spinSlow: 'spinSlow 14s linear infinite',
-        },
-      },
-    },
-  };
-</script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.css"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"
+      defer
+    ></script>
 
-<!-- Flowbite (accordion, carousel, tabs) -->
-<link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ["Fraunces", '"Playfair Display"', "serif"],
+              body: ["Inter", "sans-serif"],
+            },
+            colors: {
+              ink: {
+                950: "#120c0b",
+                900: "#181110",
+                850: "#1d1614",
+                800: "#241b18",
+                700: "#2f2420",
+                600: "#463632",
+              },
+              plum: {
+                950: "#140f1c",
+                900: "#1a1426",
+                850: "#201a30",
+                800: "#271f3b",
+                700: "#332748",
+              },
+              amber: {
+                350: "#e5a15c",
+                450: "#dd9349",
+              },
+              sand: {
+                100: "#f5efe6",
+                200: "#e6dccb",
+                300: "#c9bba3",
+                400: "#a89b86",
+              },
+            },
+            boxShadow: {
+              glow: "0 0 40px -8px rgba(221,147,73,0.45)",
+              card: "0 18px 40px -12px rgba(0,0,0,0.55)",
+            },
+            backgroundImage: {
+              "brand-gradient":
+                "linear-gradient(90deg,#9d5ce0 0%,#e0568f 50%,#f0954a 100%)",
+            },
+            keyframes: {
+              floatY: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+              fadeUp: {
+                "0%": { opacity: 0, transform: "translateY(24px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+              shimmer: {
+                "0%": { backgroundPosition: "-500px 0" },
+                "100%": { backgroundPosition: "500px 0" },
+              },
+              pulseSoft: {
+                "0%,100%": { opacity: 1 },
+                "50%": { opacity: 0.55 },
+              },
+            },
+            animation: {
+              floatY: "floatY 6s ease-in-out infinite",
+              fadeUp: "fadeUp .8s cubic-bezier(.16,1,.3,1) both",
+              shimmer: "shimmer 2.5s infinite linear",
+              pulseSoft: "pulseSoft 3s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
 
-</head>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: #14100f;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
 
-<body class="bg-bgbase font-body text-cream antialiased selection:bg-violet/40 selection:text-white overflow-x-hidden">
+      ::selection {
+        background: #e0568f;
+        color: #fff;
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #14100f;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #9d5ce0, #f0954a);
+        border-radius: 999px;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(21, 15, 9, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      .font-display {
+        font-family: "Fraunces", "Playfair Display", serif;
+      }
+
+      .text-gradient-warm {
+        background: linear-gradient(92deg, #f5c98a, #f0a860, #e8935a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .text-gradient {
+        background: linear-gradient(
+          90deg,
+          #9d5ce0 0%,
+          #e0568f 50%,
+          #f0954a 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .logo-mark {
+        transition: all 0.4s ease;
+        box-shadow: 0 8px 25px rgba(240, 168, 96, 0.35);
+      }
+      .logo-mark:hover {
+        transform: rotate(12deg) scale(1.08);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(90deg, #f0a860, #c084fc);
+        transition: width 0.35s;
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #f5efe6;
+      }
+
+      .field-shell {
+        transition: 0.3s;
+      }
+      .field-shell:hover,
+      .field-shell:focus-within {
+        border-color: rgba(240, 168, 96, 0.5);
+        box-shadow: 0 0 0 4px rgba(240, 168, 96, 0.08);
+      }
+      .bare {
+        background: transparent;
+        color: inherit;
+      }
+      .bare::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .ambient-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+      }
+      .orb1 {
+        width: 520px;
+        height: 520px;
+        background: rgba(167, 139, 250, 0.2);
+        top: -160px;
+        left: -160px;
+      }
+      .orb2 {
+        width: 460px;
+        height: 460px;
+        background: rgba(240, 168, 96, 0.15);
+        top: 30%;
+        right: -120px;
+      }
+      .orb3 {
+        width: 380px;
+        height: 380px;
+        background: rgba(60, 49, 102, 0.4);
+        bottom: 0;
+        left: 10%;
+      }
+      .orb4 {
+        width: 300px;
+        height: 300px;
+        background: rgba(240, 168, 96, 0.1);
+        bottom: 15%;
+        right: 15%;
+      }
+
+      .grain-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.03;
+        z-index: 1;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      .noise {
+        position: relative;
+      }
+      .noise::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      }
+
+      .fade-line {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+      }
+
+      .card-tilt {
+        transition:
+          transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.55s ease;
+      }
+      .card-tilt:hover {
+        transform: translateY(-8px) scale(1.015);
+      }
+
+      .underline-grow {
+        position: relative;
+      }
+      .underline-grow::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        height: 1px;
+        width: 0%;
+        background: currentColor;
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .underline-grow:hover::after {
+        width: 100%;
+      }
+
+      [data-carousel-item] {
+        transition: opacity 0.6s ease;
+      }
+
+      .filter-pill {
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .filter-pill[data-active="true"] {
+        background: linear-gradient(
+          90deg,
+          #9d5ce0 0%,
+          #e0568f 50%,
+          #f0954a 100%
+        );
+        color: #140f0c;
+        box-shadow: 0 8px 24px -6px rgba(224, 86, 143, 0.55);
+        border-color: transparent;
+      }
+
+      .product-card {
+        opacity: 0;
+        animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .social-icon {
+        transition: all 0.3s ease;
+      }
+      .social-icon:hover {
+        transform: translateY(-4px) scale(1.08);
+        box-shadow: 0 10px 20px rgba(240, 168, 96, 0.25);
+      }
+
+      footer ul li a {
+        transition: all 0.3s ease;
+      }
+      footer ul li a:hover {
+        color: #f0a860;
+        padding-left: 6px;
+      }
+
+      #mobile-menu {
+        transition:
+          max-height 0.5s ease,
+          opacity 0.4s ease;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+          scroll-behavior: auto !important;
+        }
+      }
+    </style>
+  </head>
+  <body
+    class="bg-ink-900 text-sand-100 antialiased relative overflow-x-hidden selection:bg-amber-400"
+  >
+    <div class="grain-overlay"></div>
+    <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+      <div class="ambient-orb orb1"></div>
+      <div class="ambient-orb orb2"></div>
+      <div class="ambient-orb orb3"></div>
+      <div class="ambient-orb orb4"></div>
+    </div>
+
+    <!-- ================= HEADER ================= -->
+    <header class="border-b border-white/5 bg-ink-900/80 backdrop-blur-xl">
+      <nav class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+          <a href="/" class="flex items-center gap-2 shrink-0 group">
+            <span
+              class="logo-mark inline-flex w-10 h-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-400 to-amber-400 text-black font-bold text-lg shadow-lg"
+              >U</span
+            >
+            <span
+              class="font-display text-2xl font-semibold text-gradient-warm tracking-tight"
+              >UyBozor</span
+            >
+          </a>
+
+          <div
+            class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-sand-200/90"
+          >
+            <a href="/" class="nav-link pb-1 text-white">Bosh sahifa</a>
+            <a href="./Ko'chmasMulk.html" class="nav-link pb-1 text-white"
+              >Ko'chmas mulk</a
+            >
+            <a href="./UyJihoz.html" class="nav-link pb-1 text-white"
+              >Uy jihozlari</a
+            >
+            <a href="./dekor.html" class="nav-link active pb-1 text-white"
+              >Dekor</a
+            >
+            <a href="./sotuvchi.html" class="nav-link pb-1 text-white"
+              >Sotuvchi bo'ling</a
+            >
+          </div>
+
+          <div class="hidden md:flex items-center gap-4">
+            <div
+              class="field-shell flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2.5 w-56 lg:w-64"
+            >
+              <svg
+                class="w-4 h-4 text-sand-400 shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.4 5.4a7.5 7.5 0 0011.25 11.25z"
+                />
+              </svg>
+              <input
+                type="search"
+                placeholder="Qidiruv..."
+                class="bare w-full text-white text-sm placeholder:text-sand-400/70 focus:outline-none"
+              />
+            </div>
+
+            <button
+              aria-label="Sevimlilar"
+              class="relative w-10 text-white h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-[18px] h-[18px] text-sand-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center"
+                >0</span
+              >
+            </button>
+            <button
+              aria-label="Savatcha"
+              class="relative text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-[18px] h-[18px] text-sand-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"
+                />
+              </svg>
+              <span
+                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center"
+                >0</span
+              >
+            </button>
+            <button
+              aria-label="Profil"
+              class="w-10 h-10 text-white rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+            >
+              <svg
+                class="w-[18px] h-[18px] text-sand-200"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="1.8"
+                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                />
+              </svg>
+            </button>
+          </div>
+
+          <button
+            id="menu-toggle"
+            class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
+            aria-label="Menyu"
+            aria-expanded="false"
+          >
+            <svg
+              class="w-5 h-5 text-sand-100"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          id="mobile-menu"
+          class="lg:hidden overflow-hidden max-h-0 opacity-0"
+        >
+          <div
+            class="flex flex-col gap-4 pb-6 pt-2 text-sand-200/90 text-sm font-medium"
+          >
+            <a href="/" class="nav-link">Bosh sahifa</a>
+            <a href="./KochmasMulk.html" class="nav-link">Ko'chmas mulk</a>
+            <a href="./UyJihoz.html" class="nav-link">Uy jihozlari</a>
+            <a href="./dekor.html" class="nav-link active">Dekor</a>
+            <a href="./sotuvchi.html" class="nav-link">Sotuvchi bo'ling</a>
+          </div>
+        </div>
+      </nav>
+      <div class="fade-line"></div>
+    </header>
+<div class="bg-bgbase font-body text-cream antialiased selection:bg-violet/40 selection:text-white overflow-x-hidden">
 
   <!-- ============================================================ -->
   <!-- BACKGROUND DECOR LAYER                                        -->
@@ -489,5 +926,299 @@
     });
   </script>
 
-</body>
+</div>
+
+
+    <!-- back to top -->
+    <button
+      id="backToTop"
+      aria-label="Tepaga qaytish"
+      class="fixed bottom-6 right-6 z-50 w-11 h-11 rounded-full bg-brand-gradient text-white shadow-glow flex items-center justify-center opacity-0 pointer-events-none translate-y-3 transition-all duration-500 hover:-translate-y-1"
+    >
+      <svg
+        class="w-5 h-5"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M12 19V5M5 12l7-7 7 7"
+        />
+      </svg>
+    </button>
+
+    <!-- ================= FOOTER ================= -->
+    <footer class="relative z-10 border-t border-white/5 pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-5 lg:px-8">
+        <div
+          class="grid sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1fr] gap-10 mb-14"
+        >
+          <div>
+            <a href="#top" class="flex items-center gap-2 mb-4 w-fit">
+              <span
+                class="logo-mark inline-flex w-7 h-7 items-center justify-center rounded-lg bg-gradient-to-br from-purple-400 to-amber-400 text-ink-900 font-bold text-xs"
+                >U</span
+              >
+              <span
+                class="font-display text-xl font-semibold text-gradient-warm"
+                >UyBozor</span
+              >
+            </a>
+            <p class="text-sand-200 text-sm leading-relaxed max-w-xs">
+              O'zbekistonning eng ishonchli va zamonaviy ko'chmas mulk va
+              jihozlar bozori. Sizning orzuingizdagi uy bizdan boshlanadi.
+            </p>
+            <div class="flex items-center gap-3 mt-6">
+              <a
+                href="#"
+                aria-label="Ijtimoiy tarmoq"
+                class="social-icon w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-sand-300 hover:bg-amber-400 hover:text-ink-900 hover:border-amber-400"
+              >
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <path
+                    d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"
+                  />
+                </svg>
+              </a>
+              <a
+                href="#"
+                aria-label="Veb-sayt"
+                class="social-icon w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-sand-300 hover:bg-amber-400 hover:text-ink-900 hover:border-amber-400"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M12 21a9 9 0 100-18 9 9 0 000 18zM3.6 9h16.8M3.6 15h16.8M12 3a14.5 14.5 0 013 9 14.5 14.5 0 01-3 9 14.5 14.5 0 01-3-9 14.5 14.5 0 013-9z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <p
+              class="text-white text-xs font-semibold tracking-[0.15em] uppercase mb-5"
+            >
+              Xizmatlar
+            </p>
+            <ul class="space-y-3.5 text-sm text-sand-400">
+              <li>
+                <a
+                  href="./KochmasMulk.html"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Ko'chmas mulk</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./UyJihoz.html"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Uy jihozlari</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./dekor.html"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Interyer dizayn</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >3D turlar</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p
+              class="text-white text-xs font-semibold tracking-[0.15em] uppercase mb-5"
+            >
+              Kompaniya
+            </p>
+            <ul class="space-y-3.5 text-sm text-sand-400">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Biz haqimizda</a
+                >
+              </li>
+              <li>
+                <a
+                  href="./sotuvchi.html"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Sotuvchi bo'ling</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Vakansiyalar</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Hamkorlik</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <p
+              class="text-white text-xs font-semibold tracking-[0.15em] uppercase mb-5"
+            >
+              Yordam
+            </p>
+            <ul class="space-y-3.5 text-sm text-sand-400">
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Yordam markazi</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Bog'lanish</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Foydalanish shartlari</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="hover:text-amber-300 transition-colors duration-300"
+                  >Maxfiylik siyosati</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="fade-line mb-7"></div>
+        <p class="text-center text-sand-400 text-xs">
+          © 2026 UyBozor. Barcha huquqlar himoyalangan.
+        </p>
+      </div>
+    </footer>
+
+    <!-- ================= SCRIPT ================= -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // ---- Mobile menu ----
+        var menuToggle = document.getElementById("menu-toggle");
+        var mobileMenu = document.getElementById("mobile-menu");
+        if (menuToggle && mobileMenu) {
+          menuToggle.addEventListener("click", function () {
+            var isOpen =
+              mobileMenu.style.maxHeight &&
+              mobileMenu.style.maxHeight !== "0px";
+            mobileMenu.style.maxHeight = isOpen
+              ? "0px"
+              : mobileMenu.scrollHeight + "px";
+            mobileMenu.style.opacity = isOpen ? "0" : "1";
+            menuToggle.setAttribute("aria-expanded", String(!isOpen));
+          });
+        }
+
+        // ---- Filter tabs + live search over the product grid ----
+        var pills = document.querySelectorAll("#filterTabs .filter-pill");
+        var cards = document.querySelectorAll("#productGrid .product-card");
+        var searchInput = document.getElementById("searchInput");
+        var emptyState = document.getElementById("emptyState");
+        var activeFilter = "all";
+
+        function applyFilters() {
+          if (!searchInput || !emptyState) return;
+          var query = searchInput.value.trim().toLowerCase();
+          var visibleCount = 0;
+
+          cards.forEach(function (card) {
+            var matchesCategory =
+              activeFilter === "all" ||
+              card.getAttribute("data-cat") === activeFilter;
+            var matchesSearch =
+              card.getAttribute("data-name").indexOf(query) !== -1;
+            var show = matchesCategory && matchesSearch;
+            card.style.display = show ? "" : "none";
+            if (show) visibleCount++;
+          });
+
+          emptyState.classList.toggle("hidden", visibleCount !== 0);
+        }
+
+        pills.forEach(function (pill) {
+          pill.addEventListener("click", function () {
+            pills.forEach(function (p) {
+              p.setAttribute("data-active", "false");
+            });
+            pill.setAttribute("data-active", "true");
+            activeFilter = pill.getAttribute("data-filter");
+            applyFilters();
+          });
+        });
+
+        if (searchInput) searchInput.addEventListener("input", applyFilters);
+
+        // ---- Back to top button ----
+        var backToTop = document.getElementById("backToTop");
+        if (backToTop) {
+          window.addEventListener("scroll", function () {
+            var visible = window.scrollY > 600;
+            backToTop.classList.toggle("opacity-0", !visible);
+            backToTop.classList.toggle("pointer-events-none", !visible);
+            backToTop.classList.toggle("translate-y-3", !visible);
+          });
+          backToTop.addEventListener("click", function () {
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          });
+        }
+
+        // ---- Reveal-on-scroll for cards ----
+        var revealTargets = document.querySelectorAll(
+          ".card-tilt, .product-card",
+        );
+        var io = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.style.opacity = 1;
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.15 },
+        );
+        revealTargets.forEach(function (el) {
+          io.observe(el);
+        });
+      });
+    </script>
+  </body>
 </html>
+
