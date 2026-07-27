@@ -642,6 +642,9 @@
      -------------------------------------------------------- */
   const WISHLIST_KEY = 'uybozor_wishlist_v1';
   const CART_KEY = 'uybozor_cart_v1';
+  // Savatdagi mahsulotning nomi/narxi/rasmi — boshqa sahifalarda (masalan
+  // profil.html) katalog ma'lumotlarisiz ham savat tarkibini ko'rsatish uchun.
+  const CART_META_KEY = 'uybozor_cart_meta_v1';
 
   const state = {
     query: '', category: 'divan-kreslo', material: new Set(), brand: new Set(), size: new Set(), color: new Set(),
@@ -674,6 +677,14 @@
   }
   function saveCart() {
     try { localStorage.setItem(CART_KEY, JSON.stringify(state.cart)); } catch (e) {}
+  }
+  function saveCartItemMeta(p) {
+    try {
+      const raw = localStorage.getItem(CART_META_KEY);
+      const meta = raw ? JSON.parse(raw) : {};
+      meta[p.id] = { title: p.title, price: p.price, img: imgFor(p) };
+      localStorage.setItem(CART_META_KEY, JSON.stringify(meta));
+    } catch (e) {}
   }
 
   function toggleWishlist(id) {
@@ -827,6 +838,7 @@
         const id = btn.dataset.add;
         const p = PRODUCTS_BY_ID[id];
         addToCart(id);
+        saveCartItemMeta(p);
         refreshCartAreas(id);
         showToast(`${p.title} savatga qo'shildi`);
       });
