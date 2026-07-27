@@ -6,7 +6,7 @@
 <title>UyBozor — Uy jihozlari</title>
 
 <!-- ============================================================
-     UyBozor — Uy jihozlari katalog sahifasi (v2, qayta ishlangan)
+     UyBozor — Uy jihozlari katalog sahifasi (v3, tuzatilgan)
      Yagona HTML fayl: Tailwind (CDN) + Flowbite (CDN) + vanilla JS
      ============================================================ -->
 
@@ -196,6 +196,12 @@
 
   .star-gold { color: #e6b657; }
 
+  /* ---- qty stepper (savatga qo'shilgan mahsulot) ---- */
+  .qty-stepper { background: rgba(255,255,255,0.04); border: 1px solid rgba(217,164,65,0.35); }
+  .qty-btn { transition: background .2s ease, color .2s ease; color: #f0cf8a; }
+  .qty-btn:hover { background: rgba(217,164,65,0.16); }
+  .qty-btn:active { transform: scale(0.94); }
+
   /* ---- pagination ---- */
   .page-btn { transition: all .25s ease; border: 1px solid rgba(255,255,255,0.09); }
   .page-btn:hover:not(.active-page) { background: rgba(217,164,65,0.12); color: #f0cf8a; }
@@ -254,7 +260,7 @@
           <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
         </svg>
         <input id="search-input" type="text" placeholder="Qidiruv..." autocomplete="off"
-               class="bg-transparent outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
+               class="bg-transparent border-none outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
         <button id="mic-btn" title="Ovoz orqali qidirish" aria-label="Ovoz orqali qidirish"
                 class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center relative">
           <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -463,8 +469,8 @@
       </div>
       <p id="qv-material" class="text-sm text-[#a79fc0] mb-5"></p>
       <div class="flex gap-3 mt-auto">
-        <button id="qv-add-cart" class="btn-gold flex-1 rounded-xl py-3 font-bold text-sm">Savatga qo'shish</button>
-        <button id="qv-like" class="heart-btn w-12 h-12 rounded-xl border hairline flex items-center justify-center text-[#b6adcf] hover:border-gold-400">
+        <div id="qv-cart-area" class="flex-1"></div>
+        <button id="qv-like" class="heart-btn w-12 h-12 rounded-xl border hairline flex items-center justify-center text-[#b6adcf] hover:border-gold-400 shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
         </button>
       </div>
@@ -615,6 +621,8 @@
   }
 
   const PRODUCTS = buildCatalog();
+  const PRODUCTS_BY_ID = {};
+  PRODUCTS.forEach(p => { PRODUCTS_BY_ID[p.id] = p; });
 
   function imgFor(p) {
     const cat = CATEGORIES.find(c => c.id === p.category);
@@ -627,10 +635,81 @@
     return `https://loremflickr.com/480/360/${kw}?lock=${(p.img || 1) + 40}`;
   }
 
+  /* --------------------------------------------------------
+     STATE
+     wishlist -> Set of product ids
+     cart     -> { productId: quantity }  (bitta yozuv = savatdagi 1 xil mahsulot)
+     -------------------------------------------------------- */
+  const WISHLIST_KEY = 'uybozor_wishlist_v1';
+  const CART_KEY = 'uybozor_cart_v1';
+  // Savatdagi mahsulotning nomi/narxi/rasmi — boshqa sahifalarda (masalan
+  // profil.html) katalog ma'lumotlarisiz ham savat tarkibini ko'rsatish uchun.
+  const CART_META_KEY = 'uybozor_cart_meta_v1';
+
   const state = {
     query: '', category: 'divan-kreslo', material: new Set(), brand: new Set(), size: new Set(), color: new Set(),
-    priceMin: null, priceMax: null, sort: 'popular', page: 1, perPage: 6, wishlist: new Set(), cart: [],
+    priceMin: null, priceMax: null, sort: 'popular', page: 1, perPage: 6,
+    wishlist: new Set(), cart: {},
   };
+
+  function loadPersisted() {
+    try {
+      const raw = localStorage.getItem(WISHLIST_KEY);
+      const arr = raw ? JSON.parse(raw) : [];
+      state.wishlist = new Set(Array.isArray(arr) ? arr.filter(id => PRODUCTS_BY_ID[id]) : []);
+    } catch (e) { state.wishlist = new Set(); }
+
+    try {
+      const raw = localStorage.getItem(CART_KEY);
+      const obj = raw ? JSON.parse(raw) : {};
+      state.cart = {};
+      if (obj && typeof obj === 'object') {
+        Object.keys(obj).forEach(id => {
+          const qty = parseInt(obj[id], 10);
+          if (PRODUCTS_BY_ID[id] && qty > 0) state.cart[id] = qty;
+        });
+      }
+    } catch (e) { state.cart = {}; }
+  }
+
+  function saveWishlist() {
+    try { localStorage.setItem(WISHLIST_KEY, JSON.stringify([...state.wishlist])); } catch (e) {}
+  }
+  function saveCart() {
+    try { localStorage.setItem(CART_KEY, JSON.stringify(state.cart)); } catch (e) {}
+  }
+  function saveCartItemMeta(p) {
+    try {
+      const raw = localStorage.getItem(CART_META_KEY);
+      const meta = raw ? JSON.parse(raw) : {};
+      meta[p.id] = { title: p.title, price: p.price, img: imgFor(p) };
+      localStorage.setItem(CART_META_KEY, JSON.stringify(meta));
+    } catch (e) {}
+  }
+
+  function toggleWishlist(id) {
+    if (state.wishlist.has(id)) state.wishlist.delete(id); else state.wishlist.add(id);
+    saveWishlist();
+    updateCounts();
+  }
+
+  function addToCart(id) {
+    if (!state.cart[id]) state.cart[id] = 1;
+    saveCart();
+    updateCounts();
+  }
+  function incCartQty(id) {
+    state.cart[id] = (state.cart[id] || 0) + 1;
+    saveCart();
+    updateCounts();
+  }
+  function decCartQty(id) {
+    if (!state.cart[id]) return;
+    state.cart[id] -= 1;
+    if (state.cart[id] <= 0) delete state.cart[id];
+    saveCart();
+    updateCounts();
+  }
 
   const fmt = n => n.toLocaleString('fr-FR').replace(/,/g, ' ') + " UZS";
 
@@ -728,6 +807,77 @@
     return '';
   }
 
+  /* -----------------------------------------------------------
+     "Savatga qo'shish" tugmasi <-> miqdor steppen (- N +)
+     Har bir mahsulot kartasi/quickview shu blokni ishlatadi.
+     Header'dagi savat soni FAQAT nechta XIL mahsulot borligini
+     ko'rsatadi (miqdor emas) — shuning uchun + bosilganda
+     header o'zgarmaydi, faqat birinchi marta qo'shilganda +1.
+     ----------------------------------------------------------- */
+  function cartControlHtml(p) {
+    const qty = state.cart[p.id] || 0;
+    if (qty > 0) {
+      return `
+        <div class="qty-stepper flex items-center justify-between rounded-xl overflow-hidden h-[42px]" data-cart-area="${p.id}">
+          <button type="button" data-qty-minus="${p.id}" aria-label="Kamaytirish" class="qty-btn w-10 h-full flex items-center justify-center text-lg font-bold">−</button>
+          <span class="flex-1 text-center text-sm font-bold text-[#f5eede]">${qty}</span>
+          <button type="button" data-qty-plus="${p.id}" aria-label="Ko'paytirish" class="qty-btn w-10 h-full flex items-center justify-center text-lg font-bold">+</button>
+        </div>`;
+    }
+    return `
+      <button type="button" data-add="${p.id}" data-cart-area="${p.id}" class="btn-gold w-full rounded-xl h-[42px] text-[13px] font-bold flex items-center justify-center gap-2">
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
+        Savatga qo'shish
+      </button>`;
+  }
+
+  function bindCartAreaEvents(root) {
+    root.querySelectorAll('[data-add]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.add;
+        const p = PRODUCTS_BY_ID[id];
+        addToCart(id);
+        saveCartItemMeta(p);
+        refreshCartAreas(id);
+        showToast(`${p.title} savatga qo'shildi`);
+      });
+    });
+    root.querySelectorAll('[data-qty-plus]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.qtyPlus;
+        incCartQty(id);
+        refreshCartAreas(id);
+      });
+    });
+    root.querySelectorAll('[data-qty-minus]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.qtyMinus;
+        decCartQty(id);
+        refreshCartAreas(id);
+      });
+    });
+  }
+
+  // Bir xil mahsulot bir nechta joyda (karta + quickview) ko'rinishi mumkin —
+  // barchasini yangilaymiz, har biri o'z eski holatini yo'qotmasin.
+  function refreshCartAreas(id) {
+    document.querySelectorAll(`[data-cart-area="${id}"]`).forEach(area => {
+      // faqat eng tashqi wrapper (qty-stepper) yoki tugmaning o'zi bo'lsa,
+      // uni ota-konteyner ichida almashtiramiz
+      const parent = area.parentElement;
+      const p = PRODUCTS_BY_ID[id];
+      const html = cartControlHtml(p);
+      const tmp = document.createElement('div');
+      tmp.innerHTML = html;
+      const newNode = tmp.firstElementChild;
+      area.replaceWith(newNode);
+      bindCartAreaEvents(newNode.parentElement || document);
+    });
+  }
+
   function cardHtml(p, idx) {
     return `
     <div class="product-card fade-in-card rounded-2xl overflow-hidden group" style="animation-delay:${idx * 45}ms">
@@ -755,10 +905,7 @@
           <div class="flex items-center gap-1.5">${colorDotsHtml(p.colors)}</div>
           <span class="text-[11px] text-[#8a80a8]">${p.material}</span>
         </div>
-        <button data-add="${p.id}" class="btn-gold w-full mt-4 rounded-xl py-2.5 text-[13px] font-bold flex items-center justify-center gap-2">
-          <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/></svg>
-          Savatga qo'shish
-        </button>
+        <div class="mt-4">${cartControlHtml(p)}</div>
       </div>
     </div>`;
   }
@@ -789,18 +936,12 @@
       btn.addEventListener('click', e => {
         e.stopPropagation();
         const id = btn.dataset.like;
-        if (state.wishlist.has(id)) { state.wishlist.delete(id); btn.classList.remove('liked'); }
-        else { state.wishlist.add(id); btn.classList.add('liked'); showToast("Sevimlilarga qo'shildi"); }
-        updateCounts();
+        toggleWishlist(id);
+        btn.classList.toggle('liked', state.wishlist.has(id));
+        if (state.wishlist.has(id)) showToast("Sevimlilarga qo'shildi");
       });
     });
-    gridEl.querySelectorAll('[data-add]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const p = PRODUCTS.find(x => x.id === btn.dataset.add);
-        state.cart.push(p); updateCounts();
-        showToast(`${p.title} savatga qo'shildi`);
-      });
-    });
+    bindCartAreaEvents(gridEl);
     gridEl.querySelectorAll('[data-qv]').forEach(btn => btn.addEventListener('click', () => openQuickView(btn.dataset.qv)));
   }
 
@@ -832,10 +973,21 @@
   }
   function scrollToGrid() { gridEl.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
 
+  /* -----------------------------------------------------------
+     QUICK VIEW MODAL
+     ----------------------------------------------------------- */
   const qvBackdrop = document.getElementById('quickview-backdrop');
+  const qvCartArea = document.getElementById('qv-cart-area');
   let qvCurrent = null;
+
+  function renderQvCartArea() {
+    if (!qvCurrent) return;
+    qvCartArea.innerHTML = cartControlHtml(qvCurrent);
+    bindCartAreaEvents(qvCartArea);
+  }
+
   function openQuickView(id) {
-    const p = PRODUCTS.find(x => x.id === id);
+    const p = PRODUCTS_BY_ID[id];
     if (!p) return;
     qvCurrent = p;
     document.getElementById('qv-img').src = imgFor(p);
@@ -846,6 +998,7 @@
     document.getElementById('qv-old-price').textContent = p.oldPrice ? fmt(p.oldPrice) : '';
     document.getElementById('qv-material').textContent = `Material: ${p.material} • Brend: ${p.brand} • O'lcham: ${p.size}`;
     document.getElementById('qv-like').classList.toggle('liked', state.wishlist.has(p.id));
+    renderQvCartArea();
 
     const dotsWrap = document.getElementById('qv-dots');
     const images = [imgFor(p), imgForAlt(p)];
@@ -863,18 +1016,15 @@
   }
   document.getElementById('quickview-close').addEventListener('click', closeQuickView);
   qvBackdrop.addEventListener('click', e => { if (e.target === qvBackdrop) closeQuickView(); });
-  function closeQuickView() { qvBackdrop.classList.add('hidden'); qvBackdrop.classList.remove('flex'); }
-  document.getElementById('qv-add-cart').addEventListener('click', () => {
-    if (!qvCurrent) return;
-    state.cart.push(qvCurrent); updateCounts();
-    showToast(`${qvCurrent.title} savatga qo'shildi`);
-  });
+  function closeQuickView() { qvBackdrop.classList.add('hidden'); qvBackdrop.classList.remove('flex'); qvCurrent = null; }
+
   document.getElementById('qv-like').addEventListener('click', () => {
     if (!qvCurrent) return;
     const id = qvCurrent.id, btn = document.getElementById('qv-like');
-    if (state.wishlist.has(id)) { state.wishlist.delete(id); btn.classList.remove('liked'); }
-    else { state.wishlist.add(id); btn.classList.add('liked'); }
-    updateCounts(); renderGrid();
+    toggleWishlist(id);
+    btn.classList.toggle('liked', state.wishlist.has(id));
+    // list orqasidagi karta ham sinxron bo'lsin
+    document.querySelectorAll(`[data-like="${id}"]`).forEach(b => b.classList.toggle('liked', state.wishlist.has(id)));
   });
 
   function showToast(msg) {
@@ -892,7 +1042,9 @@
 
   function updateCounts() {
     document.getElementById('wishlist-count').textContent = state.wishlist.size;
-    document.getElementById('cart-count').textContent = state.cart.length;
+    // Header'dagi savat soni — nechta XIL mahsulot borligini ko'rsatadi,
+    // bitta mahsulot miqdorini +/- qilish bu sonni o'zgartirmaydi.
+    document.getElementById('cart-count').textContent = Object.keys(state.cart).length;
   }
 
   /* --------------------------------------------------------
@@ -913,10 +1065,12 @@
   });
 
   /* --------------------------------------------------------
-     VOICE SEARCH — tries several languages so it actually
-     recognises Uzbek/Russian speech in real browsers, asks
-     for microphone permission explicitly, and gives clear
-     visual + toast feedback at every step.
+     VOICE SEARCH — bir necha tilda urinib ko'radi (uz/ru/en),
+     mikrofonga ruxsat so'raydi, va har bosqichda aniq vizual +
+     toast bildirishnoma beradi. "no-speech" holatida keyingi
+     tilga avtomatik o'tib, qayta tinglashni boshlaydi (avvalgi
+     versiyada bu joyda xato bor edi: navbatdagi til hech qachon
+     ishga tushmasdi).
      -------------------------------------------------------- */
   const micBtn = document.getElementById('mic-btn');
   const micBtnMobile = document.getElementById('mic-btn-mobile');
@@ -929,7 +1083,6 @@
   let langIndex = 0;
   let recognition = null;
   let listening = false;
-  let manualStop = false;
 
   function buildRecognition(lang) {
     const r = new SpeechRecognition();
@@ -959,15 +1112,19 @@
 
     r.onerror = (e) => {
       if (e.error === 'no-speech') {
-        // try next language automatically before giving up
-        if (langIndex < LANG_ATTEMPTS.length - 1) { langIndex++; return; }
+        if (langIndex < LANG_ATTEMPTS.length - 1) {
+          langIndex++;
+          stopListeningUI();
+          startListening(true);
+          return;
+        }
         showToast("Ovoz eshitilmadi, qayta urinib ko'ring");
       } else if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
         showToast("Mikrofonga ruxsat berilmadi — brauzer sozlamalarini tekshiring");
       } else if (e.error === 'language-not-supported') {
         if (langIndex < LANG_ATTEMPTS.length - 1) { langIndex++; startListening(true); return; }
         showToast("Bu til qo'llab-quvvatlanmaydi");
-      } else {
+      } else if (e.error !== 'aborted') {
         showToast("Ovozli qidiruvda xatolik yuz berdi");
       }
       stopListeningUI();
@@ -1000,12 +1157,10 @@
       }
     }
     recognition = buildRecognition(LANG_ATTEMPTS[langIndex]);
-    manualStop = false;
     try { recognition.start(); } catch (err) { /* already running */ }
   }
 
   function stopListening() {
-    manualStop = true;
     if (recognition) { try { recognition.stop(); } catch (err) {} }
     stopListeningUI();
   }
@@ -1066,6 +1221,7 @@
     nav.classList.toggle('hidden'); nav.classList.toggle('flex');
   });
 
+  loadPersisted();
   renderCategories();
   initFilters();
   renderGrid();

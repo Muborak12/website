@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Modern High-Tech Villa — UyBozor</title>
+    <title>Luxury Premium Mehmonxona — UyBozor</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,6 +11,83 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['"Playfair Display"', "serif"],
+              body: ['"Inter"', "sans-serif"],
+            },
+            colors: {
+              base: {
+                DEFAULT: "#120c0a",
+                50: "#241d3f",
+                100: "#1c1633",
+                900: "#171110",
+                950: "#0d0908",
+              },
+              panel: {
+                DEFAULT: "#1c1633",
+                light: "#241d3f",
+                border: "#33294f",
+              },
+              gold: {
+                DEFAULT: "#e0a955",
+                light: "#f0c98a",
+                dark: "#b9832f",
+                300: "#f0c98a",
+                400: "#e0a955",
+                500: "#e0a955",
+              },
+              orchid: {
+                DEFAULT: "#8b5fd6",
+                light: "#a97ff0",
+                dark: "#6a3fb5",
+              },
+              cream: "#f3ece1",
+              muted: "#a79a9a",
+            },
+            boxShadow: {
+              glow: "0 0 40px -8px rgba(224, 169, 85, 0.35)",
+              purpleglow: "0 0 40px -8px rgba(139, 95, 214, 0.45)",
+              card: "0 10px 30px -12px rgba(0,0,0,0.6)",
+            },
+            keyframes: {
+              fadeUp: {
+                "0%": { opacity: 0, transform: "translateY(24px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+              floatSlow: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+              shimmer: {
+                "0%": { backgroundPosition: "-200% 0" },
+                "100%": { backgroundPosition: "200% 0" },
+              },
+              pin: {
+                "0%,100%": { transform: "translateY(0) scale(1)" },
+                "50%": { transform: "translateY(-6px) scale(1.05)" },
+              },
+              pulseRing: {
+                "0%": { transform: "scale(0.9)", opacity: 0.6 },
+                "70%": { transform: "scale(1.8)", opacity: 0 },
+                "100%": { opacity: 0 },
+              },
+            },
+            animation: {
+              fadeUp: "fadeUp 0.8s cubic-bezier(.16,.84,.44,1) both",
+              floatSlow: "floatSlow 6s ease-in-out infinite",
+              shimmer: "shimmer 2.5s linear infinite",
+              pin: "pin 2.4s ease-in-out infinite",
+              pulseRing: "pulseRing 2s cubic-bezier(0,0,0.2,1) infinite",
+            },
+          },
+        },
+      };
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <script>
@@ -77,10 +154,6 @@
                 "70%": { transform: "scale(1.8)", opacity: 0 },
                 "100%": { opacity: 0 },
               },
-              toastIn: {
-                "0%": { opacity: 0, transform: "translate(-50%, 12px)" },
-                "100%": { opacity: 1, transform: "translate(-50%, 0)" },
-              },
             },
             animation: {
               fadeUp: "fadeUp 0.8s cubic-bezier(.16,.84,.44,1) both",
@@ -88,7 +161,6 @@
               shimmer: "shimmer 2.5s linear infinite",
               pin: "pin 2.4s ease-in-out infinite",
               pulseRing: "pulseRing 2s cubic-bezier(0,0,0.2,1) infinite",
-              toastIn: "toastIn 0.35s cubic-bezier(.16,.84,.44,1) both",
             },
           },
         },
@@ -372,12 +444,289 @@
         outline-offset: 2px;
       }
 
-      #share-toast {
-        position: fixed;
-        left: 50%;
-        bottom: 28px;
-        z-index: 60;
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.001ms !important;
+        }
+      }
+    </style>
+    <style>
+      :root {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: #120c0a;
+        background-image:
+          radial-gradient(
+            ellipse 90% 60% at 15% -10%,
+            rgba(139, 95, 214, 0.12),
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 70% 50% at 100% 0%,
+            rgba(224, 169, 85, 0.08),
+            transparent 60%
+          );
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #120c0a;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, #8b5fd6, #e0a955);
+        border-radius: 10px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition:
+          opacity 0.8s cubic-bezier(0.16, 0.84, 0.44, 1),
+          transform 0.8s cubic-bezier(0.16, 0.84, 0.44, 1);
+      }
+      .reveal.in-view {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .grad-text {
+        background: linear-gradient(
+          90deg,
+          #f0c98a 0%,
+          #e0a955 45%,
+          #a97ff0 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .btn-glow {
+        background: linear-gradient(
+          100deg,
+          #a97ff0 0%,
+          #8b5fd6 35%,
+          #e0a955 100%
+        );
+        background-size: 200% 100%;
+        transition:
+          background-position 0.6s ease,
+          transform 0.35s cubic-bezier(0.16, 0.84, 0.44, 1),
+          box-shadow 0.35s ease;
+      }
+      .btn-glow:hover {
+        background-position: 100% 0;
+        transform: translateY(-2px) scale(1.015);
+        box-shadow:
+          0 10px 30px -6px rgba(139, 95, 214, 0.55),
+          0 6px 20px -6px rgba(224, 169, 85, 0.4);
+      }
+      .btn-glow:active {
+        transform: translateY(0) scale(0.99);
+      }
+
+      .btn-outline {
+        transition: all 0.35s cubic-bezier(0.16, 0.84, 0.44, 1);
+      }
+      .btn-outline:hover {
+        background: rgba(224, 169, 85, 0.08);
+        border-color: #e0a955;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 22px -10px rgba(224, 169, 85, 0.4);
+      }
+
+      .img-zoom {
+        overflow: hidden;
+      }
+      .img-zoom img {
+        transition:
+          transform 1s cubic-bezier(0.16, 0.84, 0.44, 1),
+          filter 0.6s ease;
+      }
+      .img-zoom:hover img {
+        transform: scale(1.12);
+        filter: brightness(0.85) saturate(1.15);
+      }
+
+      .shine {
+        position: relative;
+        overflow: hidden;
+      }
+      .shine::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          transparent 30%,
+          rgba(255, 255, 255, 0.16) 50%,
+          transparent 70%
+        );
+        background-size: 200% 100%;
+        background-position: -200% 0;
+        transition: background-position 1.1s ease;
         pointer-events: none;
+      }
+      .shine:hover::after {
+        background-position: 200% 0;
+      }
+
+      .heart-btn svg {
+        transition:
+          transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+          fill 0.3s ease,
+          stroke 0.3s ease;
+      }
+      .heart-btn.active svg {
+        fill: #e0a955;
+        stroke: #e0a955;
+        transform: scale(1.18);
+      }
+      .heart-btn:hover svg {
+        transform: scale(1.12);
+      }
+
+      .icon-tile {
+        transition:
+          transform 0.4s cubic-bezier(0.16, 0.84, 0.44, 1),
+          background-color 0.4s ease,
+          border-color 0.4s ease;
+      }
+      .icon-tile:hover {
+        transform: translateY(-4px);
+        background-color: rgba(139, 95, 214, 0.12);
+        border-color: rgba(224, 169, 85, 0.4);
+      }
+      .icon-tile:hover .icon-wrap {
+        transform: rotate(-6deg) scale(1.08);
+      }
+      .icon-wrap {
+        transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      }
+
+      .nav-link {
+        position: relative;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 1.5px;
+        background: linear-gradient(90deg, #e0a955, #a97ff0);
+        transition: width 0.35s cubic-bezier(0.16, 0.84, 0.44, 1);
+      }
+      .nav-link:hover::after,
+      .nav-link.active::after {
+        width: 100%;
+      }
+      .nav-link.active {
+        color: #e0a955;
+      }
+
+      input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        height: 6px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #e0a955, #8b5fd6);
+        outline: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #f3ece1;
+        border: 3px solid #8b5fd6;
+        cursor: pointer;
+        box-shadow: 0 0 0 5px rgba(139, 95, 214, 0.18);
+        transition:
+          box-shadow 0.3s ease,
+          transform 0.3s ease;
+      }
+      input[type="range"]::-webkit-slider-thumb:hover {
+        box-shadow: 0 0 0 8px rgba(224, 169, 85, 0.22);
+        transform: scale(1.08);
+      }
+      input[type="range"]::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #f3ece1;
+        border: 3px solid #8b5fd6;
+        cursor: pointer;
+      }
+
+      .carousel-arrow {
+        transition: all 0.3s ease;
+      }
+      .carousel-arrow:hover {
+        background: linear-gradient(100deg, #a97ff0, #e0a955);
+        border-color: transparent;
+        transform: scale(1.08);
+      }
+
+      .carousel-track {
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+      }
+      .carousel-track > * {
+        scroll-snap-align: start;
+      }
+      .carousel-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .badge-premium {
+        background: linear-gradient(100deg, #e0a955, #f0c98a 40%, #e0a955);
+        background-size: 200% 100%;
+        animation: shimmer 3s linear infinite;
+      }
+
+      .marker-dot::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: rgba(224, 169, 85, 0.5);
+        animation: pulseRing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+      }
+
+      .tab-btn {
+        transition:
+          color 0.3s ease,
+          border-color 0.3s ease;
+      }
+      .tab-btn[aria-selected="true"] {
+        color: #e0a955;
+        border-color: #e0a955;
+      }
+
+      .divider-fade {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(224, 169, 85, 0.4),
+          transparent
+        );
+      }
+
+      input:focus,
+      textarea:focus,
+      button:focus-visible,
+      a:focus-visible {
+        outline: 2px solid #e0a955;
+        outline-offset: 2px;
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -391,7 +740,6 @@
   </head>
 
   <body
-    id="top"
     class="relative bg-base text-cream font-body antialiased selection:bg-gold/30 selection:text-gold-light overflow-x-hidden"
   >
     <!-- top accent bar -->
@@ -404,8 +752,10 @@
       class="sticky top-0 z-50 border-b border-panel-border/60 bg-base/80 backdrop-blur-xl"
     >
       <nav class="max-w-7xl mx-auto px-5 lg:px-8">
-        <div class="flex items-center justify-between h-20">
-          <a href="/" class="flex items-center gap-2 shrink-0 group">
+        <div
+          class="flex items-center sm:justify-between lg:justify-center h-20"
+        >
+          <a href="./virtual.html" class="flex items-center gap-2 shrink-0 group">
             <span
               class="inline-flex w-10 h-10 items-center justify-center rounded-xl bg-gradient-to-br from-orchid-light to-gold-light text-base-950 font-bold text-lg shadow-glow"
               >U</span
@@ -415,136 +765,6 @@
               >UyBozor</span
             >
           </a>
-
-          <div
-            class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-muted"
-          >
-            <a href="/" class="nav-link active pb-1">Bosh sahifa</a>
-            <a href="./KochmasMulk.html" class="nav-link pb-1 hover:text-cream"
-              >Ko'chmas mulk</a
-            >
-            <a href="./UyJihoz.html" class="nav-link pb-1 hover:text-cream"
-              >Uy jihozlari</a
-            >
-            <a href="./dekor.html" class="nav-link pb-1 hover:text-cream"
-              >Dekor</a
-            >
-            <a href="./sotuvchi.html" class="nav-link pb-1 hover:text-cream"
-              >Sotuvchi bo'ling</a
-            >
-          </div>
-
-          <div class="hidden md:flex items-center gap-4">
-            <div
-              class="flex items-center gap-2 rounded-full border border-panel-border bg-panel/40 px-4 py-2.5 w-56 lg:w-64"
-            >
-              <svg
-                class="w-4 h-4 text-muted shrink-0"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 105.4 5.4a7.5 7.5 0 0011.25 11.25z"
-                />
-              </svg>
-              <input
-                type="search"
-                placeholder="Qidiruv..."
-                class="bg-transparent w-full text-cream text-sm placeholder:text-muted/70 focus:outline-none"
-              />
-            </div>
-
-            <button
-              id="header-fav-btn"
-              aria-label="Sevimlilar"
-              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-panel-border btn-outline text-muted"
-            >
-              <svg
-                id="header-fav-icon"
-                class="w-[18px] h-[18px] transition-all duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-              <span
-                id="header-fav-count"
-                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-[10px] font-bold text-base-950 flex items-center justify-center transition-transform duration-300"
-                >0</span
-              >
-            </button>
-            <button
-              aria-label="Savatcha"
-              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-panel-border btn-outline text-muted"
-            >
-              <svg
-                class="w-[18px] h-[18px]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"
-                />
-              </svg>
-              <span
-                class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold text-[10px] font-bold text-base-950 flex items-center justify-center"
-                >0</span
-              >
-            </button>
-            <button
-              aria-label="Profil"
-              class="w-10 h-10 rounded-full flex items-center justify-center border border-panel-border btn-outline text-muted"
-            >
-              <svg
-                class="w-[18px] h-[18px]"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <button
-            id="menu-toggle"
-            class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-panel-border"
-            aria-label="Menyu"
-            aria-expanded="false"
-          >
-            <svg
-              class="w-5 h-5 text-cream"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
         </div>
 
         <div
@@ -593,25 +813,25 @@
           <div class="relative h-full overflow-hidden">
             <img
               data-slide="0"
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1600&auto=format&fit=crop"
+              src="https://avatars.mds.yandex.net/i?id=7749b7a9e32408f84521c3e55090447b_l-10808983-images-thumbs&ref=rim&n=13&w=1024&h=777"
               class="carousel-slide absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
               alt="Villa tashqi ko'rinishi"
             />
             <img
               data-slide="1"
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1600&auto=format&fit=crop"
+              src="https://avatars.mds.yandex.net/i?id=4356b5642658fb1d4c5574b78484421a_l-5220647-images-thumbs&ref=rim&n=13&w=1440&h=720"
               class="carousel-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
               alt="Mehmonxona"
             />
             <img
               data-slide="2"
-              src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=1600&auto=format&fit=crop"
+              src="https://www.re-thinkingthefuture.com/wp-content/uploads/2022/01/A6026-Architects-in-Lyon-Top-75-Architects-in-Lyon-Image-68.jpg"
               class="carousel-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
               alt="Yotoqxona"
             />
             <img
               data-slide="3"
-              src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=1600&auto=format&fit=crop"
+              src="https://i.pinimg.com/originals/41/76/0a/41760a9cc60f7db9910b26c841d8ab7e.jpg"
               class="carousel-slide absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
               alt="Oshxona"
             />
@@ -622,7 +842,7 @@
           ></div>
           <span
             class="badge-premium absolute top-5 left-5 text-base-950 text-xs font-semibold px-3 py-1.5 rounded-full shadow-glow"
-            >Premium taklif</span
+            >Luxury taklif</span
           >
 
           <button
@@ -670,7 +890,7 @@
           >
             <img
               class="w-full h-full object-cover"
-              src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=400&auto=format&fit=crop"
+              src="https://avatars.mds.yandex.net/i?id=7749b7a9e32408f84521c3e55090447b_l-10808983-images-thumbs&ref=rim&n=13&w=1024&h=777"
               alt=""
             />
           </button>
@@ -680,7 +900,7 @@
           >
             <img
               class="w-full h-full object-cover"
-              src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=400&auto=format&fit=crop"
+              src="https://avatars.mds.yandex.net/i?id=4356b5642658fb1d4c5574b78484421a_l-5220647-images-thumbs&ref=rim&n=13&w=1440&h=720"
               alt=""
             />
           </button>
@@ -690,7 +910,7 @@
           >
             <img
               class="w-full h-full object-cover"
-              src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=400&auto=format&fit=crop"
+              src="https://www.re-thinkingthefuture.com/wp-content/uploads/2022/01/A6026-Architects-in-Lyon-Top-75-Architects-in-Lyon-Image-68.jpg"
               alt=""
             />
           </button>
@@ -700,7 +920,7 @@
           >
             <img
               class="w-full h-full object-cover"
-              src="https://images.unsplash.com/photo-1600585152220-90363fe7e115?q=80&w=400&auto=format&fit=crop"
+              src="https://i.pinimg.com/originals/41/76/0a/41760a9cc60f7db9910b26c841d8ab7e.jpg"
               alt=""
             />
           </button>
@@ -716,7 +936,7 @@
           <h1
             class="font-display text-3xl md:text-[2.4rem] font-semibold text-cream leading-tight"
           >
-            Modern High-Tech Villa
+            Zamonaviy va nafis dizayndagi mehmonxona
           </h1>
           <p class="mt-2 flex items-center gap-1.5 text-muted text-sm">
             <svg
@@ -735,15 +955,14 @@
         <div class="flex items-center gap-3 shrink-0">
           <div class="text-right">
             <p class="font-display text-2xl md:text-3xl font-bold grad-text">
-              850 000 000 so'm
+              1.053.220so'm/kuniga
             </p>
-            <p class="text-muted text-sm">≈ $67 500</p>
+            <p class="text-muted text-sm">≈ $ 87</p>
           </div>
           <button
-            id="hero-like-btn"
             class="heart-btn w-11 h-11 rounded-full bg-panel border border-panel-border grid place-items-center text-muted btn-outline"
-            aria-pressed="false"
-            aria-label="Sevimlilarga saqlash"
+            onclick="this.classList.toggle('active')"
+            aria-label="Saqlash"
           >
             <svg
               class="w-5 h-5"
@@ -757,25 +976,8 @@
               />
             </svg>
           </button>
-          <button
-            id="hero-share-btn"
-            class="w-11 h-11 rounded-full bg-panel border border-panel-border grid place-items-center text-muted btn-outline"
-            aria-label="Ulashish"
-          >
-            <svg
-              class="w-5 h-5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <circle cx="18" cy="5" r="3" />
-              <circle cx="6" cy="12" r="3" />
-              <circle cx="18" cy="19" r="3" />
-              <path d="m8.6 10.5 6.8-3.9M8.6 13.5l6.8 3.9" />
-            </svg>
-          </button>
         </div>
+
       </div>
     </section>
 
@@ -829,10 +1031,17 @@
               <span class="w-1.5 h-1.5 rounded-full bg-gold"></span> Tavsif
             </h2>
             <p class="text-muted leading-relaxed text-[15px]">
-              Ushbu zamonaviy va keng ko'lamli villa Toshkentning eng nufuzli
-              tumanlaridan birida joylashgan. Uy eng so'nggi texnologiyalar va
-              dizayn tendensiyalari asosida qurilgan bo'lib, o'zining
-              funksionalligi va qulayligi bilan ajralib turadi.
+              Hashamat va qulaylik uyg‘unlashgan 5 yulduzli premium mehmonxona
+              sizni unutilmas dam olishga chorlaydi. Nafis interyer, zamonaviy
+              dizayn va keng xonalar har bir mehmon uchun yuqori darajadagi
+              qulaylikni taqdim etadi. Professional xizmat ko‘rsatish va
+              mehmondo‘st muhit sizning har bir lahzangizni yanada yoqimli
+              qiladi. Mehmonxonada restoran, spa, fitness markazi va eksklyuziv
+              dam olish maskanlari mavjud. Shahar markaziga qulay joylashuvi
+              tufayli barcha muhim manzillarga oson yetib borishingiz mumkin.
+              Xavfsizlik, tozalik va premium servis bizning ustuvor
+              qadriyatlarimizdir. UyBozor orqali orzuingizdagi hashamatli
+              mehmonxonani toping va betakror taassurotlarga ega bo‘ling.
             </p>
             <p class="text-muted leading-relaxed text-[15px] mt-4">
               Keng zal, beshta yotoqxona, va professional jihozlangan oshxona
@@ -890,7 +1099,7 @@
                   />
                 </svg>
               </div>
-              <div class="font-display text-lg font-semibold">5 Xona</div>
+              <div class="font-display text-lg font-semibold">78+ Xona</div>
               <div class="text-xs text-muted uppercase tracking-wide mt-0.5">
                 Yotoqxonalar
               </div>
@@ -911,7 +1120,7 @@
                   <path d="M4 12h16M6 12V7a2 2 0 0 1 2-2h1M8 21v-4M16 21v-4" />
                 </svg>
               </div>
-              <div class="font-display text-lg font-semibold">4 Sanuzel</div>
+              <div class="font-display text-lg font-semibold">34 Sanuzel</div>
               <div class="text-xs text-muted uppercase tracking-wide mt-0.5">
                 Yuvinish xonasi
               </div>
@@ -932,7 +1141,7 @@
                   <path d="M3 20h18M4 20V10l8-6 8 6v10M9 20v-6h6v6" />
                 </svg>
               </div>
-              <div class="font-display text-lg font-semibold">2 O'rin</div>
+              <div class="font-display text-lg font-semibold">24 O'rin</div>
               <div class="text-xs text-muted uppercase tracking-wide mt-0.5">
                 Garaj
               </div>
@@ -955,7 +1164,7 @@
                   />
                 </svg>
               </div>
-              <div class="font-display text-lg font-semibold">Bor</div>
+              <div class="font-display text-lg font-semibold">Bor 6+</div>
               <div class="text-xs text-muted uppercase tracking-wide mt-0.5">
                 Basseyn
               </div>
@@ -977,7 +1186,7 @@
                   <path d="M7 20h10M9 16v4M15 16v4" />
                 </svg>
               </div>
-              <div class="font-display text-lg font-semibold">Bor</div>
+              <div class="font-display text-lg font-semibold">Bor 100+</div>
               <div class="text-xs text-muted uppercase tracking-wide mt-0.5">
                 Konditsioner
               </div>
@@ -1033,7 +1242,7 @@
                   <path d="M22 10 12 4 2 10l10 6 10-6Z" />
                   <path d="M6 12v5c0 1 2.5 3 6 3s6-2 6-3v-5" />
                 </svg>
-                Prezident Maktabi — 500m
+                Al-Xorazmiy Maktabi — 450m
               </p>
               <p
                 class="flex items-center gap-2 text-muted hover:text-cream hover:translate-x-1 transition-all duration-300 cursor-default"
@@ -1050,7 +1259,7 @@
                   />
                   <path d="M3 6h18M16 10a4 4 0 0 1-8 0" />
                 </svg>
-                Korzinka — 300m
+                Havas — 240m
               </p>
               <p
                 class="flex items-center gap-2 text-muted hover:text-cream hover:translate-x-1 transition-all duration-300 cursor-default"
@@ -1066,7 +1275,7 @@
                     d="M8 2v4M16 2v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"
                   />
                 </svg>
-                Klinika — 1.2km
+                Kasalxona — 890m
               </p>
             </div>
 
@@ -1089,89 +1298,6 @@
           </div>
         </div>
 
-        <!-- Similar properties -->
-        <div class="reveal" data-reveal>
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="font-display text-xl font-semibold text-cream">
-              O'xshash e'lonlar
-            </h2>
-            <div class="flex gap-2">
-              <button
-                id="similar-prev"
-                class="carousel-arrow w-9 h-9 rounded-full border border-panel-border grid place-items-center text-muted"
-                aria-label="Oldingi"
-              >
-                ‹
-              </button>
-              <button
-                id="similar-next"
-                class="carousel-arrow w-9 h-9 rounded-full border border-panel-border grid place-items-center text-muted"
-                aria-label="Keyingi"
-              >
-                ›
-              </button>
-            </div>
-          </div>
-          <div
-            id="similar-track"
-            class="carousel-track flex gap-4 overflow-x-auto"
-          >
-            <div
-              class="card-lift shrink-0 w-72 bg-panel/60 border border-panel-border rounded-2xl overflow-hidden"
-            >
-              <div class="img-zoom h-40">
-                <img
-                  src="https://images.unsplash.com/photo-1613977257363-707ba9348227?q=80&w=800&auto=format&fit=crop"
-                  class="w-full h-full object-cover"
-                  alt="O'xshash uy 1"
-                />
-              </div>
-              <div class="p-4">
-                <p class="font-display font-semibold text-cream">
-                  Zamonaviy Taunxaus
-                </p>
-                <p class="text-muted text-sm mt-1">Chilonzor tumani</p>
-                <p class="text-gold font-semibold mt-2">620 000 000 so'm</p>
-              </div>
-            </div>
-            <div
-              class="card-lift shrink-0 w-72 bg-panel/60 border border-panel-border rounded-2xl overflow-hidden"
-            >
-              <div class="img-zoom h-40">
-                <img
-                  src="https://images.unsplash.com/photo-1598228723793-52759bba239c?q=80&w=800&auto=format&fit=crop"
-                  class="w-full h-full object-cover"
-                  alt="O'xshash uy 2"
-                />
-              </div>
-              <div class="p-4">
-                <p class="font-display font-semibold text-cream">
-                  Klassik Kottedj
-                </p>
-                <p class="text-muted text-sm mt-1">Yunusobod tumani</p>
-                <p class="text-gold font-semibold mt-2">910 000 000 so'm</p>
-              </div>
-            </div>
-            <div
-              class="card-lift shrink-0 w-72 bg-panel/60 border border-panel-border rounded-2xl overflow-hidden"
-            >
-              <div class="img-zoom h-40">
-                <img
-                  src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop"
-                  class="w-full h-full object-cover"
-                  alt="O'xshash uy 3"
-                />
-              </div>
-              <div class="p-4">
-                <p class="font-display font-semibold text-cream">
-                  Minimal Villa
-                </p>
-                <p class="text-muted text-sm mt-1">Mirzo Ulug'bek tumani</p>
-                <p class="text-gold font-semibold mt-2">780 000 000 so'm</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       <!-- RIGHT SIDEBAR -->
@@ -1195,7 +1321,8 @@
             </div>
           </div>
 
-          <a href="./boglanish.html"
+          <a
+            href="./boglanish.html"
             class="btn-glow mt-5 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-base-950"
           >
             <svg
@@ -1211,7 +1338,8 @@
             </svg>
             Qo'ng'iroq qilish
           </a>
-          <a href="./boglanish.html"
+          <a
+            href="./boglanish.html"
             class="mt-3 w-full flex items-center justify-center gap-2 rounded-full py-3 text-sm font-semibold text-gold border border-gold/50 btn-outline"
           >
             <svg
@@ -1325,10 +1453,8 @@
             </p>
             <div class="flex items-center gap-3 mt-6">
               <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
+                href="#"
+                aria-label="Ijtimoiy tarmoq"
                 class="w-9 h-9 rounded-full border border-panel-border flex items-center justify-center text-muted btn-outline"
               >
                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -1338,7 +1464,7 @@
                 </svg>
               </a>
               <a
-                href="/"
+                href="#"
                 aria-label="Veb-sayt"
                 class="w-9 h-9 rounded-full border border-panel-border flex items-center justify-center text-muted btn-outline"
               >
@@ -1481,14 +1607,8 @@
       </div>
     </footer>
 
-    <!-- Share toast (feedback for copy-link fallback) -->
-    <div
-      id="share-toast"
-      class="hidden opacity-0 px-5 py-3 rounded-full bg-panel border border-gold/40 text-cream text-sm font-medium shadow-glow"
-    ></div>
-
     <script>
-      
+
       const menuToggle = document.getElementById("menu-toggle");
       const mobileMenu = document.getElementById("mobile-menu");
       if (menuToggle && mobileMenu) {
@@ -1517,7 +1637,6 @@
       );
       revealEls.forEach((el) => io.observe(el));
 
-      // ---------- Hero image carousel ----------
       (function () {
         const slides = document.querySelectorAll(".carousel-slide");
         const thumbs = document.querySelectorAll(".thumb-btn");
@@ -1557,7 +1676,6 @@
         goTo(0);
       })();
 
-      // ---------- Tabs ----------
       (function () {
         const tabButtons = document.querySelectorAll(".tab-btn[data-tab]");
         const panels = {
@@ -1589,7 +1707,7 @@
         const track = document.getElementById("similar-track");
         const prev = document.getElementById("similar-prev");
         const next = document.getElementById("similar-next");
-        if (!track || !prev || !next) return;
+        if (!track || !prev || !next) return; // guard: avoid breaking the rest of the script if markup is missing
         prev.addEventListener("click", () =>
           track.scrollBy({ left: -300, behavior: "smooth" }),
         );
@@ -1637,131 +1755,6 @@
         duration.addEventListener("input", recalc);
         recalc();
       })();
-
-      // ---------- Favorites (like) — synced with header badge + localStorage ----------
-      (function () {
-        const LISTING_ID = "villa-modern-hightech-01";
-        const FAV_KEY = "uybozor_favorites";
-
-        const heroLikeBtn = document.getElementById("hero-like-btn");
-        const headerFavCount = document.getElementById("header-fav-count");
-        const headerFavIcon = document.getElementById("header-fav-icon");
-
-        function getFavorites() {
-          try {
-            const raw = localStorage.getItem(FAV_KEY);
-            const parsed = raw ? JSON.parse(raw) : [];
-            return Array.isArray(parsed) ? parsed : [];
-          } catch (e) {
-            return [];
-          }
-        }
-
-        function saveFavorites(list) {
-          try {
-            localStorage.setItem(FAV_KEY, JSON.stringify(list));
-          } catch (e) {
-            /* localStorage unavailable — favorites just won't persist */
-          }
-        }
-
-        function render() {
-          const favs = getFavorites();
-          const isLiked = favs.includes(LISTING_ID);
-
-          if (heroLikeBtn) {
-            heroLikeBtn.classList.toggle("active", isLiked);
-            heroLikeBtn.setAttribute("aria-pressed", String(isLiked));
-          }
-          if (headerFavCount) {
-            headerFavCount.textContent = String(favs.length);
-          }
-          if (headerFavIcon) {
-            const hasFavs = favs.length > 0;
-            headerFavIcon.setAttribute("fill", hasFavs ? "#e0a955" : "none");
-            headerFavIcon.setAttribute(
-              "stroke",
-              hasFavs ? "#e0a955" : "currentColor",
-            );
-          }
-        }
-
-        if (heroLikeBtn) {
-          heroLikeBtn.addEventListener("click", () => {
-            const favs = getFavorites();
-            const idx = favs.indexOf(LISTING_ID);
-            if (idx === -1) {
-              favs.push(LISTING_ID);
-            } else {
-              favs.splice(idx, 1);
-            }
-            saveFavorites(favs);
-            render();
-          });
-        }
-
-        // Keep in sync if favorites change in another tab
-        window.addEventListener("storage", (e) => {
-          if (e.key === FAV_KEY) render();
-        });
-
-        render();
-      })();
-
-      // ---------- Share ----------
-      (function () {
-        const shareBtn = document.getElementById("hero-share-btn");
-        const toast = document.getElementById("share-toast");
-        if (!shareBtn) return;
-
-        let toastTimer = null;
-        function showToast(message) {
-          if (!toast) return;
-          toast.textContent = message;
-          toast.classList.remove("hidden");
-          requestAnimationFrame(() => {
-            toast.style.animation = "none";
-            void toast.offsetWidth;
-            toast.style.animation = "";
-            toast.classList.add("animate-toastIn");
-            toast.style.opacity = "1";
-          });
-          clearTimeout(toastTimer);
-          toastTimer = setTimeout(() => {
-            toast.style.opacity = "0";
-            setTimeout(() => toast.classList.add("hidden"), 300);
-          }, 2200);
-        }
-
-        shareBtn.addEventListener("click", async () => {
-          const shareData = {
-            title: "Modern High-Tech Villa — UyBozor",
-            text: "Toshkent, Yunusobod tumanidagi ushbu villani ko'ring:",
-            url: window.location.href,
-          };
-
-          if (navigator.share) {
-            try {
-              await navigator.share(shareData);
-            } catch (err) {
-              // user cancelled the native share sheet — nothing to do
-            }
-            return;
-          }
-
-          if (navigator.clipboard && navigator.clipboard.writeText) {
-            try {
-              await navigator.clipboard.writeText(shareData.url);
-              showToast("Havola nusxalandi!");
-            } catch (err) {
-              showToast(shareData.url);
-            }
-          } else {
-            showToast(shareData.url);
-          }
-        });
-      })();
     </script>
   </body>
 </html>
-
