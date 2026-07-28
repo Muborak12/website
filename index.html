@@ -555,6 +555,29 @@
           max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
           opacity 0.4s ease;
       }
+
+      /* Add-to-cart control */
+      .add-cart-btn {
+        transition:
+          background 0.3s ease,
+          transform 0.3s ease,
+          box-shadow 0.3s ease;
+      }
+      .add-cart-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 14px 30px -12px rgba(240, 168, 96, 0.5);
+      }
+      .qty-btn {
+        transition:
+          background 0.25s ease,
+          transform 0.2s ease;
+      }
+      .qty-btn:hover {
+        background: rgba(240, 168, 96, 0.18);
+      }
+      .qty-btn:active {
+        transform: scale(0.9);
+      }
     </style>
   </head>
 
@@ -1310,6 +1333,21 @@
                   >12/16 etaj</span
                 >
               </div>
+              <button
+                data-cart-id="miran-international-city"
+                class="add-cart-btn mt-4 w-full rounded-xl bg-amber-400 text-ink-900 text-xs font-semibold py-2.5 flex items-center justify-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savatga qo'shish
+              </button>
+              <div
+                data-cart-qty="miran-international-city"
+                class="hidden mt-4 w-full rounded-xl border border-amber-400/40 bg-white/[0.03] items-center justify-between px-2 py-1.5"
+              >
+                <button data-qty-action="dec" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">−</button>
+                <span data-qty-value class="text-sm font-semibold text-sand-50">1</span>
+                <button data-qty-action="inc" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">+</button>
+              </div>
             </div>
           </article>
 
@@ -1426,6 +1464,21 @@
                     /></svg
                   >5/9 etaj</span
                 >
+              </div>
+              <button
+                data-cart-id="infinity-residence"
+                class="add-cart-btn mt-4 w-full rounded-xl bg-amber-400 text-ink-900 text-xs font-semibold py-2.5 flex items-center justify-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savatga qo'shish
+              </button>
+              <div
+                data-cart-qty="infinity-residence"
+                class="hidden mt-4 w-full rounded-xl border border-amber-400/40 bg-white/[0.03] items-center justify-between px-2 py-1.5"
+              >
+                <button data-qty-action="dec" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">−</button>
+                <span data-qty-value class="text-sm font-semibold text-sand-50">1</span>
+                <button data-qty-action="inc" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">+</button>
               </div>
             </div>
           </article>
@@ -1544,6 +1597,21 @@
                   >2 qavat</span
                 >
               </div>
+              <button
+                data-cart-id="dream-house-villa"
+                class="add-cart-btn mt-4 w-full rounded-xl bg-amber-400 text-ink-900 text-xs font-semibold py-2.5 flex items-center justify-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savatga qo'shish
+              </button>
+              <div
+                data-cart-qty="dream-house-villa"
+                class="hidden mt-4 w-full rounded-xl border border-amber-400/40 bg-white/[0.03] items-center justify-between px-2 py-1.5"
+              >
+                <button data-qty-action="dec" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">−</button>
+                <span data-qty-value class="text-sm font-semibold text-sand-50">1</span>
+                <button data-qty-action="inc" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">+</button>
+              </div>
             </div>
           </article>
 
@@ -1660,6 +1728,21 @@
                     /></svg
                   >7/9 etaj</span
                 >
+              </div>
+              <button
+                data-cart-id="chilonzor-panorama"
+                class="add-cart-btn mt-4 w-full rounded-xl bg-amber-400 text-ink-900 text-xs font-semibold py-2.5 flex items-center justify-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savatga qo'shish
+              </button>
+              <div
+                data-cart-qty="chilonzor-panorama"
+                class="hidden mt-4 w-full rounded-xl border border-amber-400/40 bg-white/[0.03] items-center justify-between px-2 py-1.5"
+              >
+                <button data-qty-action="dec" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">−</button>
+                <span data-qty-value class="text-sm font-semibold text-sand-50">1</span>
+                <button data-qty-action="inc" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">+</button>
               </div>
             </div>
           </article>
@@ -1778,6 +1861,21 @@
                   >18/22 etaj</span
                 >
               </div>
+              <button
+                data-cart-id="yunusobod-sky-tower"
+                class="add-cart-btn mt-4 w-full rounded-xl bg-amber-400 text-ink-900 text-xs font-semibold py-2.5 flex items-center justify-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savatga qo'shish
+              </button>
+              <div
+                data-cart-qty="yunusobod-sky-tower"
+                class="hidden mt-4 w-full rounded-xl border border-amber-400/40 bg-white/[0.03] items-center justify-between px-2 py-1.5"
+              >
+                <button data-qty-action="dec" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">−</button>
+                <span data-qty-value class="text-sm font-semibold text-sand-50">1</span>
+                <button data-qty-action="inc" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">+</button>
+              </div>
             </div>
           </article>
 
@@ -1894,6 +1992,21 @@
                     /></svg
                   >2 qavat</span
                 >
+              </div>
+              <button
+                data-cart-id="boshi-bog-kottej"
+                class="add-cart-btn mt-4 w-full rounded-xl bg-amber-400 text-ink-900 text-xs font-semibold py-2.5 flex items-center justify-center gap-2"
+              >
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savatga qo'shish
+              </button>
+              <div
+                data-cart-qty="boshi-bog-kottej"
+                class="hidden mt-4 w-full rounded-xl border border-amber-400/40 bg-white/[0.03] items-center justify-between px-2 py-1.5"
+              >
+                <button data-qty-action="dec" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">−</button>
+                <span data-qty-value class="text-sm font-semibold text-sand-50">1</span>
+                <button data-qty-action="inc" class="qty-btn w-8 h-8 rounded-lg flex items-center justify-center text-amber-300 text-lg font-bold">+</button>
               </div>
             </div>
           </article>
@@ -2552,19 +2665,44 @@
             /* localStorage mavjud emas — like saqlanmaydi, lekin sahifa ishlashda davom etadi */
           }
         }
-        function getCartCount() {
+
+        // ---------------------------------------------------------------
+        // SAVATCHA (cart) — {id: qty} shaklida umumiy localStorage'da
+        // saqlanadi ("uybozor_cart_v1"). Headerdagi savatcha ustidagi son
+        // faqat NECHTA TURDAGI mahsulot borligini ko'rsatadi (Object
+        // kalitlari soni), ya'ni bitta kartani bir marta "+" bosib son bir
+        // marta oshadi; shu kartadagi miqdorni keyin +/- bilan
+        // ko'paytirish yoki kamaytirish mumkin, lekin header soni
+        // o'zgarmaydi (chunki bu hali ham bitta mahsulot turi). Miqdor 0
+        // ga tushganda mahsulot savatdan butunlay olib tashlanadi va
+        // "Savatga qo'shish" tugmasi qaytadan chiqadi hamda header soni
+        // 1 ga kamayadi.
+        // ---------------------------------------------------------------
+        function getCart() {
           try {
             const raw = localStorage.getItem(CART_KEY);
             const obj = raw ? JSON.parse(raw) : {};
-            return obj && typeof obj === "object" ? Object.keys(obj).length : 0;
+            return obj && typeof obj === "object" && !Array.isArray(obj) ? obj : {};
           } catch (e) {
-            return 0;
+            return {};
           }
+        }
+        function saveCart(cart) {
+          try {
+            localStorage.setItem(CART_KEY, JSON.stringify(cart));
+          } catch (e) {
+            /* localStorage mavjud emas */
+          }
+        }
+        function getCartCount() {
+          const cart = getCart();
+          return Object.keys(cart).length;
         }
 
         const wishlistCountEl = document.getElementById("wishlist-count");
         const cartCountEl = document.getElementById("cart-count");
         const heartButtons = document.querySelectorAll(".heart-btn[data-like-id]");
+        const addCartButtons = document.querySelectorAll(".add-cart-btn[data-cart-id]");
 
         function refreshHeaderCounts() {
           const list = getWishlist();
@@ -2579,6 +2717,74 @@
             btn.classList.toggle("is-active", list.includes(id));
           });
         }
+
+        function qtyPanelFor(id) {
+          return document.querySelector('[data-cart-qty="' + id + '"]');
+        }
+        function addBtnFor(id) {
+          return document.querySelector('.add-cart-btn[data-cart-id="' + id + '"]');
+        }
+
+        function renderCardState(id) {
+          const cart = getCart();
+          const qty = cart[id] || 0;
+          const panel = qtyPanelFor(id);
+          const btn = addBtnFor(id);
+          if (!panel || !btn) return;
+          if (qty > 0) {
+            btn.classList.add("hidden");
+            panel.classList.remove("hidden");
+            panel.classList.add("flex");
+            const valueEl = panel.querySelector("[data-qty-value]");
+            if (valueEl) valueEl.textContent = String(qty);
+          } else {
+            btn.classList.remove("hidden");
+            panel.classList.add("hidden");
+            panel.classList.remove("flex");
+          }
+        }
+
+        function syncAllCartCards() {
+          const cart = getCart();
+          const ids = new Set(Object.keys(cart));
+          addCartButtons.forEach((btn) => ids.add(btn.getAttribute("data-cart-id")));
+          ids.forEach((id) => renderCardState(id));
+        }
+
+        addCartButtons.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const id = btn.getAttribute("data-cart-id");
+            const cart = getCart();
+            cart[id] = 1;
+            saveCart(cart);
+            renderCardState(id);
+            refreshHeaderCounts();
+          });
+        });
+
+        document.querySelectorAll("[data-cart-qty]").forEach((panel) => {
+          const id = panel.getAttribute("data-cart-qty");
+          panel.querySelectorAll("[data-qty-action]").forEach((qtyBtn) => {
+            qtyBtn.addEventListener("click", () => {
+              const cart = getCart();
+              let qty = cart[id] || 0;
+              const action = qtyBtn.getAttribute("data-qty-action");
+              if (action === "inc") {
+                qty += 1;
+              } else if (action === "dec") {
+                qty -= 1;
+              }
+              if (qty <= 0) {
+                delete cart[id];
+              } else {
+                cart[id] = qty;
+              }
+              saveCart(cart);
+              renderCardState(id);
+              refreshHeaderCounts();
+            });
+          });
+        });
 
         heartButtons.forEach((btn) => {
           btn.addEventListener("click", () => {
@@ -2597,17 +2803,22 @@
           });
         });
 
-        // Boshqa tab/sahifada o'zgarsa (masalan katalogda like bosilsa),
-        // shu sahifadagi header va yurak ikonkalari ham darhol yangilanadi.
+        // Boshqa tab/sahifada o'zgarsa (masalan katalogda like yoki
+        // savatga qo'shish bosilsa), shu sahifadagi header, yurak
+        // ikonkalari va savat panellari ham darhol yangilanadi.
         window.addEventListener("storage", (e) => {
           if (e.key === WISHLIST_KEY) {
             syncButtonsWithStorage();
             refreshHeaderCounts();
           }
-          if (e.key === CART_KEY) refreshHeaderCounts();
+          if (e.key === CART_KEY) {
+            syncAllCartCards();
+            refreshHeaderCounts();
+          }
         });
 
         syncButtonsWithStorage();
+        syncAllCartCards();
         refreshHeaderCounts();
       })();
 
