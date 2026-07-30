@@ -220,6 +220,18 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
   }
+
+  /* ---- Unified responsive header icon buttons (shared across all pages) ---- */
+  .header-icon-btn {
+    transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
+  }
+  .header-icon-btn:hover {
+    background-color: rgba(255,255,255,.06);
+    transform: translateY(-1px);
+  }
+  .header-icon-btn:active {
+    transform: translateY(0) scale(.95);
+  }
 </style>
 </head>
 
@@ -232,97 +244,189 @@
 <div id="toast-stack" class="fixed top-20 right-4 z-[100] flex flex-col gap-2 items-end"></div>
 
 <!-- ============================================================
-     HEADER
+     HEADER (unified across index.html, UyJihoz.html, liked.html,
+     addtocart.html, profile.html) — same structure/IDs as index.html,
+     plus this page's search bar appended below the icon row.
      ============================================================ -->
 <header class="sticky top-0 z-50 bg-ink-900/85 backdrop-blur-xl border-b hairline">
-  <div class="max-w-[1400px] mx-auto px-4 md:px-8 h-[78px] flex items-center justify-between gap-4">
+  <div class="max-w-[1400px] mx-auto px-3 sm:px-4 md:px-8">
+    <div class="flex items-center justify-between h-16 sm:h-[78px] gap-2">
 
-    <a href="#" class="flex items-center gap-2.5 shrink-0 group">
-      <span class="w-9 h-9 rounded-full border border-gold-400/50 flex items-center justify-center group-hover:border-gold-400 transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4.5 h-4.5 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/>
-        </svg>
-      </span>
-      <span class="font-display font-semibold text-[22px] tracking-tight text-[#f5eede]">UyBozor</span>
-    </a>
-
-    <nav class="hidden lg:flex items-center gap-8 text-[14.5px] font-medium shrink-0">
-      <a href="/" class="nav-link py-1">Bosh sahifa</a>
-      <a href="./Ko'chmasMulk.html" class="nav-link py-1">Ko'chmas mulk</a>
-      <a href="./UyJihoz.html" class="nav-link active-nav py-1">Uy jihozlari</a>
-      <a href="./dekor.html" class="nav-link py-1">Dekor</a>
-      <a href="./sotuvchi.html" class="nav-link py-1">Sotuvchi bo'ling</a>
-    </nav>
-
-    <div class="hidden md:flex flex-1 max-w-md flex-col relative">
-      <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-        </svg>
-        <input id="search-input" type="text" placeholder="Qidiruv..." autocomplete="off"
-               class="bg-transparent border-none outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
-        <button id="mic-btn" title="Ovoz orqali qidirish" aria-label="Ovoz orqali qidirish"
-                class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center relative">
-          <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/>
+      <a href="/" class="flex items-center gap-1.5 sm:gap-2.5 shrink-0 group min-w-0">
+        <span class="w-8 h-8 sm:w-9 sm:h-9 rounded-full border border-gold-400/50 flex items-center justify-center group-hover:border-gold-400 transition-colors shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 sm:w-4.5 sm:h-4.5 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/>
           </svg>
-          <span id="mic-bars" class="mic-bars hidden absolute inset-0 items-center justify-center">
-            <span style="height:6px"></span><span style="height:11px"></span><span style="height:6px"></span>
+        </span>
+        <span class="font-display font-semibold text-lg sm:text-[22px] tracking-tight text-[#f5eede] truncate">UyBozor</span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-8 text-[14.5px] font-medium shrink-0">
+        <a href="/" class="nav-link py-1">Bosh sahifa</a>
+        <a href="./Ko'chmasMulk.html" class="nav-link py-1">Ko'chmas mulk</a>
+        <a href="./UyJihoz.html" class="nav-link active-nav py-1">Uy jihozlari</a>
+        <a href="./dekor.html" class="nav-link py-1">Dekor</a>
+        <a href="./sotuvchi.html" class="nav-link py-1">Sotuvchi bo'ling</a>
+      </nav>
+
+      <div class="hidden md:flex flex-1 max-w-md flex-col relative">
+        <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+          <input id="search-input" type="text" placeholder="Qidiruv..." autocomplete="off"
+                 class="bg-transparent border-none outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
+          <button id="mic-btn" title="Ovoz orqali qidirish" aria-label="Ovoz orqali qidirish"
+                  class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center relative">
+            <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/>
+            </svg>
+            <span id="mic-bars" class="mic-bars hidden absolute inset-0 items-center justify-center">
+              <span style="height:6px"></span><span style="height:11px"></span><span style="height:6px"></span>
+            </span>
+          </button>
+        </div>
+        <span id="mic-status" class="opacity-0 absolute -bottom-6 left-4 text-[11px] text-gold-300">Tinglanmoqda...</span>
+      </div>
+
+      <div class="flex items-center gap-0.5 sm:gap-1.5 md:gap-2 shrink-0">
+        <button id="wishlist-btn" class="header-icon-btn relative w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-sand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
+          </svg>
+          <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
+        </button>
+
+        <button id="cart-btn" type="button" onclick="window.location.href='./addtocart.html'" class="header-icon-btn relative w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-sand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
+          </svg>
+          <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
+        </button>
+
+        <button id="profile-btn" type="button" aria-label="Profil" class="header-icon-btn flex w-9 h-9 sm:w-10 sm:h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60 shrink-0 max-w-[150px]">
+          <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-sand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+          </span>
+          <span id="profile-btn-chip" class="hidden items-center gap-1.5 sm:gap-2 pr-1 whitespace-nowrap min-w-0">
+            <img id="profile-chip-photo" src="" alt="" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
+            <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-sand-100 truncate max-w-[90px]"></span>
           </span>
         </button>
+
+        <button id="mobile-search-toggle" class="md:hidden header-icon-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-[#b6adcf] border border-white/10 shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+
+        <button id="menu-toggle" class="header-icon-btn lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border border-white/10 shrink-0" aria-label="Menyu" aria-expanded="false">
+          <svg id="menu-icon" class="w-4.5 h-4.5 sm:w-5 sm:h-5 text-sand-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
       </div>
-      <span id="mic-status" class="opacity-0 absolute -bottom-6 left-4 text-[11px] text-gold-300">Tinglanmoqda...</span>
     </div>
 
-    <div class="flex items-center gap-1 md:gap-2 shrink-0">
-      <button id="mobile-search-toggle" class="md:hidden icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      </button>
-
-      <button id="wishlist-btn" class="relative icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
-        </svg>
-        <span id="wishlist-count" class="absolute -top-0.5 -right-0.5 bg-gold-400 text-ink-950 text-[10px] font-bold w-4.5 h-4.5 min-w-[18px] rounded-full flex items-center justify-center px-1">0</span>
-      </button>
-
-      <button id="cart-btn" class="relative icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>
-        </svg>
-        <span id="cart-count" class="absolute -top-0.5 -right-0.5 bg-gold-400 text-ink-950 text-[10px] font-bold w-4.5 h-4.5 min-w-[18px] rounded-full flex items-center justify-center px-1">0</span>
-      </button>
-
-      <button class="icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 5-6.5 8-6.5s6.5 2 8 6.5"/>
-        </svg>
-      </button>
-
-      <button id="mobile-menu-toggle" class="lg:hidden icon-btn w-10 h-10 rounded-full flex items-center justify-center text-[#b6adcf]">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
-      </button>
+    <div id="mobile-search-bar" class="hidden md:hidden pb-3">
+      <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        <input id="search-input-mobile" type="text" placeholder="Qidiruv..." class="bg-transparent outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
+        <button id="mic-btn-mobile" class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div id="mobile-search-bar" class="hidden md:hidden px-4 pb-3">
-    <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-      <input id="search-input-mobile" type="text" placeholder="Qidiruv..." class="bg-transparent outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
-      <button id="mic-btn-mobile" class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
-      </button>
+    <nav id="mobile-nav" class="hidden lg:hidden flex-col gap-1 pb-2 text-sm">
+      <a href="/" class="nav-link py-2 border-b hairline">Bosh sahifa</a>
+      <a href="./UyJihoz.html" class="nav-link py-2 border-b hairline active-nav">Uy jihozlari</a>
+      <a href="./Ko'chmasMulk.html" class="nav-link py-2 border-b hairline">Ko'chmas mulk</a>
+      <a href="./dekor.html" class="nav-link py-2 border-b hairline">Dekor</a>
+      <a href="./sotuvchi.html" class="nav-link py-2">Sotuvchi bo'ling</a>
+    </nav>
+
+    <!-- Responsive bottom status row: wishlist / cart / profile summary, mirrors header icons (same as index.html) -->
+    <div id="mobile-menu" class="lg:hidden overflow-hidden max-h-0 opacity-0">
+      <div class="flex items-center justify-between gap-3 pb-4 pt-3 border-t border-white/10 text-xs text-[#c9c1e0]">
+        <a href="./liked.html" class="flex items-center gap-1.5 hover:text-gold-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+          Sevimlilar (<span id="wishlist-count-mobile">0</span>)
+        </a>
+        <button type="button" id="cart-btn-mobile" class="flex items-center gap-1.5 hover:text-gold-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+          Savat (<span id="cart-count-mobile">0</span>)
+        </button>
+        <button type="button" id="profile-btn-mobile" class="flex items-center gap-1.5 hover:text-gold-300 transition-colors">
+          <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+          <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+          <span id="profile-name-mobile">Profil</span>
+        </button>
+      </div>
     </div>
   </div>
-
-  <nav id="mobile-nav" class="hidden lg:hidden flex-col gap-1 px-4 pb-4 text-sm">
-    <a href="/" class="nav-link py-2 border-b hairline">Bosh sahifa</a>
-    <a href="./UyJihoz.html" class="nav-link py-2 border-b hairline active-nav">Uy jihozlari</a>
-    <a href="./Ko'chmasMulk.html" class="nav-link py-2 border-b hairline">Ko'chmas mulk</a>
-    <a href="./dekor.html" class="nav-link py-2 border-b hairline">Dekor</a>
-    <a href="./sotuvchi.html" class="nav-link py-2">Sotuvchi bo'ling</a>
-  </nav>
 </header>
+
+<!-- ============================================================
+     RO'YXATDAN O'TISH MODALI (profil yaratish) — index.html bilan bir xil
+============================================================ -->
+<div id="auth-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-ink-950/80 backdrop-blur-sm">
+  <div class="glass rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-soft max-h-[90vh] overflow-y-auto">
+    <button id="auth-modal-close" type="button" aria-label="Yopish"
+      class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-[#c9c1e0]">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+
+    <p class="text-gold-400 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Kirish talab qilinadi</p>
+    <h3 class="font-display text-xl sm:text-2xl font-semibold text-[#f5eede] mb-1">Iltimos, avval ro'yxatdan o'ting</h3>
+    <p class="text-[#a79fc0] text-sm mb-6 leading-relaxed">Davom etish uchun quyidagi profil ma'lumotlarini to'ldiring.</p>
+
+    <form id="auth-form" class="space-y-4" novalidate>
+      <div class="flex items-center gap-4">
+        <label for="auth-photo-input" class="shrink-0 cursor-pointer">
+          <div id="auth-photo-preview" class="w-16 h-16 rounded-full border-2 border-dashed border-white/15 flex items-center justify-center overflow-hidden text-[#8a80a8] hover:border-gold-400/50 transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>
+          </div>
+          <input id="auth-photo-input" type="file" accept="image/*" required class="hidden" />
+        </label>
+        <div class="text-xs text-[#a79fc0] leading-relaxed">
+          <span class="text-[#d8d2ea] font-medium">Rasm yuklang</span><br/>
+          Profil rasmi (majburiy)
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 gap-3">
+        <div class="rounded-xl border hairline bg-white/[0.03] px-4 py-3">
+          <span class="text-[10px] uppercase tracking-wider text-[#8a80a8]">Ism</span>
+          <input id="auth-first-name" type="text" required class="bg-transparent border-none w-full text-sm font-medium focus:outline-none text-[#f2ede4]" placeholder="Ism" />
+        </div>
+        <div class="rounded-xl border hairline bg-white/[0.03] px-4 py-3">
+          <span class="text-[10px] uppercase tracking-wider text-[#8a80a8]">Familya</span>
+          <input id="auth-last-name" type="text" required class="bg-transparent border-none w-full text-sm font-medium focus:outline-none text-[#f2ede4]" placeholder="Familya" />
+        </div>
+      </div>
+
+      <div class="rounded-xl border hairline bg-white/[0.03] px-4 py-3">
+        <span class="text-[10px] uppercase tracking-wider text-[#8a80a8]">Telefon raqam</span>
+        <input id="auth-phone" type="tel" required class="bg-transparent border-none w-full text-sm font-medium focus:outline-none text-[#f2ede4]" placeholder="+998 90 123 45 67" />
+      </div>
+
+      <div class="rounded-xl border hairline bg-white/[0.03] px-4 py-3">
+        <span class="text-[10px] uppercase tracking-wider text-[#8a80a8]">Email</span>
+        <input id="auth-email" type="email" required class="bg-transparent border-none w-full text-sm font-medium focus:outline-none text-[#f2ede4]" placeholder="email@misol.com" />
+      </div>
+
+      <div class="rounded-xl border hairline bg-white/[0.03] px-4 py-3">
+        <span class="text-[10px] uppercase tracking-wider text-[#8a80a8]">Soha</span>
+        <input id="auth-field" type="text" required class="bg-transparent border-none w-full text-sm font-medium focus:outline-none text-[#f2ede4]" placeholder="Masalan: Dizayner, Muhandis..." />
+      </div>
+
+      <p id="auth-error" class="hidden text-xs text-rose-400">Iltimos, barcha maydonlarni (rasm bilan birga) to'ldiring.</p>
+
+      <button type="submit" class="btn-gold relative overflow-hidden w-full rounded-xl font-semibold text-sm py-3.5 mt-2">
+        Ro'yxatdan o'tish
+      </button>
+    </form>
+  </div>
+</div>
 
 <!-- ============================================================
      MAIN LAYOUT
@@ -641,9 +745,13 @@
      cart     -> { productId: quantity }  (bitta yozuv = savatdagi 1 xil mahsulot)
      -------------------------------------------------------- */
   const WISHLIST_KEY = 'uybozor_wishlist_v1';
+  const WISHLIST_META_KEY = 'uybozor_wishlist_meta_v1';
   const CART_KEY = 'uybozor_cart_v1';
   // Savatdagi mahsulotning nomi/narxi/rasmi — boshqa sahifalarda (masalan
-  // profil.html) katalog ma'lumotlarisiz ham savat tarkibini ko'rsatish uchun.
+  // profil.html, addtocart.html, liked.html) katalog ma'lumotlarisiz ham
+  // savat/sevimlilar tarkibini ko'rsatish uchun. Boshqa UyBozor sahifalari
+  // (index.html) bilan bir xil maydon nomlaridan foydalanadi: title, price,
+  // image, href.
   const CART_META_KEY = 'uybozor_cart_meta_v1';
 
   const state = {
@@ -678,17 +786,40 @@
   function saveCart() {
     try { localStorage.setItem(CART_KEY, JSON.stringify(state.cart)); } catch (e) {}
   }
+  function saveWishlistItemMeta(p) {
+    try {
+      const raw = localStorage.getItem(WISHLIST_META_KEY);
+      const meta = raw ? JSON.parse(raw) : {};
+      meta[p.id] = { title: p.title, price: fmt(p.price), image: imgFor(p), href: './UyJihoz.html' };
+      localStorage.setItem(WISHLIST_META_KEY, JSON.stringify(meta));
+    } catch (e) {}
+  }
+  function removeWishlistItemMeta(id) {
+    try {
+      const raw = localStorage.getItem(WISHLIST_META_KEY);
+      const meta = raw ? JSON.parse(raw) : {};
+      delete meta[id];
+      localStorage.setItem(WISHLIST_META_KEY, JSON.stringify(meta));
+    } catch (e) {}
+  }
   function saveCartItemMeta(p) {
     try {
       const raw = localStorage.getItem(CART_META_KEY);
       const meta = raw ? JSON.parse(raw) : {};
-      meta[p.id] = { title: p.title, price: p.price, img: imgFor(p) };
+      meta[p.id] = { title: p.title, price: fmt(p.price), image: imgFor(p), href: './UyJihoz.html' };
       localStorage.setItem(CART_META_KEY, JSON.stringify(meta));
     } catch (e) {}
   }
 
   function toggleWishlist(id) {
-    if (state.wishlist.has(id)) state.wishlist.delete(id); else state.wishlist.add(id);
+    const p = PRODUCTS_BY_ID[id];
+    if (state.wishlist.has(id)) {
+      state.wishlist.delete(id);
+      removeWishlistItemMeta(id);
+    } else {
+      state.wishlist.add(id);
+      if (p) saveWishlistItemMeta(p);
+    }
     saveWishlist();
     updateCounts();
   }
@@ -1042,9 +1173,14 @@
 
   function updateCounts() {
     document.getElementById('wishlist-count').textContent = state.wishlist.size;
+    const wMobile = document.getElementById('wishlist-count-mobile');
+    if (wMobile) wMobile.textContent = state.wishlist.size;
     // Header'dagi savat soni — nechta XIL mahsulot borligini ko'rsatadi,
     // bitta mahsulot miqdorini +/- qilish bu sonni o'zgartirmaydi.
-    document.getElementById('cart-count').textContent = Object.keys(state.cart).length;
+    const cartCount = Object.keys(state.cart).length;
+    document.getElementById('cart-count').textContent = cartCount;
+    const cMobile = document.getElementById('cart-count-mobile');
+    if (cMobile) cMobile.textContent = cartCount;
   }
 
   /* --------------------------------------------------------
@@ -1216,16 +1352,207 @@
   });
 
   document.getElementById('mobile-search-toggle').addEventListener('click', () => document.getElementById('mobile-search-bar').classList.toggle('hidden'));
-  document.getElementById('mobile-menu-toggle').addEventListener('click', () => {
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    const menuToggleBtn = document.getElementById('menu-toggle');
     const nav = document.getElementById('mobile-nav');
-    nav.classList.toggle('hidden'); nav.classList.toggle('flex');
+    const menuIcon = document.getElementById('menu-icon');
+    const isOpen = !nav.classList.contains('hidden');
+    if (isOpen) {
+      nav.classList.add('hidden'); nav.classList.remove('flex');
+      menuToggleBtn.setAttribute('aria-expanded', 'false');
+      menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+    } else {
+      nav.classList.remove('hidden'); nav.classList.add('flex');
+      menuToggleBtn.setAttribute('aria-expanded', 'true');
+      menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+    }
+    // Wishlist/cart/profile status row (mobile-menu) — nav bilan birga ochiladi/yopiladi
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (!isOpen) {
+      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
+      mobileMenu.style.opacity = '1';
+    } else {
+      mobileMenu.style.maxHeight = '0px';
+      mobileMenu.style.opacity = '0';
+    }
   });
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      const nav = document.getElementById('mobile-nav');
+      const mobileMenu = document.getElementById('mobile-menu');
+      nav.classList.add('hidden'); nav.classList.remove('flex');
+      mobileMenu.style.maxHeight = '0px';
+      mobileMenu.style.opacity = '0';
+      document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ---------------------------------------------------------------
+  // Header wishlist/cart navigatsiyasi + boshqa tab/sahifadagi
+  // o'zgarishlarni (masalan index.html'da like bosilsa) shu yerda
+  // ham darhol ko'rsatish.
+  // ---------------------------------------------------------------
+  const wishlistBtn = document.getElementById('wishlist-btn');
+  if (wishlistBtn) wishlistBtn.addEventListener('click', () => { window.location.href = './liked.html'; });
+  const cartBtnMobile = document.getElementById('cart-btn-mobile');
+  if (cartBtnMobile) cartBtnMobile.addEventListener('click', () => { window.location.href = './addtocart.html'; });
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === WISHLIST_KEY) {
+      loadPersisted();
+      document.querySelectorAll('[data-like]').forEach(btn => {
+        const id = btn.dataset.like;
+        btn.classList.toggle('liked', state.wishlist.has(id));
+      });
+      updateCounts();
+    }
+    if (e.key === CART_KEY) {
+      loadPersisted();
+      syncAllCartCards();
+      updateCounts();
+    }
+  });
+  function syncAllCartCards() {
+    const ids = new Set(Object.keys(state.cart));
+    document.querySelectorAll('[data-cart-area]').forEach(el => ids.add(el.getAttribute('data-cart-area')));
+    ids.forEach(id => { if (PRODUCTS_BY_ID[id]) refreshCartAreas(id); });
+  }
 
   loadPersisted();
   renderCategories();
   initFilters();
   renderGrid();
   updateCounts();
+})();
+
+// ---------------------------------------------------------------
+// PROFIL / RO'YXATDAN O'TISH — index.html bilan bir xil tizim.
+// "uybozor_profile_v1" kalitida saqlanadi, shu tufayli qaysi
+// sahifada ro'yxatdan o'tilsa, boshqa barcha UyBozor sahifalarining
+// headerida ham xuddi shu profil (rasm + ism-familya) ko'rinadi.
+// ---------------------------------------------------------------
+(function () {
+  "use strict";
+  const PROFILE_KEY = "uybozor_profile_v1";
+
+  const backdrop = document.getElementById("auth-modal-backdrop");
+  const form = document.getElementById("auth-form");
+  const errorEl = document.getElementById("auth-error");
+  const photoInput = document.getElementById("auth-photo-input");
+  const photoPreview = document.getElementById("auth-photo-preview");
+  const profileBtn = document.getElementById("profile-btn");
+  const profileBtnDefault = document.getElementById("profile-btn-default");
+  const profileBtnChip = document.getElementById("profile-btn-chip");
+  const profileChipPhoto = document.getElementById("profile-chip-photo");
+  const profileChipName = document.getElementById("profile-chip-name");
+
+  const profileBtnMobile = document.getElementById("profile-btn-mobile");
+  const profileIconMobile = document.getElementById("profile-icon-mobile");
+  const profilePhotoMobile = document.getElementById("profile-chip-photo-mobile");
+  const profileNameMobile = document.getElementById("profile-name-mobile");
+
+  let selectedPhotoDataUrl = null;
+
+  function getProfile() {
+    try {
+      const raw = localStorage.getItem(PROFILE_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) { return null; }
+  }
+  function saveProfile(p) {
+    try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch (e) {}
+  }
+
+  function openAuthModal() {
+    backdrop.classList.remove("hidden");
+    backdrop.classList.add("flex");
+  }
+  function closeAuthModal() {
+    backdrop.classList.add("hidden");
+    backdrop.classList.remove("flex");
+  }
+  document.getElementById("auth-modal-close").addEventListener("click", closeAuthModal);
+  backdrop.addEventListener("click", (e) => { if (e.target === backdrop) closeAuthModal(); });
+
+  photoInput.addEventListener("change", (e) => {
+    const file = e.target.files && e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      selectedPhotoDataUrl = ev.target.result;
+      photoPreview.innerHTML = `<img src="${selectedPhotoDataUrl}" class="w-full h-full object-cover" alt="Profil rasmi" />`;
+    };
+    reader.readAsDataURL(file);
+  });
+
+  function renderHeaderProfile() {
+    const p = getProfile();
+    if (p && p.photoDataUrl) {
+      profileBtnDefault.classList.add("hidden");
+      profileBtnChip.classList.remove("hidden");
+      profileBtnChip.classList.add("flex");
+      profileChipPhoto.src = p.photoDataUrl;
+      profileChipName.textContent = `${p.firstName} ${p.lastName}`.trim();
+      profileBtn.classList.remove("w-9", "sm:w-10");
+      profileBtn.classList.add("w-auto", "px-1");
+
+      if (profileIconMobile) profileIconMobile.classList.add("hidden");
+      if (profilePhotoMobile) {
+        profilePhotoMobile.src = p.photoDataUrl;
+        profilePhotoMobile.classList.remove("hidden");
+      }
+      if (profileNameMobile) profileNameMobile.textContent = `${p.firstName} ${p.lastName}`.trim();
+    } else {
+      profileBtnDefault.classList.remove("hidden");
+      profileBtnChip.classList.add("hidden");
+      profileBtnChip.classList.remove("flex");
+      profileBtn.classList.add("w-9", "sm:w-10");
+      profileBtn.classList.remove("w-auto", "px-1");
+
+      if (profileIconMobile) profileIconMobile.classList.remove("hidden");
+      if (profilePhotoMobile) profilePhotoMobile.classList.add("hidden");
+      if (profileNameMobile) profileNameMobile.textContent = "Profil";
+    }
+  }
+
+  function handleProfileClick() {
+    const p = getProfile();
+    if (p) {
+      window.location.href = "./profile.html";
+    } else {
+      openAuthModal();
+    }
+  }
+  profileBtn.addEventListener("click", handleProfileClick);
+  if (profileBtnMobile) profileBtnMobile.addEventListener("click", handleProfileClick);
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const firstName = document.getElementById("auth-first-name").value.trim();
+    const lastName = document.getElementById("auth-last-name").value.trim();
+    const phone = document.getElementById("auth-phone").value.trim();
+    const email = document.getElementById("auth-email").value.trim();
+    const field = document.getElementById("auth-field").value.trim();
+
+    if (!firstName || !lastName || !phone || !email || !field || !selectedPhotoDataUrl) {
+      errorEl.classList.remove("hidden");
+      return;
+    }
+    errorEl.classList.add("hidden");
+
+    saveProfile({ firstName, lastName, phone, email, field, photoDataUrl: selectedPhotoDataUrl });
+    renderHeaderProfile();
+    closeAuthModal();
+    form.reset();
+    photoPreview.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>`;
+    selectedPhotoDataUrl = null;
+  });
+
+  window.addEventListener("storage", (e) => {
+    if (e.key === PROFILE_KEY) renderHeaderProfile();
+  });
+
+  renderHeaderProfile();
 })();
 </script>
 </body>
