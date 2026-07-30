@@ -578,6 +578,18 @@
       .qty-btn:active {
         transform: scale(0.9);
       }
+
+      /* ---- Unified responsive header icon buttons (shared across all pages) ---- */
+      .header-icon-btn {
+        transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
+      }
+      .header-icon-btn:hover {
+        background-color: rgba(255,255,255,.06);
+        transform: translateY(-1px);
+      }
+      .header-icon-btn:active {
+        transform: translateY(0) scale(.95);
+      }
     </style>
   </head>
 
@@ -601,6 +613,9 @@
       ></div>
     </div>
 
+    <!-- ============================================================
+       HEADER (unified across index.html, Ko'chmasMulk.html, addtocart.html)
+  ============================================================ -->
     <header
       class="sticky top-0 z-50 border-b border-white/5 bg-ink-900/80 backdrop-blur-xl"
     >
@@ -638,7 +653,7 @@
               id="wishlist-btn"
               type="button"
               aria-label="Sevimlilar"
-              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+              class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60"
             >
               <svg
                 class="w-[18px] h-[18px] text-sand-200"
@@ -664,7 +679,7 @@
               type="button"
               aria-label="Savatcha"
               onclick="window.location.href='./pages/addtocart.html'"
-              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+              class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60"
             >
               <svg
                 class="w-[18px] h-[18px] text-sand-200"
@@ -689,7 +704,7 @@
               id="profile-btn"
               type="button"
               aria-label="Profil"
-              class="hidden sm:flex w-10 h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+              class="header-icon-btn flex w-10 h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60"
             >
               <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
                 <svg
@@ -708,14 +723,14 @@
               </span>
               <span id="profile-btn-chip" class="hidden items-center gap-2 pr-1 whitespace-nowrap">
                 <img id="profile-chip-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
-                <span id="profile-chip-name" class="text-xs font-semibold text-sand-100"></span>
+                <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-sand-100"></span>
               </span>
             </button>
 
             <!-- Mobile menu toggle -->
             <button
               id="menu-toggle"
-              class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
+              class="header-icon-btn lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
               aria-label="Menyu"
               aria-expanded="false"
             >
@@ -742,7 +757,7 @@
           class="lg:hidden overflow-hidden max-h-0 opacity-0"
         >
           <div
-            class="flex flex-col gap-4 pb-6 pt-2 text-sand-200/90 text-sm font-medium"
+            class="flex flex-col gap-4 pb-4 pt-2 text-sand-200/90 text-sm font-medium"
           >
             <a href="/" class="nav-link">Bosh sahifa</a>
             <a href="./pages/Ko'chmasMulk.html" class="nav-link"
@@ -753,6 +768,22 @@
             <a href="./pages/sotuvchi.html" class="nav-link"
               >Sotuvchi bo'ling</a
             >
+          </div>
+          <!-- Responsive bottom status row: wishlist / cart / profile summary, mirrors header icons -->
+          <div class="flex items-center justify-between gap-3 pb-5 pt-3 border-t border-white/10 text-xs text-sand-300">
+            <a href="./pages/liked.html" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              Sevimlilar (<span id="wishlist-count-mobile">0</span>)
+            </a>
+            <button type="button" id="cart-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+              Savat (<span id="cart-count-mobile">0</span>)
+            </button>
+            <button type="button" id="profile-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+              <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+              <span id="profile-name-mobile">Profil</span>
+            </button>
           </div>
         </div>
       </nav>
@@ -1032,7 +1063,7 @@
                 />
               </svg>
             </div>
-            <a href="./Ko'chmasMulk.html" class="font-display text-2xl font-semibold text-sand-50 mb-3">
+            <a href="./pages/Ko'chmasMulk.html" class="font-display text-2xl font-semibold text-sand-50 mb-3">
               Premium Ko'chmas Mulk
             </a>
             <p class="text-sand-300/90 text-sm leading-relaxed mb-6">
@@ -2544,7 +2575,7 @@
     </footer>
 
     <!-- ============================================================
-       RO'YXATDAN O'TISH MODALI (profil yaratish)
+       RO'YXATDAN O'TISH MODALI (profil yaratish) — barcha sahifalarda bir xil
   ============================================================ -->
     <div id="auth-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-ink-950/80 backdrop-blur-sm">
       <div class="glass-card rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-card max-h-[90vh] overflow-y-auto">
@@ -2637,18 +2668,61 @@
       });
 
       // ---------------------------------------------------------------
-      // SEVIMLILAR (like) — har bir karta uchun umumiy (global) localStorage
-      // kalitidan foydalanadi ("uybozor_wishlist_v1"), shu bilan boshqa
-      // sahifalar (masalan Uy jihozlari katalogi) bilan bir xil hisoblagich
-      // ishlatiladi. Like bosilganda -> ro'yxatga qo'shiladi va header'dagi
-      // son +1 bo'ladi hamda localStorage'ga saqlanadi (sahifa yangilansa
-      // ham yo'qolmaydi). Qayta bosilib like bekor qilinsa -> ro'yxatdan
-      // olib tashlanadi va header'dagi son ham kamayadi.
+      // SEVIMLILAR (like) va SAVATCHA (cart) — BARCHA UyBozor sahifalari
+      // bilan bir xil umumiy localStorage kalitlaridan foydalanadi:
+      //   "uybozor_wishlist_v1"      -> [productId, ...]
+      //   "uybozor_wishlist_meta_v1" -> { productId: {title, price, image, href}, ... }
+      //   "uybozor_cart_v1"          -> { productId: qty, ... }
+      //   "uybozor_cart_meta_v1"     -> { productId: {title, price, image, href}, ... }
+      // Shu tufayli, masalan index.html'da like/savatga qo'shilgan mulk
+      // Ko'chmasMulk.html, UyJihoz.html, liked.html, addtocart.html yoki
+      // profile.html sahifasida ham darhol ko'rinadi.
       // ---------------------------------------------------------------
       (function () {
         "use strict";
         const WISHLIST_KEY = "uybozor_wishlist_v1";
+        const WISHLIST_META_KEY = "uybozor_wishlist_meta_v1";
         const CART_KEY = "uybozor_cart_v1";
+        const CART_META_KEY = "uybozor_cart_meta_v1";
+
+        const CARD_META = {
+          "miran-international-city": {
+            title: "Miran International City",
+            price: "1 250 000 000 so'm",
+            image: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=400&q=80",
+            href: "./pages/Ko'chmasMulk.html",
+          },
+          "infinity-residence": {
+            title: "Infinity Residence",
+            price: "890 000 000 so'm",
+            image: "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=400&q=80",
+            href: "./pages/Ko'chmasMulk.html",
+          },
+          "dream-house-villa": {
+            title: "Dream House Villa",
+            price: "2 100 000 000 so'm",
+            image: "https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=400&q=80",
+            href: "./pages/Ko'chmasMulk.html",
+          },
+          "chilonzor-panorama": {
+            title: "Chilonzor Panorama",
+            price: "640 000 000 so'm",
+            image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=400&q=80",
+            href: "./pages/Ko'chmasMulk.html",
+          },
+          "yunusobod-sky-tower": {
+            title: "Yunusobod Sky Tower",
+            price: "980 000 000 so'm",
+            image: "https://images.unsplash.com/photo-1613977257363-707ba9348227?auto=format&fit=crop&w=400&q=80",
+            href: "./pages/Ko'chmasMulk.html",
+          },
+          "boshi-bog-kottej": {
+            title: "Boshi Bog' Kottej",
+            price: "1 750 000 000 so'm",
+            image: "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=400&q=80",
+            href: "./pages/Ko'chmasMulk.html",
+          },
+        };
 
         function getWishlist() {
           try {
@@ -2666,19 +2740,17 @@
             /* localStorage mavjud emas — like saqlanmaydi, lekin sahifa ishlashda davom etadi */
           }
         }
+        function saveWishlistMeta(id) {
+          try {
+            const meta = CARD_META[id];
+            if (!meta) return;
+            const raw = localStorage.getItem(WISHLIST_META_KEY);
+            const all = raw ? JSON.parse(raw) : {};
+            all[id] = meta;
+            localStorage.setItem(WISHLIST_META_KEY, JSON.stringify(all));
+          } catch (e) {}
+        }
 
-        // ---------------------------------------------------------------
-        // SAVATCHA (cart) — {id: qty} shaklida umumiy localStorage'da
-        // saqlanadi ("uybozor_cart_v1"). Headerdagi savatcha ustidagi son
-        // faqat NECHTA TURDAGI mahsulot borligini ko'rsatadi (Object
-        // kalitlari soni), ya'ni bitta kartani bir marta "+" bosib son bir
-        // marta oshadi; shu kartadagi miqdorni keyin +/- bilan
-        // ko'paytirish yoki kamaytirish mumkin, lekin header soni
-        // o'zgarmaydi (chunki bu hali ham bitta mahsulot turi). Miqdor 0
-        // ga tushganda mahsulot savatdan butunlay olib tashlanadi va
-        // "Savatga qo'shish" tugmasi qaytadan chiqadi hamda header soni
-        // 1 ga kamayadi.
-        // ---------------------------------------------------------------
         function getCart() {
           try {
             const raw = localStorage.getItem(CART_KEY);
@@ -2696,19 +2768,34 @@
           }
         }
         function getCartCount() {
-          const cart = getCart();
-          return Object.keys(cart).length;
+          return Object.keys(getCart()).length;
+        }
+
+        function saveCartMeta(id) {
+          try {
+            const meta = CARD_META[id];
+            if (!meta) return;
+            const raw = localStorage.getItem(CART_META_KEY);
+            const all = raw ? JSON.parse(raw) : {};
+            all[id] = meta;
+            localStorage.setItem(CART_META_KEY, JSON.stringify(all));
+          } catch (e) {}
         }
 
         const wishlistCountEl = document.getElementById("wishlist-count");
+        const wishlistCountMobileEl = document.getElementById("wishlist-count-mobile");
         const cartCountEl = document.getElementById("cart-count");
+        const cartCountMobileEl = document.getElementById("cart-count-mobile");
         const heartButtons = document.querySelectorAll(".heart-btn[data-like-id]");
         const addCartButtons = document.querySelectorAll(".add-cart-btn[data-cart-id]");
 
         function refreshHeaderCounts() {
-          const list = getWishlist();
-          if (wishlistCountEl) wishlistCountEl.textContent = String(list.length);
-          if (cartCountEl) cartCountEl.textContent = String(getCartCount());
+          const wCount = getWishlist().length;
+          const cCount = getCartCount();
+          if (wishlistCountEl) wishlistCountEl.textContent = String(wCount);
+          if (wishlistCountMobileEl) wishlistCountMobileEl.textContent = String(wCount);
+          if (cartCountEl) cartCountEl.textContent = String(cCount);
+          if (cartCountMobileEl) cartCountMobileEl.textContent = String(cCount);
         }
 
         function syncButtonsWithStorage() {
@@ -2758,6 +2845,7 @@
             const cart = getCart();
             cart[id] = 1;
             saveCart(cart);
+            saveCartMeta(id);
             renderCardState(id);
             refreshHeaderCounts();
           });
@@ -2795,6 +2883,7 @@
             if (idx === -1) {
               list.push(id);
               btn.classList.add("is-active");
+              saveWishlistMeta(id);
             } else {
               list.splice(idx, 1);
               btn.classList.remove("is-active");
@@ -2803,6 +2892,12 @@
             refreshHeaderCounts();
           });
         });
+
+        // Header wishlist/cart/profile navigation
+        const wishlistBtn = document.getElementById("wishlist-btn");
+        if (wishlistBtn) wishlistBtn.addEventListener("click", () => { window.location.href = "./pages/liked.html"; });
+        const cartBtnMobile = document.getElementById("cart-btn-mobile");
+        if (cartBtnMobile) cartBtnMobile.addEventListener("click", () => { window.location.href = "./pages/addtocart.html"; });
 
         // Boshqa tab/sahifada o'zgarsa (masalan katalogda like yoki
         // savatga qo'shish bosilsa), shu sahifadagi header, yurak
@@ -2825,11 +2920,10 @@
 
       // ---------------------------------------------------------------
       // PROFIL / RO'YXATDAN O'TISH
-      // Profil ma'lumotlari localStorage'da saqlanadi, shu tufayli sahifa
-      // yangilansa ham yo'qolmaydi. Profil bo'lmasa, header'dagi profil
-      // ikonkasi yoki "Batafsil ma'lumot" tugmasi ro'yxatdan o'tish
-      // modalini ochadi. Profil to'ldirilgach, header'dagi ikonka o'rniga
-      // rasm + ism-familya chiqadi va u profil sahifasiga olib o'tadi.
+      // Profil ma'lumotlari localStorage'da saqlanadi ("uybozor_profile_v1"),
+      // shu tufayli qaysi sahifada ro'yxatdan o'tilsa, boshqa barcha
+      // UyBozor sahifalarining headerida ham xuddi shu profil ko'rinadi
+      // (rasm + ism-familya), sahifa yangilansa ham yo'qolmaydi.
       // ---------------------------------------------------------------
       (function () {
         "use strict";
@@ -2846,6 +2940,11 @@
         const profileChipPhoto = document.getElementById("profile-chip-photo");
         const profileChipName = document.getElementById("profile-chip-name");
         const batafsilLink = document.getElementById("batafsil-link");
+
+        const profileBtnMobile = document.getElementById("profile-btn-mobile");
+        const profileIconMobile = document.getElementById("profile-icon-mobile");
+        const profilePhotoMobile = document.getElementById("profile-chip-photo-mobile");
+        const profileNameMobile = document.getElementById("profile-name-mobile");
 
         let selectedPhotoDataUrl = null;
 
@@ -2893,23 +2992,36 @@
             profileChipName.textContent = `${p.firstName} ${p.lastName}`.trim();
             profileBtn.classList.remove("w-10");
             profileBtn.classList.add("w-auto", "px-1");
+
+            if (profileIconMobile) profileIconMobile.classList.add("hidden");
+            if (profilePhotoMobile) {
+              profilePhotoMobile.src = p.photoDataUrl;
+              profilePhotoMobile.classList.remove("hidden");
+            }
+            if (profileNameMobile) profileNameMobile.textContent = `${p.firstName} ${p.lastName}`.trim();
           } else {
             profileBtnDefault.classList.remove("hidden");
             profileBtnChip.classList.add("hidden");
             profileBtnChip.classList.remove("flex");
             profileBtn.classList.add("w-10");
             profileBtn.classList.remove("w-auto", "px-1");
+
+            if (profileIconMobile) profileIconMobile.classList.remove("hidden");
+            if (profilePhotoMobile) profilePhotoMobile.classList.add("hidden");
+            if (profileNameMobile) profileNameMobile.textContent = "Profil";
           }
         }
 
-        profileBtn.addEventListener("click", () => {
+        function handleProfileClick() {
           const p = getProfile();
           if (p) {
             window.location.href = "./pages/profile.html";
           } else {
             openAuthModal();
           }
-        });
+        }
+        profileBtn.addEventListener("click", handleProfileClick);
+        if (profileBtnMobile) profileBtnMobile.addEventListener("click", handleProfileClick);
 
         if (batafsilLink) {
           batafsilLink.addEventListener("click", (e) => {
