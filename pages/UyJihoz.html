@@ -6,7 +6,9 @@
 <title>UyBozor — Uy jihozlari</title>
 
 <!-- ============================================================
-     UyBozor — Uy jihozlari katalog sahifasi (v3, tuzatilgan)
+     UyBozor — Uy jihozlari katalog sahifasi (v4 — header dekor.html
+     uslubiga almashtirilgan: qidiruv/mikrofon paneli olib tashlandi,
+     faqat logotip + navigatsiya + sevimlilar/savat/profil ikonkalari)
      Yagona HTML fayl: Tailwind (CDN) + Flowbite (CDN) + vanilla JS
      ============================================================ -->
 
@@ -102,12 +104,9 @@
 
   .hairline { border-color: rgba(255,255,255,0.08); }
 
-  /* ---- header search ---- */
-  .search-wrap { transition: box-shadow .3s ease, border-color .3s ease, background .3s ease; }
-  .search-wrap:focus-within {
-    border-color: rgba(217,164,65,0.55);
-    box-shadow: 0 0 0 5px rgba(217,164,65,0.12);
-    background: rgba(255,255,255,0.045);
+  .fade-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
   }
 
   /* ---- nav underline, understated ---- */
@@ -120,18 +119,13 @@
   .nav-link:hover::after, .nav-link.active-nav::after { width: 100%; }
   .nav-link.active-nav { color: #f0cf8a; }
 
+  /* ---- logo mark ---- */
+  .logo-mark { transition: all .4s ease; box-shadow: 0 8px 25px rgba(217,164,65,0.35); }
+  .logo-mark:hover { transform: rotate(12deg) scale(1.08); }
+
   /* ---- icon buttons ---- */
   .icon-btn { transition: background .25s ease, color .25s ease, transform .25s ease; }
   .icon-btn:hover { background: rgba(255,255,255,0.06); color: #f0cf8a; transform: translateY(-1px); }
-
-  /* ---- mic button + listening state ---- */
-  #mic-btn { transition: background .3s ease, color .3s ease, box-shadow .3s ease; }
-  .mic-idle:hover { background: rgba(217,164,65,0.16); color: #f0cf8a; }
-  .mic-listening { background: #d95b6b !important; color: #fff !important; animation: ringPulse 1.5s cubic-bezier(.4,0,.6,1) infinite; }
-  .mic-bars span { display: inline-block; width: 2.5px; margin: 0 1.5px; background: #fff; border-radius: 2px; animation: wave .8s ease-in-out infinite; }
-  .mic-bars span:nth-child(2) { animation-delay: .14s; }
-  .mic-bars span:nth-child(3) { animation-delay: .28s; }
-  #mic-status { transition: opacity .25s ease, transform .25s ease; }
 
   /* ---- sidebar categories ---- */
   .cat-row { position: relative; transition: background .3s ease, color .3s ease, border-color .3s ease; border: 1px solid transparent; }
@@ -243,24 +237,16 @@
 
 <div id="toast-stack" class="fixed top-20 right-4 z-[100] flex flex-col gap-2 items-end"></div>
 
-<!-- ============================================================
-     HEADER (unified across index.html, UyJihoz.html, liked.html,
-     addtocart.html, profile.html) — same structure/IDs as index.html,
-     plus this page's search bar appended below the icon row.
-     ============================================================ -->
-<header class="sticky top-0 z-50 bg-ink-900/85 backdrop-blur-xl border-b hairline">
-  <nav class="max-w-7xl mx-auto px-3 sm:px-5 lg:px-8">
-    <div class="flex items-center justify-between h-16 sm:h-20 gap-2 sm:gap-3">
-      <a href="../index.html" class="flex items-center gap-1.5 sm:gap-2 shrink-0 group min-w-0">
-        <span class="logo-mark inline-flex w-7 h-7 sm:w-8 sm:h-8 items-center justify-center rounded-full border border-gold-400/50 group-hover:border-gold-400 transition-colors shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gold-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 11.5 12 4l9 7.5"/><path d="M5 10v9a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1v-9"/>
-          </svg>
-        </span>
-        <span class="font-display text-lg sm:text-2xl font-semibold tracking-tight text-[#f5eede] truncate">UyBozor</span>
+<!-- ================= HEADER (dekor.html uslubi: qidiruv panelisiz) ================= -->
+<header class="sticky top-0 z-50 border-b border-white/5 bg-ink-900/80 backdrop-blur-xl">
+  <nav class="max-w-7xl mx-auto px-5 lg:px-8">
+    <div class="flex items-center justify-between h-20">
+      <a href="../index.html" class="flex items-center gap-2 shrink-0 group">
+        <span class="logo-mark inline-flex w-10 h-10 items-center justify-center rounded-xl bg-gradient-to-br from-gold-300 to-gold-600 text-ink-900 font-bold text-lg shadow-lg">U</span>
+        <span class="font-display text-2xl font-semibold text-gold-400 tracking-tight">UyBozor</span>
       </a>
 
-      <div class="hidden lg:flex items-center gap-9 text-[15px] font-medium shrink-0">
+      <div class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-[#c9c1e0]">
         <a href="../index.html" class="nav-link pb-1">Bosh sahifa</a>
         <a href="./Ko'chmasMulk.html" class="nav-link pb-1">Ko'chmas mulk</a>
         <a href="./UyJihoz.html" class="nav-link active-nav pb-1">Uy jihozlari</a>
@@ -268,100 +254,63 @@
         <a href="./sotuvchi.html" class="nav-link pb-1">Sotuvchi bo'ling</a>
       </div>
 
-      <div class="flex items-center gap-0.5 sm:gap-1.5 md:gap-2 shrink-0">
-        <button id="wishlist-btn" type="button" aria-label="Sevimlilar" class="header-icon-btn relative w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-sand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/>
+      <div class="flex items-center  gap-2 sm:gap-2 shrink-0">
+        <button id="wishlist-btn" type="button" aria-label="Sevimlilar"
+          class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-gold-400/60">
+          <svg class="w-[18px] h-[18px] text-[#c9c1e0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
           </svg>
-          <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
+          <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
         </button>
 
-        <button id="cart-btn" type="button" aria-label="Savatcha" onclick="window.location.href='./addtocart.html'" class="header-icon-btn relative w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-sand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
+        <button id="cart-btn" type="button" aria-label="Savatcha" onclick="window.location.href='./addtocart.html'"
+          class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-gold-400/60">
+          <svg class="w-[18px] h-[18px] text-[#c9c1e0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
           </svg>
-          <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
+          <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gold-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
         </button>
 
-        <button id="profile-btn" type="button" aria-label="Profil" class="header-icon-btn flex w-9 h-9 sm:w-10 sm:h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60 shrink-0 max-w-[150px]">
+        <button id="profile-btn" class="ml-2" type="button" aria-label="Profil"
+          class="header-icon-btn flex w-10 h-10 rounded-full items-center justify-center border border-white/10 hover:border-gold-400/60 max-w-[150px]">
           <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px] sm:w-[18px] sm:h-[18px] text-sand-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            <svg class="w-[18px] h-[18px] text-[#c9c1e0]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
             </svg>
           </span>
-          <span id="profile-btn-chip" class="hidden items-center gap-1.5 sm:gap-2 pr-1 whitespace-nowrap min-w-0">
-            <img id="profile-chip-photo" src="" alt="" class="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
-            <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-sand-100 truncate max-w-[90px]"></span>
+          <span id="profile-btn-chip" class="hidden items-center gap-2 pr-1 whitespace-nowrap">
+            <img id="profile-chip-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover shrink-0 ring-2 ring-gold-400/50" />
+            <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-[#f5eede]"></span>
           </span>
         </button>
 
-        <button id="mobile-search-toggle" type="button" aria-label="Qidiruv" class="md:hidden header-icon-btn w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center text-sand-200 border border-white/10 shrink-0">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-[16px] h-[16px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
-
-        <!-- Mobile menu toggle -->
-        <button id="menu-toggle" class="header-icon-btn lg:hidden w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center rounded-full border border-white/10 shrink-0" aria-label="Menyu" aria-expanded="false">
-          <svg id="menu-icon" class="w-4.5 h-4.5 sm:w-5 sm:h-5 text-sand-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <button id="menu-toggle" class="header-icon-btn lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10" aria-label="Menyu" aria-expanded="false">
+          <svg id="menu-icon" class="w-5 h-5 text-[#f5eede]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
           </svg>
         </button>
       </div>
     </div>
 
-    <!-- Search row — this page's audio search, appended below the main row so the
-         main row itself stays identical (same 3 children, same spacing) to index.html -->
-    <div class="hidden md:flex justify-center pb-3">
-      <div class="w-full max-w-md relative">
-        <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>
-          </svg>
-          <input id="search-input" type="text" placeholder="Qidiruv..." autocomplete="off"
-                 class="bg-transparent border-none outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
-          <button id="mic-btn" title="Ovoz orqali qidirish" aria-label="Ovoz orqali qidirish"
-                  class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center relative">
-            <svg id="mic-icon" xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/>
-            </svg>
-            <span id="mic-bars" class="mic-bars hidden absolute inset-0 items-center justify-center">
-              <span style="height:6px"></span><span style="height:11px"></span><span style="height:6px"></span>
-            </span>
-          </button>
-        </div>
-        <span id="mic-status" class="opacity-0 absolute -bottom-6 left-4 text-[11px] text-gold-300">Tinglanmoqda...</span>
-      </div>
-    </div>
-
-    <div id="mobile-search-bar" class="hidden md:hidden pb-3">
-      <div class="search-wrap w-full flex items-center gap-2 bg-white/[0.035] border hairline rounded-full px-4 py-2.5">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-[#8a80a8] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-        <input id="search-input-mobile" type="text" placeholder="Qidiruv..." class="bg-transparent outline-none flex-1 text-sm placeholder:text-[#8a80a8] text-[#f2ede4]">
-        <button id="mic-btn-mobile" class="mic-idle w-7 h-7 shrink-0 rounded-full text-[#8a80a8] flex items-center justify-center">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0"/><path d="M12 19v3"/></svg>
-        </button>
-      </div>
-    </div>
-
     <div id="mobile-menu" class="lg:hidden overflow-hidden max-h-0 opacity-0">
-      <div class="flex flex-col gap-4 pb-4 pt-2 text-sand-200/90 text-sm font-medium">
+      <div class="flex flex-col gap-4 pb-6 pt-2 text-[#c9c1e0] text-sm font-medium">
         <a href="../index.html" class="nav-link">Bosh sahifa</a>
         <a href="./Ko'chmasMulk.html" class="nav-link">Ko'chmas mulk</a>
         <a href="./UyJihoz.html" class="nav-link active-nav">Uy jihozlari</a>
         <a href="./dekor.html" class="nav-link">Dekor</a>
         <a href="./sotuvchi.html" class="nav-link">Sotuvchi bo'ling</a>
       </div>
-      <!-- Responsive bottom status row: wishlist / cart / profile summary, mirrors header icons (same as index.html) -->
-      <div class="flex items-center justify-between gap-3 pb-5 pt-3 border-t border-white/10 text-xs text-sand-300">
-        <a href="./liked.html" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>
+      <div class="flex items-center justify-between gap-3 pb-5 pt-3 border-t border-white/10 text-xs text-[#a79fc0]">
+        <a href="./liked.html" class="flex items-center gap-1.5 hover:text-gold-300 transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
           Sevimlilar (<span id="wishlist-count-mobile">0</span>)
         </a>
-        <button type="button" id="cart-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+        <button type="button" id="cart-btn-mobile" class="flex items-center gap-1.5 hover:text-gold-300 transition-colors">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
           Savat (<span id="cart-count-mobile">0</span>)
         </button>
-        <button type="button" id="profile-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
-          <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+        <button type="button" id="profile-btn-mobile" class="flex items-center gap-1.5 hover:text-gold-300 transition-colors">
+          <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-gold-400/50" />
           <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
           <span id="profile-name-mobile">Profil</span>
         </button>
@@ -372,7 +321,7 @@
 </header>
 
 <!-- ============================================================
-     RO'YXATDAN O'TISH MODALI (profil yaratish) — index.html bilan bir xil
+     RO'YXATDAN O'TISH MODALI (profil yaratish) — index.html/dekor.html bilan bir xil
 ============================================================ -->
 <div id="auth-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-ink-950/80 backdrop-blur-sm">
   <div class="glass rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-soft max-h-[90vh] overflow-y-auto">
@@ -754,10 +703,12 @@
   const WISHLIST_META_KEY = 'uybozor_wishlist_meta_v1';
   const CART_KEY = 'uybozor_cart_v1';
   // Savatdagi mahsulotning nomi/narxi/rasmi — boshqa sahifalarda (masalan
-  // profil.html, addtocart.html, liked.html) katalog ma'lumotlarisiz ham
+  // profile.html, addtocart.html, liked.html) katalog ma'lumotlarisiz ham
   // savat/sevimlilar tarkibini ko'rsatish uchun. Boshqa UyBozor sahifalari
-  // (index.html) bilan bir xil maydon nomlaridan foydalanadi: title, price,
-  // image, href.
+  // (index.html, dekor.html) bilan bir xil maydon nomlaridan foydalanadi:
+  // title, price, image, href. addtocart.html shu ikki kalitni (CART_KEY
+  // va CART_META_KEY) o'qib, UyJihoz.htmldan qo'shilgan mahsulotlarni ham
+  // avtomatik ko'rsatadi — chunki kalit nomlari barcha sahifalarda bir xil.
   const CART_META_KEY = 'uybozor_cart_meta_v1';
 
   const state = {
@@ -766,11 +717,20 @@
     wishlist: new Set(), cart: {},
   };
 
+  // Diqqat: bu yerda ID'larni ushbu sahifaning PRODUCTS_BY_ID kataloги
+  // bo'yicha filtrlAMAYMIZ. Savat/sevimlilar — barcha UyBozor sahifalari
+  // ("dekor.html", "index.html" va h.k.) uchun umumiy bitta localStorage
+  // qatori bo'lib, boshqa sahifada qo'shilgan mahsulotning ID'si shu
+  // sahifaning katalogida yo'q bo'lishi mumkin. Agar shu yerda filtrlab
+  // tashlansa, keyinchalik saveWishlist()/saveCart() chaqirilganda o'sha
+  // "notanish" ID'lar butunlay o'chib ketadi va header'dagi son ham boshqa
+  // sahifalarda qo'shilgan itemlarni hisobga olmay qoladi — aynan shu xato
+  // headerdagi savat/sevimlilar sonini noto'g'ri ko'rsatib turgan edi.
   function loadPersisted() {
     try {
       const raw = localStorage.getItem(WISHLIST_KEY);
       const arr = raw ? JSON.parse(raw) : [];
-      state.wishlist = new Set(Array.isArray(arr) ? arr.filter(id => PRODUCTS_BY_ID[id]) : []);
+      state.wishlist = new Set(Array.isArray(arr) ? arr : []);
     } catch (e) { state.wishlist = new Set(); }
 
     try {
@@ -780,7 +740,7 @@
       if (obj && typeof obj === 'object') {
         Object.keys(obj).forEach(id => {
           const qty = parseInt(obj[id], 10);
-          if (PRODUCTS_BY_ID[id] && qty > 0) state.cart[id] = qty;
+          if (qty > 0) state.cart[id] = qty;
         });
       }
     } catch (e) { state.cart = {}; }
@@ -1002,9 +962,6 @@
   // barchasini yangilaymiz, har biri o'z eski holatini yo'qotmasin.
   function refreshCartAreas(id) {
     document.querySelectorAll(`[data-cart-area="${id}"]`).forEach(area => {
-      // faqat eng tashqi wrapper (qty-stepper) yoki tugmaning o'zi bo'lsa,
-      // uni ota-konteyner ichida almashtiramiz
-      const parent = area.parentElement;
       const p = PRODUCTS_BY_ID[id];
       const html = cartControlHtml(p);
       const tmp = document.createElement('div');
@@ -1190,130 +1147,6 @@
   }
 
   /* --------------------------------------------------------
-     SEARCH
-     -------------------------------------------------------- */
-  const searchInput = document.getElementById('search-input');
-  const searchInputMobile = document.getElementById('search-input-mobile');
-
-  function handleSearch(val) { state.query = val; state.page = 1; renderGrid(); }
-  let searchDebounce;
-  [searchInput, searchInputMobile].forEach(inp => {
-    inp.addEventListener('input', () => {
-      clearTimeout(searchDebounce);
-      const v = inp.value;
-      if (inp === searchInput) searchInputMobile.value = v; else searchInput.value = v;
-      searchDebounce = setTimeout(() => handleSearch(v), 200);
-    });
-  });
-
-  /* --------------------------------------------------------
-     VOICE SEARCH — bir necha tilda urinib ko'radi (uz/ru/en),
-     mikrofonga ruxsat so'raydi, va har bosqichda aniq vizual +
-     toast bildirishnoma beradi. "no-speech" holatida keyingi
-     tilga avtomatik o'tib, qayta tinglashni boshlaydi (avvalgi
-     versiyada bu joyda xato bor edi: navbatdagi til hech qachon
-     ishga tushmasdi).
-     -------------------------------------------------------- */
-  const micBtn = document.getElementById('mic-btn');
-  const micBtnMobile = document.getElementById('mic-btn-mobile');
-  const micIcon = document.getElementById('mic-icon');
-  const micBars = document.getElementById('mic-bars');
-  const micStatus = document.getElementById('mic-status');
-  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-
-  const LANG_ATTEMPTS = ['uz-UZ', 'ru-RU', 'en-US'];
-  let langIndex = 0;
-  let recognition = null;
-  let listening = false;
-
-  function buildRecognition(lang) {
-    const r = new SpeechRecognition();
-    r.lang = lang;
-    r.interimResults = true;
-    r.maxAlternatives = 1;
-    r.continuous = false;
-
-    r.onstart = () => {
-      listening = true;
-      [micBtn, micBtnMobile].forEach(b => { if (b) { b.classList.remove('mic-idle'); b.classList.add('mic-listening'); } });
-      micIcon.classList.add('hidden');
-      micBars.classList.remove('hidden'); micBars.classList.add('flex');
-      micStatus.style.opacity = '1';
-    };
-
-    r.onresult = (e) => {
-      let transcript = '';
-      for (let i = 0; i < e.results.length; i++) transcript += e.results[i][0].transcript;
-      searchInput.value = transcript;
-      searchInputMobile.value = transcript;
-      if (e.results[e.results.length - 1].isFinal) {
-        handleSearch(transcript);
-        showToast(`Qidiruv: "${transcript}"`);
-      }
-    };
-
-    r.onerror = (e) => {
-      if (e.error === 'no-speech') {
-        if (langIndex < LANG_ATTEMPTS.length - 1) {
-          langIndex++;
-          stopListeningUI();
-          startListening(true);
-          return;
-        }
-        showToast("Ovoz eshitilmadi, qayta urinib ko'ring");
-      } else if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
-        showToast("Mikrofonga ruxsat berilmadi — brauzer sozlamalarini tekshiring");
-      } else if (e.error === 'language-not-supported') {
-        if (langIndex < LANG_ATTEMPTS.length - 1) { langIndex++; startListening(true); return; }
-        showToast("Bu til qo'llab-quvvatlanmaydi");
-      } else if (e.error !== 'aborted') {
-        showToast("Ovozli qidiruvda xatolik yuz berdi");
-      }
-      stopListeningUI();
-    };
-
-    r.onend = () => { stopListeningUI(); };
-    return r;
-  }
-
-  function stopListeningUI() {
-    listening = false;
-    [micBtn, micBtnMobile].forEach(b => { if (b) { b.classList.add('mic-idle'); b.classList.remove('mic-listening'); } });
-    micIcon.classList.remove('hidden');
-    micBars.classList.add('hidden'); micBars.classList.remove('flex');
-    micStatus.style.opacity = '0';
-  }
-
-  async function startListening(skipPermissionCheck) {
-    if (!SpeechRecognition) {
-      showToast("Brauzeringiz ovozli qidiruvni qo'llab-quvvatlamaydi. Chrome'dan foydalaning.");
-      return;
-    }
-    if (!skipPermissionCheck && navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        stream.getTracks().forEach(t => t.stop());
-      } catch (err) {
-        showToast("Mikrofonga ruxsat kerak — brauzer so'rovini tasdiqlang");
-        return;
-      }
-    }
-    recognition = buildRecognition(LANG_ATTEMPTS[langIndex]);
-    try { recognition.start(); } catch (err) { /* already running */ }
-  }
-
-  function stopListening() {
-    if (recognition) { try { recognition.stop(); } catch (err) {} }
-    stopListeningUI();
-  }
-
-  function toggleMic() {
-    if (listening) stopListening(); else { langIndex = 0; startListening(false); }
-  }
-  micBtn.addEventListener('click', toggleMic);
-  if (micBtnMobile) micBtnMobile.addEventListener('click', toggleMic);
-
-  /* --------------------------------------------------------
      FILTERS, SORT, CLEAR
      -------------------------------------------------------- */
   function initFilters() {
@@ -1357,46 +1190,35 @@
     else showToast("Iltimos, to'g'ri email kiriting");
   });
 
-  document.getElementById('mobile-search-toggle').addEventListener('click', () => document.getElementById('mobile-search-bar').classList.toggle('hidden'));
-  document.getElementById('menu-toggle').addEventListener('click', () => {
-    const menuToggleBtn = document.getElementById('menu-toggle');
-    const nav = document.getElementById('mobile-nav');
-    const menuIcon = document.getElementById('menu-icon');
-    const isOpen = !nav.classList.contains('hidden');
-    if (isOpen) {
-      nav.classList.add('hidden'); nav.classList.remove('flex');
-      menuToggleBtn.setAttribute('aria-expanded', 'false');
-      menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
-    } else {
-      nav.classList.remove('hidden'); nav.classList.add('flex');
-      menuToggleBtn.setAttribute('aria-expanded', 'true');
-      menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
-    }
-    // Wishlist/cart/profile status row (mobile-menu) — nav bilan birga ochiladi/yopiladi
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (!isOpen) {
-      mobileMenu.style.maxHeight = mobileMenu.scrollHeight + 'px';
-      mobileMenu.style.opacity = '1';
-    } else {
-      mobileMenu.style.maxHeight = '0px';
-      mobileMenu.style.opacity = '0';
-    }
-  });
-  window.addEventListener('resize', () => {
-    if (window.innerWidth >= 1024) {
-      const nav = document.getElementById('mobile-nav');
-      const mobileMenu = document.getElementById('mobile-menu');
-      nav.classList.add('hidden'); nav.classList.remove('flex');
-      mobileMenu.style.maxHeight = '0px';
-      mobileMenu.style.opacity = '0';
-      document.getElementById('menu-toggle').setAttribute('aria-expanded', 'false');
-    }
-  });
+  // ---- Mobil menyu (header'dagi "mobile-menu" bloki bilan) ----
+  const menuToggleBtn = document.getElementById('menu-toggle');
+  const mobileMenuEl = document.getElementById('mobile-menu');
+  const menuIconEl = document.getElementById('menu-icon');
+  let menuOpen = false;
+  if (menuToggleBtn && mobileMenuEl && menuIconEl) {
+    menuToggleBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      if (menuOpen) {
+        mobileMenuEl.style.maxHeight = mobileMenuEl.scrollHeight + 'px';
+        mobileMenuEl.style.opacity = '1';
+        menuToggleBtn.setAttribute('aria-expanded', 'true');
+        menuIconEl.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+      } else {
+        mobileMenuEl.style.maxHeight = '0px';
+        mobileMenuEl.style.opacity = '0';
+        menuToggleBtn.setAttribute('aria-expanded', 'false');
+        menuIconEl.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      }
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 1024 && menuOpen) menuToggleBtn.click();
+    });
+  }
 
   // ---------------------------------------------------------------
   // Header wishlist/cart navigatsiyasi + boshqa tab/sahifadagi
-  // o'zgarishlarni (masalan index.html'da like bosilsa) shu yerda
-  // ham darhol ko'rsatish.
+  // o'zgarishlarni (masalan dekor.html'da like/savat bosilsa) shu
+  // yerda ham darhol ko'rsatish.
   // ---------------------------------------------------------------
   const wishlistBtn = document.getElementById('wishlist-btn');
   if (wishlistBtn) wishlistBtn.addEventListener('click', () => { window.location.href = './liked.html'; });
@@ -1432,7 +1254,7 @@
 })();
 
 // ---------------------------------------------------------------
-// PROFIL / RO'YXATDAN O'TISH — index.html bilan bir xil tizim.
+// PROFIL / RO'YXATDAN O'TISH — index.html/dekor.html bilan bir xil tizim.
 // "uybozor_profile_v1" kalitida saqlanadi, shu tufayli qaysi
 // sahifada ro'yxatdan o'tilsa, boshqa barcha UyBozor sahifalarining
 // headerida ham xuddi shu profil (rasm + ism-familya) ko'rinadi.
@@ -1499,7 +1321,7 @@
       profileBtnChip.classList.add("flex");
       profileChipPhoto.src = p.photoDataUrl;
       profileChipName.textContent = `${p.firstName} ${p.lastName}`.trim();
-      profileBtn.classList.remove("w-9", "sm:w-10");
+      profileBtn.classList.remove("w-10");
       profileBtn.classList.add("w-auto", "px-1");
 
       if (profileIconMobile) profileIconMobile.classList.add("hidden");
@@ -1512,7 +1334,7 @@
       profileBtnDefault.classList.remove("hidden");
       profileBtnChip.classList.add("hidden");
       profileBtnChip.classList.remove("flex");
-      profileBtn.classList.add("w-9", "sm:w-10");
+      profileBtn.classList.add("w-10");
       profileBtn.classList.remove("w-auto", "px-1");
 
       if (profileIconMobile) profileIconMobile.classList.remove("hidden");
