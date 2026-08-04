@@ -948,9 +948,9 @@
       // tufayli boshqa sahifada (masalan bosh sahifada) like/savatga
       // qo'shilgan mulk shu yerda ham, va aksincha, darhol ko'rinadi:
       //   "uybozor_wishlist_v1"      -> [productId, ...]
-      //   "uybozor_wishlist_meta_v1" -> { productId: {title, price, image, href}, ... }
+      //   "uybozor_wishlist_meta_v1" -> { productId: {title, price, image, imageAlt, href}, ... }
       //   "uybozor_cart_v1"          -> { productId: qty, ... }
-      //   "uybozor_cart_meta_v1"     -> { productId: {title, price, image, href}, ... }
+      //   "uybozor_cart_meta_v1"     -> { productId: {title, price, image, imageAlt, href}, ... }
       // ---------------------------------------------------------------
       (function () {
         "use strict";
@@ -958,6 +958,14 @@
         const WISHLIST_META_KEY = "uybozor_wishlist_meta_v1";
         const CART_KEY = "uybozor_cart_v1";
         const CART_META_KEY = "uybozor_cart_meta_v1";
+
+        // Rasm yuklanmay qolganda ko'rsatiladigan neytral placeholder
+        // (data: URI — internetga bog'liq emas, doim ishlaydi).
+        const IMAGE_PLACEHOLDER =
+          "data:image/svg+xml;charset=UTF-8," +
+          encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360"><rect width="480" height="360" fill="#241f3d"/><text x="50%" y="50%" fill="#a8998a" font-family="sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle">Rasm topilmadi</text></svg>'
+          );
 
         function getWishlist() {
           try {
@@ -1061,7 +1069,7 @@
 
           const safeTitle = meta.title || "Nomsiz e'lon";
           const safePrice = meta.price || "";
-          const safeImage = meta.image || "";
+          const safeImage = meta.image || IMAGE_PLACEHOLDER;
           const safeHref = meta.href || "#";
 
           article.innerHTML = `
@@ -1104,6 +1112,27 @@
               </div>
             </div>
           `;
+
+          // ---------------------------------------------------------------
+          // Rasm yuklanmasa (masalan LoremFlickr xizmati vaqtincha javob
+          // bermasa) — avval UyJihoz.html saqlagan zaxira rasmga (meta.imageAlt)
+          // o'tamiz, u ham ishlamasa — neytral placeholder ko'rsatamiz.
+          // Shu tufayli UyJihoz.html'da like qilingan kartalar rasmi
+          // liked.html'da doim ko'rinadi.
+          // ---------------------------------------------------------------
+          const imgEl = article.querySelector("img");
+          if (imgEl) {
+            let triedFallback = false;
+            imgEl.addEventListener("error", () => {
+              if (!triedFallback && meta.imageAlt) {
+                triedFallback = true;
+                imgEl.src = meta.imageAlt;
+              } else {
+                imgEl.onerror = null;
+                imgEl.src = IMAGE_PLACEHOLDER;
+              }
+            });
+          }
 
           article.querySelector('[data-unlike-id]').addEventListener("click", () => {
             const newList = getWishlist().filter((x) => x !== id);

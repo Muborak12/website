@@ -706,7 +706,7 @@
   // profile.html, addtocart.html, liked.html) katalog ma'lumotlarisiz ham
   // savat/sevimlilar tarkibini ko'rsatish uchun. Boshqa UyBozor sahifalari
   // (index.html, dekor.html) bilan bir xil maydon nomlaridan foydalanadi:
-  // title, price, image, href. addtocart.html shu ikki kalitni (CART_KEY
+  // title, price, image, imageAlt, href. addtocart.html shu ikki kalitni (CART_KEY
   // va CART_META_KEY) o'qib, UyJihoz.htmldan qo'shilgan mahsulotlarni ham
   // avtomatik ko'rsatadi — chunki kalit nomlari barcha sahifalarda bir xil.
   const CART_META_KEY = 'uybozor_cart_meta_v1';
@@ -756,7 +756,7 @@
     try {
       const raw = localStorage.getItem(WISHLIST_META_KEY);
       const meta = raw ? JSON.parse(raw) : {};
-      meta[p.id] = { title: p.title, price: fmt(p.price), image: imgFor(p), href: './UyJihoz.html' };
+      meta[p.id] = { title: p.title, price: fmt(p.price), image: imgFor(p), imageAlt: imgForAlt(p), href: './UyJihoz.html' };
       localStorage.setItem(WISHLIST_META_KEY, JSON.stringify(meta));
     } catch (e) {}
   }
@@ -772,7 +772,7 @@
     try {
       const raw = localStorage.getItem(CART_META_KEY);
       const meta = raw ? JSON.parse(raw) : {};
-      meta[p.id] = { title: p.title, price: fmt(p.price), image: imgFor(p), href: './UyJihoz.html' };
+      meta[p.id] = { title: p.title, price: fmt(p.price), image: imgFor(p), imageAlt: imgForAlt(p), href: './UyJihoz.html' };
       localStorage.setItem(CART_META_KEY, JSON.stringify(meta));
     } catch (e) {}
   }

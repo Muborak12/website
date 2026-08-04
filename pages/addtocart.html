@@ -91,6 +91,18 @@
         box-shadow: 0 14px 34px -10px rgba(240, 168, 96, 0.55);
       }
       .btn-gradient:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+      .btn-shine::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -75%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+        transform: skewX(-20deg);
+        transition: left 0.7s ease;
+      }
+      .btn-shine:hover::after { left: 130%; }
       .qty-btn { transition: background 0.25s ease, transform 0.2s ease; }
       .qty-btn:hover { background: rgba(240, 168, 96, 0.18); }
       .qty-btn:active { transform: scale(0.9); }
@@ -137,6 +149,32 @@
       }
       .trash-btn { transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease; }
       .trash-btn:hover { background: rgba(244, 63, 94, 0.15); color: #fb7185; transform: scale(1.06); }
+
+      #mobile-menu {
+        transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+      }
+      .nav-link { position: relative; }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0%;
+        height: 2px;
+        background: linear-gradient(90deg, #f0a860, #c084fc);
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-link:hover::after { width: 100%; }
+      .header-icon-btn {
+        transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
+      }
+      .header-icon-btn:hover {
+        background-color: rgba(255,255,255,.06);
+        transform: translateY(-1px);
+      }
+      .header-icon-btn:active {
+        transform: translateY(0) scale(.95);
+      }
     </style>
   </head>
 
@@ -149,45 +187,105 @@
     </div>
 
     <!-- ============================================================
-       HEADER
+       HEADER (unified across all UyBozor pages)
   ============================================================ -->
     <header class="sticky top-0 z-50 border-b border-white/5 bg-ink-900/80 backdrop-blur-xl">
       <nav class="max-w-7xl mx-auto px-5 lg:px-8">
         <div class="flex items-center justify-between h-20 gap-3">
-          <a href="../index.html" class="flex items-center gap-2 shrink-0">
-            <span class="inline-flex w-8 h-8 items-center justify-center rounded-lg bg-gradient-to-br from-lilac-400 to-amber-400 text-ink-900 font-bold text-sm">U</span>
+          <a href="../index.html" class="flex items-center gap-2 shrink-0 group">
+            <span
+              class="logo-mark inline-flex w-8 h-8 items-center justify-center rounded-lg bg-gradient-to-br from-lilac-400 to-amber-400 text-ink-900 font-bold text-sm"
+              >U</span
+            >
             <span class="font-display text-2xl font-semibold text-gradient-warm tracking-tight">UyBozor</span>
           </a>
 
           <div class="hidden lg:flex items-center gap-9 text-[15px] font-medium text-sand-200/90">
-            <a href="../index.html" class="hover:text-amber-300 transition-colors pb-1">Bosh sahifa</a>
-            <a href="./Ko'chmasMulk.html" class="hover:text-amber-300 transition-colors pb-1">Ko'chmas mulk</a>
-            <a href="./UyJihoz.html" class="hover:text-amber-300 transition-colors pb-1">Uy jihozlari</a>
-            <a href="./dekor.html" class="hover:text-amber-300 transition-colors pb-1">Dekor</a>
-            <a href="./sotuvchi.html" class="hover:text-amber-300 transition-colors pb-1">Sotuvchi bo'ling</a>
+            <a href="../index.html" class="nav-link pb-1">Bosh sahifa</a>
+            <a href="./Ko'chmasMulk.html" class="nav-link pb-1">Ko'chmas mulk</a>
+            <a href="./UyJihoz.html" class="nav-link pb-1">Uy jihozlari</a>
+            <a href="./dekor.html" class="nav-link pb-1">Dekor</a>
+            <a href="./sotuvchi.html" class="nav-link pb-1">Sotuvchi bo'ling</a>
           </div>
 
           <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-            <button id="wishlist-btn" type="button" aria-label="Sevimlilar"
-              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300">
+            <button
+              id="wishlist-btn"
+              type="button"
+              aria-label="Sevimlilar"
+              class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60"
+            >
               <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
               </svg>
               <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
             </button>
-            <button id="cart-btn" type="button" aria-label="Savatcha"
-              class="relative w-10 h-10 rounded-full flex items-center justify-center border border-amber-400/60 bg-white/5 transition-all duration-300">
+
+            <button
+              id="cart-btn"
+              type="button"
+              aria-label="Savatcha"
+              class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-amber-400/60 bg-amber-400/10"
+            >
               <svg class="w-[18px] h-[18px] text-amber-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
               </svg>
               <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
             </button>
-            <a href="../index.html" aria-label="Profil"
-              class="hidden sm:flex w-10 h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300">
-              <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+
+            <button
+              id="profile-btn"
+              type="button"
+              aria-label="Profil"
+              class="header-icon-btn flex w-10 h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60"
+            >
+              <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
+                <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+                </svg>
+              </span>
+              <span id="profile-btn-chip" class="hidden items-center gap-2 pr-1 whitespace-nowrap">
+                <img id="profile-chip-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
+                <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-sand-100"></span>
+              </span>
+            </button>
+
+            <!-- Mobile menu toggle -->
+            <button
+              id="menu-toggle"
+              class="header-icon-btn lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
+              aria-label="Menyu"
+              aria-expanded="false"
+            >
+              <svg id="menu-icon" class="w-5 h-5 text-sand-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
               </svg>
+            </button>
+          </div>
+        </div>
+
+        <div id="mobile-menu" class="lg:hidden overflow-hidden max-h-0 opacity-0">
+          <div class="flex flex-col gap-4 pb-4 pt-2 text-sand-200/90 text-sm font-medium">
+            <a href="../index.html" class="nav-link">Bosh sahifa</a>
+            <a href="./Ko'chmasMulk.html" class="nav-link">Ko'chmas mulk</a>
+            <a href="./UyJihoz.html" class="nav-link">Uy jihozlari</a>
+            <a href="./dekor.html" class="nav-link">Dekor</a>
+            <a href="./sotuvchi.html" class="nav-link">Sotuvchi bo'ling</a>
+          </div>
+          <div class="flex items-center justify-between gap-3 pb-5 pt-3 border-t border-white/10 text-xs text-sand-300">
+            <a href="./liked.html" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              Sevimlilar (<span id="wishlist-count-mobile">0</span>)
             </a>
+            <span class="flex items-center gap-1.5 text-amber-300">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+              Savat (<span id="cart-count-mobile">0</span>)
+            </span>
+            <button type="button" id="profile-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+              <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+              <span id="profile-name-mobile">Profil</span>
+            </button>
           </div>
         </div>
       </nav>
@@ -429,19 +527,115 @@
     </div>
 
     <!-- ============================================================
+       RO'YXATDAN O'TISH MODALI (profil yaratish) — barcha sahifalarda bir xil
+  ============================================================ -->
+    <div id="auth-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-ink-950/80 backdrop-blur-sm">
+      <div class="glass-card rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-card max-h-[90vh] overflow-y-auto">
+        <button id="auth-modal-close" type="button" aria-label="Yopish"
+          class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-sand-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <p class="text-amber-300 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Kirish talab qilinadi</p>
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-sand-50 mb-1">Iltimos, avval ro'yxatdan o'ting</h3>
+        <p class="text-sand-400 text-sm mb-6 leading-relaxed">Davom etish uchun quyidagi profil ma'lumotlarini to'ldiring.</p>
+
+        <form id="auth-form" class="space-y-4" novalidate>
+          <div class="flex items-center gap-4">
+            <label for="auth-photo-input" class="shrink-0 cursor-pointer">
+              <div id="auth-photo-preview" class="w-16 h-16 rounded-full border-2 border-dashed border-white/15 flex items-center justify-center overflow-hidden text-sand-500 hover:border-amber-400/50 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>
+              </div>
+              <input id="auth-photo-input" type="file" accept="image/*" required class="hidden" />
+            </label>
+            <div class="text-xs text-sand-400 leading-relaxed">
+              <span class="text-sand-200 font-medium">Rasm yuklang</span><br/>
+              Profil rasmi (majburiy)
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <span class="text-[10px] uppercase tracking-wider text-sand-400">Ism</span>
+              <input id="auth-first-name" type="text" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="Ism" />
+            </div>
+            <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <span class="text-[10px] uppercase tracking-wider text-sand-400">Familya</span>
+              <input id="auth-last-name" type="text" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="Familya" />
+            </div>
+          </div>
+
+          <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-sand-400">Telefon raqam</span>
+            <input id="auth-phone" type="tel" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="+998 90 123 45 67" />
+          </div>
+
+          <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-sand-400">Email</span>
+            <input id="auth-email" type="email" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="email@misol.com" />
+          </div>
+
+          <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-sand-400">Soha</span>
+            <input id="auth-field" type="text" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="Masalan: Dizayner, Muhandis..." />
+          </div>
+
+          <p id="auth-error" class="hidden text-xs text-rose-400">Iltimos, barcha maydonlarni (rasm bilan birga) to'ldiring.</p>
+
+          <button type="submit" class="btn-gradient btn-shine relative overflow-hidden w-full rounded-xl text-ink-900 font-semibold text-sm py-3.5 mt-2">
+            Ro'yxatdan o'tish
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ============================================================
        JAVASCRIPT
   ============================================================ -->
     <script>
+      // ---------- Mobile menu toggle ----------
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const menuIcon = document.getElementById("menu-icon");
+      let menuOpen = false;
+
+      menuToggle.addEventListener("click", () => {
+        menuOpen = !menuOpen;
+        if (menuOpen) {
+          mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+          mobileMenu.style.opacity = "1";
+          menuToggle.setAttribute("aria-expanded", "true");
+          menuIcon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>';
+        } else {
+          mobileMenu.style.maxHeight = "0px";
+          mobileMenu.style.opacity = "0";
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuIcon.innerHTML =
+            '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+        }
+      });
+      window.addEventListener("resize", () => {
+        if (window.innerWidth >= 1024 && menuOpen) menuToggle.click();
+      });
+
       (function () {
         "use strict";
         const WISHLIST_KEY = "uybozor_wishlist_v1";
         const CART_KEY = "uybozor_cart_v1";
         // Boshqa UyBozor sahifalari (UyJihoz.html, dekor.html, index.html) shu
         // umumiy kalitga har bir savatga qo'shilgan mahsulot uchun
-        // {title, price, priceValue, image, href} yozadi. Bu sahifa o'zining
-        // ichki (ko'chmas mulk) katalogida yo'q ID'larni shu yerdan o'qib,
-        // ularni ham savat ro'yxatida ko'rsatadi.
+        // {title, price, priceValue, image, imageAlt, href} yozadi. Bu sahifa
+        // o'zining ichki (ko'chmas mulk) katalogida yo'q ID'larni shu yerdan
+        // o'qib, ularni ham savat ro'yxatida ko'rsatadi.
         const CART_META_KEY = "uybozor_cart_meta_v1";
+
+        // Rasm yuklanmay qolganda ko'rsatiladigan neytral placeholder.
+        const IMAGE_PLACEHOLDER =
+          "data:image/svg+xml;charset=UTF-8," +
+          encodeURIComponent(
+            '<svg xmlns="http://www.w3.org/2000/svg" width="480" height="360" viewBox="0 0 480 360"><rect width="480" height="360" fill="#241f3d"/><text x="50%" y="50%" fill="#a8998a" font-family="sans-serif" font-size="18" text-anchor="middle" dominant-baseline="middle">Rasm topilmadi</text></svg>'
+          );
 
         // Ko'chmas mulk katalogi — bosh sahifadagi e'lon kartalari bilan mos.
         const PRODUCTS = {
@@ -568,6 +762,7 @@
             price: priceValue,
             type: "furniture",
             image: meta.image || "",
+            imageAlt: meta.imageAlt || "",
           };
         }
 
@@ -577,7 +772,9 @@
         const furnitureList = document.getElementById("furniture-list");
         const emptyState = document.getElementById("empty-state");
         const cartCountEl = document.getElementById("cart-count");
+        const cartCountMobileEl = document.getElementById("cart-count-mobile");
         const wishlistCountEl = document.getElementById("wishlist-count");
+        const wishlistCountMobileEl = document.getElementById("wishlist-count-mobile");
 
         const summaryCount = document.getElementById("summary-count");
         const summarySubtotal = document.getElementById("summary-subtotal");
@@ -598,7 +795,7 @@
           return `
             <div class="card-lift glass-card rounded-2xl p-4 border border-white/5 flex items-center gap-4" data-cart-item="${id}">
               <div class="w-20 h-20 rounded-xl overflow-hidden shrink-0">
-                <img src="${product.image}" alt="${product.title}" class="w-full h-full object-cover" />
+                <img data-item-img="${id}" data-alt-src="${product.imageAlt || ""}" src="${product.image || IMAGE_PLACEHOLDER}" alt="${product.title}" class="w-full h-full object-cover" />
               </div>
               <div class="flex-1 min-w-0">
                 <p class="font-semibold text-sand-50 text-sm truncate">${product.title}</p>
@@ -612,6 +809,26 @@
                 </svg>
               </button>
             </div>`;
+        }
+
+        // Rasm yuklanmasa — avval zaxira rasmga (imageAlt), u ham
+        // ishlamasa neytral placeholder'ga o'tadi. Shu tufayli UyJihoz.html
+        // yoki dekor.html'dan savatga qo'shilgan mahsulotlarning rasmi
+        // shu yerda ham doim ko'rinadi.
+        function attachImageFallbacks(root) {
+          root.querySelectorAll("[data-item-img]").forEach((imgEl) => {
+            let triedFallback = false;
+            imgEl.addEventListener("error", () => {
+              const altSrc = imgEl.getAttribute("data-alt-src");
+              if (!triedFallback && altSrc) {
+                triedFallback = true;
+                imgEl.src = altSrc;
+              } else {
+                imgEl.onerror = null;
+                imgEl.src = IMAGE_PLACEHOLDER;
+              }
+            });
+          });
         }
 
         function computeSubtotal(cart) {
@@ -658,10 +875,14 @@
           emptyState.classList.toggle("hidden", ids.length > 0);
 
           attachItemListeners();
+          attachImageFallbacks(realestateList);
+          attachImageFallbacks(furnitureList);
           updateSummary();
 
           cartCountEl.textContent = String(Object.keys(cart).length);
+          if (cartCountMobileEl) cartCountMobileEl.textContent = String(Object.keys(cart).length);
           wishlistCountEl.textContent = String(getWishlistCount());
+          if (wishlistCountMobileEl) wishlistCountMobileEl.textContent = String(getWishlistCount());
         }
 
         function attachItemListeners() {
@@ -807,6 +1028,10 @@
           openModal();
         });
 
+        // Header wishlist ikonkasi bosilganda — sevimlilar sahifasiga o'tadi.
+        const wishlistBtn = document.getElementById("wishlist-btn");
+        if (wishlistBtn) wishlistBtn.addEventListener("click", () => { window.location.href = "./liked.html"; });
+
         // Boshqa tab/sahifada (masalan UyJihoz.html'da) savat yoki
         // sevimlilar o'zgarsa, shu sahifa ham darhol yangilansin.
         window.addEventListener("storage", (e) => {
@@ -816,6 +1041,140 @@
         });
 
         renderCart();
+      })();
+
+      // ---------------------------------------------------------------
+      // PROFIL / RO'YXATDAN O'TISH — boshqa UyBozor sahifalari bilan bir
+      // xil tizim. "uybozor_profile_v1" kalitida saqlanadi, shu tufayli
+      // qaysi sahifada ro'yxatdan o'tilsa, boshqa barcha sahifalarning
+      // headerida ham xuddi shu profil (rasm + ism-familya) ko'rinadi.
+      // Login qilinmagan bo'lsa, profil tugmasi bosilganda shu ro'yxatdan
+      // o'tish modali ochiladi (index.html'dagidek).
+      // ---------------------------------------------------------------
+      (function () {
+        "use strict";
+        const PROFILE_KEY = "uybozor_profile_v1";
+
+        const backdrop = document.getElementById("auth-modal-backdrop");
+        const form = document.getElementById("auth-form");
+        const errorEl = document.getElementById("auth-error");
+        const photoInput = document.getElementById("auth-photo-input");
+        const photoPreview = document.getElementById("auth-photo-preview");
+        const profileBtn = document.getElementById("profile-btn");
+        const profileBtnDefault = document.getElementById("profile-btn-default");
+        const profileBtnChip = document.getElementById("profile-btn-chip");
+        const profileChipPhoto = document.getElementById("profile-chip-photo");
+        const profileChipName = document.getElementById("profile-chip-name");
+
+        const profileBtnMobile = document.getElementById("profile-btn-mobile");
+        const profileIconMobile = document.getElementById("profile-icon-mobile");
+        const profilePhotoMobile = document.getElementById("profile-chip-photo-mobile");
+        const profileNameMobile = document.getElementById("profile-name-mobile");
+
+        let selectedPhotoDataUrl = null;
+
+        function getProfile() {
+          try {
+            const raw = localStorage.getItem(PROFILE_KEY);
+            return raw ? JSON.parse(raw) : null;
+          } catch (e) {
+            return null;
+          }
+        }
+        function saveProfile(p) {
+          try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch (e) {}
+        }
+
+        function openAuthModal() {
+          backdrop.classList.remove("hidden");
+          backdrop.classList.add("flex");
+        }
+        function closeAuthModal() {
+          backdrop.classList.add("hidden");
+          backdrop.classList.remove("flex");
+        }
+        document.getElementById("auth-modal-close").addEventListener("click", closeAuthModal);
+        backdrop.addEventListener("click", (e) => { if (e.target === backdrop) closeAuthModal(); });
+
+        photoInput.addEventListener("change", (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (ev) => {
+            selectedPhotoDataUrl = ev.target.result;
+            photoPreview.innerHTML = `<img src="${selectedPhotoDataUrl}" class="w-full h-full object-cover" alt="Profil rasmi" />`;
+          };
+          reader.readAsDataURL(file);
+        });
+
+        function renderHeaderProfile() {
+          const p = getProfile();
+          if (p && p.photoDataUrl) {
+            profileBtnDefault.classList.add("hidden");
+            profileBtnChip.classList.remove("hidden");
+            profileBtnChip.classList.add("flex");
+            profileChipPhoto.src = p.photoDataUrl;
+            profileChipName.textContent = `${p.firstName} ${p.lastName}`.trim();
+            profileBtn.classList.remove("w-10");
+            profileBtn.classList.add("w-auto", "px-1");
+
+            if (profileIconMobile) profileIconMobile.classList.add("hidden");
+            if (profilePhotoMobile) {
+              profilePhotoMobile.src = p.photoDataUrl;
+              profilePhotoMobile.classList.remove("hidden");
+            }
+            if (profileNameMobile) profileNameMobile.textContent = `${p.firstName} ${p.lastName}`.trim();
+          } else {
+            profileBtnDefault.classList.remove("hidden");
+            profileBtnChip.classList.add("hidden");
+            profileBtnChip.classList.remove("flex");
+            profileBtn.classList.add("w-10");
+            profileBtn.classList.remove("w-auto", "px-1");
+
+            if (profileIconMobile) profileIconMobile.classList.remove("hidden");
+            if (profilePhotoMobile) profilePhotoMobile.classList.add("hidden");
+            if (profileNameMobile) profileNameMobile.textContent = "Profil";
+          }
+        }
+
+        function handleProfileClick() {
+          const p = getProfile();
+          if (p) {
+            window.location.href = "./profile.html";
+          } else {
+            openAuthModal();
+          }
+        }
+        profileBtn.addEventListener("click", handleProfileClick);
+        if (profileBtnMobile) profileBtnMobile.addEventListener("click", handleProfileClick);
+
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const firstName = document.getElementById("auth-first-name").value.trim();
+          const lastName = document.getElementById("auth-last-name").value.trim();
+          const phone = document.getElementById("auth-phone").value.trim();
+          const email = document.getElementById("auth-email").value.trim();
+          const field = document.getElementById("auth-field").value.trim();
+
+          if (!firstName || !lastName || !phone || !email || !field || !selectedPhotoDataUrl) {
+            errorEl.classList.remove("hidden");
+            return;
+          }
+          errorEl.classList.add("hidden");
+
+          saveProfile({ firstName, lastName, phone, email, field, photoDataUrl: selectedPhotoDataUrl });
+          renderHeaderProfile();
+          closeAuthModal();
+          form.reset();
+          photoPreview.innerHTML = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>`;
+          selectedPhotoDataUrl = null;
+        });
+
+        window.addEventListener("storage", (e) => {
+          if (e.key === PROFILE_KEY) renderHeaderProfile();
+        });
+
+        renderHeaderProfile();
       })();
     </script>
   </body>
