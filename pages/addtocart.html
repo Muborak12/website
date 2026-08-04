@@ -241,13 +241,13 @@
             <div id="realestate-list" class="flex flex-col gap-4"></div>
           </section>
 
-          <!-- Furniture items -->
+          <!-- Furniture / decor items (includes items added from UyJihoz.html, dekor.html, etc.) -->
           <section id="furniture-section" class="hidden">
             <h2 class="flex items-center gap-2.5 font-display text-xl sm:text-2xl font-semibold text-sand-50 mb-5">
               <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.7" d="M4 18v-3a2 2 0 012-2h12a2 2 0 012 2v3M5 13V9a2 2 0 012-2h10a2 2 0 012 2v4M4 18h16M6 18v2m12-2v2"/>
               </svg>
-              Uy jihozlari
+              Uy jihozlari va dekor
             </h2>
             <div id="furniture-list" class="flex flex-col gap-4"></div>
           </section>
@@ -436,8 +436,14 @@
         "use strict";
         const WISHLIST_KEY = "uybozor_wishlist_v1";
         const CART_KEY = "uybozor_cart_v1";
+        // Boshqa UyBozor sahifalari (UyJihoz.html, dekor.html, index.html) shu
+        // umumiy kalitga har bir savatga qo'shilgan mahsulot uchun
+        // {title, price, priceValue, image, href} yozadi. Bu sahifa o'zining
+        // ichki (ko'chmas mulk) katalogida yo'q ID'larni shu yerdan o'qib,
+        // ularni ham savat ro'yxatida ko'rsatadi.
+        const CART_META_KEY = "uybozor_cart_meta_v1";
 
-        // Product catalogue — mirrors the listing cards on the home page.
+        // Ko'chmas mulk katalogi — bosh sahifadagi e'lon kartalari bilan mos.
         const PRODUCTS = {
           "miran-international-city": {
             title: "Miran International City",
@@ -516,6 +522,15 @@
         function saveCart(cart) {
           try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); } catch (e) {}
         }
+        function getCartMeta() {
+          try {
+            const raw = localStorage.getItem(CART_META_KEY);
+            const obj = raw ? JSON.parse(raw) : {};
+            return obj && typeof obj === "object" && !Array.isArray(obj) ? obj : {};
+          } catch (e) {
+            return {};
+          }
+        }
         function getWishlistCount() {
           try {
             const raw = localStorage.getItem(WISHLIST_KEY);
@@ -524,6 +539,36 @@
           } catch (e) {
             return 0;
           }
+        }
+
+        // Sahifa nomiga qarab qisqa yorliq (masalan "Uy jihozlari") chiqarish.
+        function labelFromHref(href) {
+          if (href === "./UyJihoz.html") return "Uy jihozlari";
+          if (href === "./dekor.html") return "Dekor";
+          if (href === "./Ko'chmasMulk.html") return "Ko'chmas mulk";
+          return "";
+        }
+
+        // ID bo'yicha mahsulot ma'lumotini topadi: avval ichki (ko'chmas mulk)
+        // katalogidan, topilmasa — boshqa sahifalar yozgan umumiy
+        // CART_META_KEY'dan (masalan UyJihoz.html'dagi mebel/dekor
+        // mahsulotlari). Shu tufayli boshqa sahifada savatga qo'shilgan
+        // har qanday mahsulot shu yerda ham to'liq ko'rinadi.
+        function getProduct(id) {
+          if (PRODUCTS[id]) return PRODUCTS[id];
+          const meta = getCartMeta()[id];
+          if (!meta) return null;
+          let priceValue = typeof meta.priceValue === "number" && !isNaN(meta.priceValue)
+            ? meta.priceValue
+            : parseInt(String(meta.price || "").replace(/[^\d]/g, ""), 10);
+          if (!priceValue || isNaN(priceValue)) priceValue = 0;
+          return {
+            title: meta.title || "Mahsulot",
+            location: labelFromHref(meta.href),
+            price: priceValue,
+            type: "furniture",
+            image: meta.image || "",
+          };
         }
 
         const realestateSection = document.getElementById("realestate-section");
@@ -573,7 +618,7 @@
           let subtotal = 0;
           let count = 0;
           Object.keys(cart).forEach((id) => {
-            const product = PRODUCTS[id];
+            const product = getProduct(id);
             if (!product) return;
             const qty = cart[id] || 0;
             if (qty <= 0) return;
@@ -585,15 +630,15 @@
 
         function renderCart() {
           const cart = getCart();
-          const ids = Object.keys(cart).filter((id) => PRODUCTS[id] && cart[id] > 0);
+          const ids = Object.keys(cart).filter((id) => getProduct(id) && cart[id] > 0);
 
-          const realestateIds = ids.filter((id) => PRODUCTS[id].type === "realestate");
-          const furnitureIds = ids.filter((id) => PRODUCTS[id].type === "furniture");
+          const realestateIds = ids.filter((id) => getProduct(id).type === "realestate");
+          const furnitureIds = ids.filter((id) => getProduct(id).type !== "realestate");
 
           if (realestateIds.length) {
             realestateSection.classList.remove("hidden");
             realestateList.innerHTML = realestateIds
-              .map((id) => itemCardHTML(id, PRODUCTS[id], cart[id], false))
+              .map((id) => itemCardHTML(id, getProduct(id), cart[id], false))
               .join("");
           } else {
             realestateSection.classList.add("hidden");
@@ -603,7 +648,7 @@
           if (furnitureIds.length) {
             furnitureSection.classList.remove("hidden");
             furnitureList.innerHTML = furnitureIds
-              .map((id) => itemCardHTML(id, PRODUCTS[id], cart[id], true))
+              .map((id) => itemCardHTML(id, getProduct(id), cart[id], true))
               .join("");
           } else {
             furnitureSection.classList.add("hidden");
@@ -738,7 +783,7 @@
 
         checkoutBtn.addEventListener("click", () => {
           const cart = getCart();
-          const ids = Object.keys(cart).filter((id) => PRODUCTS[id] && cart[id] > 0);
+          const ids = Object.keys(cart).filter((id) => getProduct(id) && cart[id] > 0);
           if (!ids.length) {
             promoMessage.textContent = "Savatingiz bo'sh — avval mahsulot qo'shing.";
             promoMessage.className = "text-xs mb-4 min-h-[16px] text-rose-400";
@@ -760,6 +805,14 @@
           modalOldPrice.classList.toggle("hidden", !appliedPromo);
 
           openModal();
+        });
+
+        // Boshqa tab/sahifada (masalan UyJihoz.html'da) savat yoki
+        // sevimlilar o'zgarsa, shu sahifa ham darhol yangilansin.
+        window.addEventListener("storage", (e) => {
+          if (e.key === CART_KEY || e.key === CART_META_KEY || e.key === WISHLIST_KEY) {
+            renderCart();
+          }
         });
 
         renderCart();

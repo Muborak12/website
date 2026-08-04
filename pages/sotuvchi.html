@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Sotuvchi bo'ling — UyBozor</title>
      <meta
       name="description"
       content="O'zbekistondagi birinchi ko'chmas mulk va interyer dizayni yagona ekotizimi."
@@ -419,24 +419,6 @@
     animation-play-state: paused;
   }
 
-  /* ---------- nav underline ---------- */
-  .nav-link {
-    position: relative;
-  }
-  .nav-link::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 2px;
-    background: linear-gradient(90deg, #f0730a, #8b5cf6);
-    transition: width 0.35s ease;
-  }
-  .nav-link:hover::after {
-    width: 100%;
-  }
-
   /* ---------- reveal on scroll ---------- */
   .reveal {
     opacity: 0;
@@ -531,283 +513,239 @@
   }
 </style>
 
+    <!-- ==================================================================
+         HEADER / FOOTER / SHARED CHROME STYLES
+         (bu bo'lim avvalgi versiyada bir nechta joyda takrorlangan edi —
+         bitta toza blokka yig'ib chiqildi, va faol nav-link uslubi
+         yaxshilandi: endi faqat JORIY sahifaning havolasi ostida chiziq
+         chiqadi, boshqalarida chiqmaydi.)
+         ================================================================== -->
     <style>
-        html,
-body {
-    background-color: #150f09;
-    font-family: "Inter", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    scroll-behavior: smooth;
-}
-/* Footer Logo */
-.font-display {
-  font-family: "Playfair Display", serif;
-}
+      html,
+      body {
+        background-color: #150f09;
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+      }
 
-.text-gradient-warm {
-  background: linear-gradient(92deg, #f5c98a, #f0a860, #e8935a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+      .font-display {
+        font-family: "Playfair Display", serif;
+      }
 
-.logo-mark {
-  transition: 0.5s ease;
-  box-shadow: 0 8px 25px rgba(240, 168, 96, 0.35);
-}
+      .text-gradient-warm {
+        background: linear-gradient(92deg, #f5c98a, #f0a860, #e8935a);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
 
-.logo-mark:hover {
-  transform: rotate(12deg) scale(1.08);
-}
+      .logo-mark {
+        color: white;
+        transition: 0.5s ease;
+        box-shadow: 0 8px 25px rgba(240, 168, 96, 0.35);
+      }
+      .logo-mark:hover {
+        transform: rotate(12deg) scale(1.08);
+      }
 
-/* Footer Top Border */
-.fade-line {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.15),
-    transparent
-  );
-}
-header {
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: rgba(21, 15, 9, 0.8);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(255,255,255,.05);
-}
-       .font-display {
-  font-family: "Playfair Display", serif;
-}
+      .fade-line {
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.15),
+          transparent
+        );
+      }
 
-.text-gradient-warm {
-  background: linear-gradient(92deg,#f5c98a,#f0a860,#e8935a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-/* ===========================
-   FOOTER
-=========================== */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        background: rgba(21, 15, 9, 0.8);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
 
-footer {
-  position: relative;
-  z-index: 10;
-  padding-top: 4rem;
-  padding-bottom: 2rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
+      /* ---------- FOOTER ---------- */
+      footer {
+        position: relative;
+        z-index: 10;
+        padding-top: 4rem;
+        padding-bottom: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .social-icon {
+        transition: all 0.3s ease;
+        color: white;
+      }
+      .social-icon:hover {
+        transform: translateY(-4px) scale(1.08);
+        box-shadow: 0 10px 20px rgba(240, 168, 96, 0.25);
+      }
+      footer ul li a {
+        transition: all 0.3s ease;
+        color: white;
+      }
+      footer ul li a:hover {
+        color: #f0a860;
+        padding-left: 6px;
+      }
+      footer p:last-child {
+        letter-spacing: 0.5px;
+      }
 
-/* Logo */
-.font-display {
-  font-family: "Playfair Display", serif;
-}
+      /* ---------- NAV LINK (yaxshilangan faol holat) ---------- */
+      .nav-link {
+        position: relative;
+        color: rgba(255, 255, 255, 0.72);
+        transition: color 0.3s ease;
+      }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+        width: 0%;
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(90deg, #f0730a, #ffab4d 55%, #8b5cf6);
+        transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .nav-link:hover {
+        color: #f6efe4;
+      }
+      .nav-link:hover::after {
+        width: 100%;
+      }
+      /* Faqat joriy sahifaning havolasi shu klassni oladi —
+         boshqa havolalarda "active" yo'q, shuning uchun ular ostida
+         doimiy chiziq chiqmaydi (faqat hover paytida chiqadi). */
+      .nav-link.active {
+        color: #ffab4d;
+        font-weight: 600;
+      }
+      .nav-link.active::after {
+        width: 100%;
+        box-shadow: 0 0 12px rgba(240, 115, 10, 0.65);
+      }
 
-.text-gradient-warm {
-  background: linear-gradient(92deg, #f5c98a, #f0a860, #e8935a);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+      .field-shell {
+        transition: 0.3s;
+      }
+      .field-shell:hover,
+      .field-shell:focus-within {
+        border-color: rgba(240, 168, 96, 0.5);
+        box-shadow: 0 0 0 4px rgba(240, 168, 96, 0.08);
+      }
+      .bare {
+        background: transparent;
+        color: inherit;
+      }
+      .bare::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+      }
 
-.logo-mark {
-  transition: all .4s ease;
-  box-shadow: 0 8px 25px rgba(240, 168, 96, .35);
-  color: white;
-}
+      .ambient-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(90px);
+      }
+      .orb1 {
+        width: 520px;
+        height: 520px;
+        background: rgba(167, 139, 250, 0.2);
+        top: -160px;
+        left: -160px;
+      }
+      .orb2 {
+        width: 460px;
+        height: 460px;
+        background: rgba(240, 168, 96, 0.15);
+        top: 30%;
+        right: -120px;
+      }
+      .orb3 {
+        width: 380px;
+        height: 380px;
+        background: rgba(60, 49, 102, 0.4);
+        bottom: 0;
+        left: 10%;
+      }
+      .orb4 {
+        width: 300px;
+        height: 300px;
+        background: rgba(240, 168, 96, 0.1);
+        bottom: 15%;
+        right: 15%;
+      }
 
-.logo-mark:hover {
-  transform: rotate(12deg) scale(1.08);
-}
+      .grain-overlay {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.03;
+        z-index: 1;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
 
-/* Social Icons */
-.social-icon {
-  transition: all .3s ease;
-  color: white;
-}
+      #mobile-menu {
+        transition: max-height 0.5s ease, opacity 0.4s ease;
+      }
+      #mobile-menu.is-open {
+        max-height: 640px;
+        opacity: 1;
+      }
 
-.social-icon:hover {
-  transform: translateY(-4px) scale(1.08);
-  box-shadow: 0 10px 20px rgba(240, 168, 96, .25);
-}
+      /* ---- header: o'ng tomondagi ikonka tugmalar ---- */
+      .header-icon-btn {
+        transition: background-color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+      }
+      .header-icon-btn:hover {
+        background-color: rgba(255, 255, 255, 0.06);
+        transform: translateY(-1px);
+      }
+      .header-icon-btn:active {
+        transform: translateY(0) scale(0.95);
+      }
 
-/* Footer Links */
-footer ul li a {
-  transition: all .3s ease;
-  color: white;
-}
+      /* header toast (wishlist/cart/profil bosilganda ko'rinadigan bildirishnoma) */
+      #header-toast-stack {
+        pointer-events: none;
+      }
+      .header-toast-item {
+        animation: headerToastIn 0.3s cubic-bezier(0.2, 1.3, 0.4, 1) both;
+      }
+      @keyframes headerToastIn {
+        0% {
+          opacity: 0;
+          transform: translateY(-8px) scale(0.95);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
 
-footer ul li a:hover {
-  color: #f0a860;
-  padding-left: 6px;
-}
-
-/* Divider */
-.fade-line {
-  height: 1px;
-  width: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.15),
-    transparent
-  );
-}
-
-/* Copyright */
-footer p:last-child {
-  letter-spacing: .5px;
-}
-.nav-link {
-  position: relative;
-  color: white;
-}
-.logo-mark{
-    color: white;
-    transition: .5s ease;
-    box-shadow: 0 8px 25px rgba(240,168,96,.35);
-}
-
-.logo-mark:hover{
-    transform: rotate(12deg) scale(1.08);
-}
-.nav-link::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -6px;
-  width: 0%;
-  height: 2px;
-  background: linear-gradient(90deg,#f0a860,#c084fc);
-  transition: .35s;
-}
-
-.nav-link:hover::after,
-.nav-link.active::after {
-  width: 100%;
-}
-
-.nav-link.active {
-  color: #f5efe6;
-}
-
-.field-shell {
-  transition: .3s;
-}
-
-.field-shell:hover,
-.field-shell:focus-within {
-  border-color: rgba(240,168,96,.5);
-  box-shadow: 0 0 0 4px rgba(240,168,96,.08);
-}
-
-.bare {
-  background: transparent;
-  color: inherit;
-}
-
-.bare::placeholder {
-  color: rgba(255,255,255,.5);
-}
-
-.logo-mark {
-  transition: .5s;
-  color: white;
-}
-
-.logo-mark:hover {
-  transform: rotate(12deg) scale(1.06);
-}
-.ambient-orb{
-    position:absolute;
-    border-radius:50%;
-    filter:blur(90px);
-}
-
-.orb1{
-    width:520px;
-    height:520px;
-    background:rgba(167,139,250,.2);
-    top:-160px;
-    left:-160px;
-}
-.grain-overlay{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    opacity:.03;
-    z-index:1;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.orb2{
-    width:460px;
-    height:460px;
-    background:rgba(240,168,96,.15);
-    top:30%;
-    right:-120px;
-}
-
-.orb3{
-    width:380px;
-    height:380px;
-    background:rgba(60,49,102,.4);
-    bottom:0;
-    left:10%;
-}
-
-.orb4{
-    width:300px;
-    height:300px;
-    background:rgba(240,168,96,.1);
-    bottom:15%;
-    right:15%;
-}
-.fade-line {
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.15),
-    transparent
-  );
-}
-
-#mobile-menu {
-  transition: max-height .5s ease, opacity .4s ease;
-}
-
-/* ---- header: o'ng tomondagi ikonka tugmalar ---- */
-.header-icon-btn {
-  transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
-}
-.header-icon-btn:hover {
-  background-color: rgba(255,255,255,.06);
-  transform: translateY(-1px);
-}
-.header-icon-btn:active {
-  transform: translateY(0) scale(.95);
-}
-
-/* mobil menyu ochiq holatda balandligi shu bilan belgilanadi */
-#mobile-menu.is-open {
-  max-height: 480px;
-  opacity: 1;
-}
-
-/* header toast (wishlist/cart/profil bosilganda ko'rinadigan bildirishnoma) */
-#header-toast-stack {
-  pointer-events: none;
-}
-.header-toast-item {
-  animation: headerToastIn .3s cubic-bezier(.2,1.3,.4,1) both;
-}
-@keyframes headerToastIn {
-  0% { opacity: 0; transform: translateY(-8px) scale(.95); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
-}
+      /* ---- profil kirish/chiqish modali uchun qo'shimcha uslublar ---- */
+      .field-shell-auth {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+      }
+      .field-shell-auth:focus-within,
+      .field-shell-auth:hover {
+        border-color: rgba(240, 115, 10, 0.55);
+        box-shadow: 0 0 0 4px rgba(240, 115, 10, 0.12);
+      }
+      .bare-auth {
+        background: transparent;
+        color: inherit;
+      }
+      .bare-auth::placeholder {
+        color: rgba(255, 255, 255, 0.4);
+      }
     </style>
 </head>
 <body   class="bg-ink-900 text-sand-100 antialiased relative overflow-x-hidden selection:bg-amber-400">
@@ -843,16 +781,19 @@ footer p:last-child {
 
           <!-- Desktop navigatsiya: faqat xl va undan katta ekranlarda ko'rinadi
                (6 ta band bo'lgani uchun lg oralig'ida joy yetarli emas —
-               shu oraliqda ham burger menyu ishlatiladi) -->
+               shu oraliqda ham burger menyu ishlatiladi).
+               MUHIM: faqat joriy sahifaning havolasida "active" klassi bor —
+               shu tufayli faqat "Sotuvchi bo'ling" ostida chiziq chiqadi,
+               "Bosh sahifa" ostida chiziq YO'Q. -->
           <div
             class="hidden xl:flex items-center gap-5 2xl:gap-9 text-[13.5px] 2xl:text-[15px] font-medium text-sand-200/90 whitespace-nowrap"
           >
-            <a href="/" class="nav-link active pb-1">Bosh sahifa</a>
-            <a href="./Ko'chmasMulk.html" class="nav-link pb-1 text-white">Ko'chmas mulk</a>
-            <a href="./UyJihoz.html" class="nav-link pb-1 text-white">Uy jihozlari</a>
-            <a href="./dekor.html" class="nav-link pb-1 text-white">Dekor</a>
-            <a href="./sotuvchi.html" class="nav-link pb-1 text-white">Sotuvchi bo'ling</a>
-            <a href="./boglanish.html" class="nav-link pb-1 text-white">Biz bilan bog'lanish</a>
+            <a href="/" class="nav-link pb-1">Bosh sahifa</a>
+            <a href="./Ko'chmasMulk.html" class="nav-link pb-1">Ko'chmas mulk</a>
+            <a href="./UyJihoz.html" class="nav-link pb-1">Uy jihozlari</a>
+            <a href="./dekor.html" class="nav-link pb-1">Dekor</a>
+            <a href="./sotuvchi.html" class="nav-link active pb-1">Sotuvchi bo'ling</a>
+            <a href="./boglanish.html" class="nav-link pb-1">Biz bilan bog'lanish</a>
           </div>
 
           <!-- O'ng tomondagi barcha tugmalar bitta konteynerda — shu tufayli
@@ -915,21 +856,27 @@ footer p:last-child {
               id="profile-btn"
               type="button"
               aria-label="Profil"
-              class="header-icon-btn hidden sm:flex w-9 h-9 sm:w-10 sm:h-10 shrink-0 text-white rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60"
+              class="header-icon-btn flex w-9 h-9 sm:w-10 sm:h-10 shrink-0 text-white rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60"
             >
-              <svg
-                class="w-[18px] h-[18px] text-sand-200"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.8"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                />
-              </svg>
+              <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
+                <svg
+                  class="w-[18px] h-[18px] text-sand-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                  />
+                </svg>
+              </span>
+              <span id="profile-btn-chip" class="hidden items-center gap-2 pr-1 whitespace-nowrap">
+                <img id="profile-chip-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
+                <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-cream"></span>
+              </span>
             </button>
 
             <!-- Mobile menu toggle: faqat xl dan kichik ekranlarda ko'rinadi -->
@@ -980,22 +927,27 @@ footer p:last-child {
           <div
             class="flex flex-col gap-4 pb-6 pt-2 text-sand-200/90 text-sm font-medium"
           >
-            <a href="/" class="nav-link active">Bosh sahifa</a>
+            <a href="/" class="nav-link">Bosh sahifa</a>
             <a href="./Ko'chmasMulk.html" class="nav-link">Ko'chmas mulk</a>
             <a href="./UyJihoz.html" class="nav-link">Uy jihozlari</a>
             <a href="./dekor.html" class="nav-link">Dekor</a>
-            <a href="./sotuvchi.html" class="nav-link">Sotuvchi bo'ling</a>
-             <a href="./boglanish.html" class="nav-link pb-1 text-white">Biz bilan bog'lanish</a>
+            <a href="./sotuvchi.html" class="nav-link active">Sotuvchi bo'ling</a>
+             <a href="./boglanish.html" class="nav-link">Biz bilan bog'lanish</a>
             <!-- Mobil menyudagi wishlist/savat/profil — lg dan kichik ekranda shu yerdan ham kirish mumkin -->
-            <div class="flex items-center gap-3 pt-3 border-t border-white/10 mt-1">
-              <a href="./UyJihoz.html#wishlist" class="nav-link inline-flex items-center gap-2 text-white">
+            <div class="flex items-center gap-3 pt-3 border-t border-white/10 mt-1 flex-wrap">
+              <a href="./liked.html" class="nav-link inline-flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                 Sevimlilar (<span id="wishlist-count-mobile">0</span>)
               </a>
-              <a href="./UyJihoz.html#cart" class="nav-link inline-flex items-center gap-2 text-white">
+              <button type="button" id="cart-btn-mobile" class="nav-link inline-flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
                 Savat (<span id="cart-count-mobile">0</span>)
-              </a>
+              </button>
+              <button type="button" id="profile-btn-mobile" class="nav-link inline-flex items-center gap-2">
+                <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+                <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                <span id="profile-name-mobile">Profil</span>
+              </button>
             </div>
           </div>
         </div>
@@ -1009,10 +961,6 @@ footer p:last-child {
     <div class="absolute top-1/3 -right-40 w-[520px] h-[520px] rounded-full bg-violet/15 blur-[160px] animate-float"></div>
     <div class="absolute bottom-0 left-1/4 w-[480px] h-[480px] rounded-full bg-brand-500/10 blur-[160px] animate-float-slow"></div>
   </div>
-
-  <!-- ================================================================ -->
-  <!--  NAVBAR                                                           -->
- 
 
   <!-- ================================================================ -->
   <!--  HERO                                                             -->
@@ -1238,7 +1186,7 @@ footer p:last-child {
             </div>
             <div class="flex items-center justify-between mt-7">
               <button class="js-prev-step text-ink-400 hover:text-ink-200 text-sm font-medium transition-colors">Orqaga</button>
-              <button class="btn-grad px-6 py-3 rounded-full text-sm font-semibold text-white shadow-glow-brand inline-flex items-center gap-2">
+              <button id="publish-listing-btn" class="btn-grad px-6 py-3 rounded-full text-sm font-semibold text-white shadow-glow-brand inline-flex items-center gap-2">
                 E'lonni chop etish
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </button>
@@ -1456,7 +1404,7 @@ footer p:last-child {
           </p>
 
           <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-9 relative z-10">
-            <a href="#" class="btn-grad w-full sm:w-auto px-8 py-3.5 rounded-full text-sm font-semibold text-white shadow-glow-brand">Hozir ro'yxatdan o'tish</a>
+            <button type="button" id="cta-register-btn" class="btn-grad w-full sm:w-auto px-8 py-3.5 rounded-full text-sm font-semibold text-white shadow-glow-brand">Hozir ro'yxatdan o'tish</button>
             <a href="./batafsil.html" class="w-full sm:w-auto px-8 py-3.5 rounded-full text-sm font-semibold text-cream bg-white/5 hover:bg-white/10 border border-white/15 hover:border-white/30 transition-all duration-300 hover:-translate-y-0.5">Batafsil ma'lumot</a>
           </div>
         </div>
@@ -1537,21 +1485,21 @@ footer p:last-child {
             <ul class="space-y-3.5 text-sm text-sand-400">
               <li>
                 <a
-                  href="#listings"
+                  href="./Ko'chmasMulk.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Ko'chmas mulk</a
                 >
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./UyJihoz.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Uy jihozlari</a
                 >
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./dekor.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Interyer dizayn</a
                 >
@@ -1582,7 +1530,7 @@ footer p:last-child {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./sotuvchi.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Sotuvchi bo'ling</a
                 >
@@ -1620,7 +1568,7 @@ footer p:last-child {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./boglanish.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Bog'lanish</a
                 >
@@ -1651,12 +1599,78 @@ footer p:last-child {
       </div>
     </footer>
 
+    <!-- ============================================================
+       RO'YXATDAN O'TISH MODALI (profil yaratish) — barcha sahifalarda bir xil
+       localStorage kaliti: "uybozor_profile_v1"
+  ============================================================ -->
+    <div id="auth-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div class="grad-border bg-bg-card rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-card max-h-[90vh] overflow-y-auto">
+        <button id="auth-modal-close" type="button" aria-label="Yopish"
+          class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-ink-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <p class="text-brand-300 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Kirish talab qilinadi</p>
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-cream mb-1">Iltimos, avval ro'yxatdan o'ting</h3>
+        <p class="text-ink-400 text-sm mb-6 leading-relaxed">Davom etish uchun quyidagi profil ma'lumotlarini to'ldiring.</p>
+
+        <form id="auth-form" class="space-y-4" novalidate>
+          <div class="flex items-center gap-4">
+            <label for="auth-photo-input" class="shrink-0 cursor-pointer">
+              <div id="auth-photo-preview" class="w-16 h-16 rounded-full border-2 border-dashed border-white/15 flex items-center justify-center overflow-hidden text-ink-500 hover:border-brand-400/50 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>
+              </div>
+              <input id="auth-photo-input" type="file" accept="image/*" required class="hidden" />
+            </label>
+            <div class="text-xs text-ink-400 leading-relaxed">
+              <span class="text-cream font-medium">Rasm yuklang</span><br/>
+              Profil rasmi (majburiy)
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="field-shell-auth rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <span class="text-[10px] uppercase tracking-wider text-ink-400">Ism</span>
+              <input id="auth-first-name" type="text" required class="bare-auth w-full text-sm font-medium focus:outline-none" placeholder="Ism" />
+            </div>
+            <div class="field-shell-auth rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <span class="text-[10px] uppercase tracking-wider text-ink-400">Familya</span>
+              <input id="auth-last-name" type="text" required class="bare-auth w-full text-sm font-medium focus:outline-none" placeholder="Familya" />
+            </div>
+          </div>
+
+          <div class="field-shell-auth rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-ink-400">Telefon raqam</span>
+            <input id="auth-phone" type="tel" required class="bare-auth w-full text-sm font-medium focus:outline-none" placeholder="+998 90 123 45 67" />
+          </div>
+
+          <div class="field-shell-auth rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-ink-400">Email</span>
+            <input id="auth-email" type="email" required class="bare-auth w-full text-sm font-medium focus:outline-none" placeholder="email@misol.com" />
+          </div>
+
+          <div class="field-shell-auth rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-ink-400">Soha</span>
+            <input id="auth-field" type="text" required class="bare-auth w-full text-sm font-medium focus:outline-none" placeholder="Masalan: Dizayner, Muhandis..." />
+          </div>
+
+          <p id="auth-error" class="hidden text-xs text-rose-400">Iltimos, barcha maydonlarni (rasm bilan birga) to'ldiring.</p>
+
+          <button type="submit" class="btn-grad relative overflow-hidden w-full rounded-xl text-white font-semibold text-sm py-3.5 mt-2">
+            Ro'yxatdan o'tish
+          </button>
+        </form>
+      </div>
+    </div>
+
      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
   <script>
     // ---------------------------------------------------------------
     // HEADER — mobil menyu, wishlist/savat/profil tugmalari va
     // boshqa sahifada (masalan UyJihoz.html katalogida) saqlangan
-    // localStorage'dagi sevimlilar/savat sonlarini shu yerda ko'rsatish
+    // localStorage'dagi sevimlilar/savat sonlarini shu yerda ko'rsatish.
+    // Bu sahifa "pages/" papkasida joylashgan, shuning uchun
+    // liked.html / addtocart.html / profile.html'ga yo'l "./" bilan.
     // ---------------------------------------------------------------
     (function () {
       "use strict";
@@ -1695,40 +1709,23 @@ footer p:last-child {
         if (!document.hidden) readCounts();
       });
 
-      function showHeaderToast(msg) {
-        var stack = document.getElementById('header-toast-stack');
-        if (!stack) return;
-        var el = document.createElement('div');
-        el.className = 'header-toast-item pointer-events-auto bg-bg-card border border-amber-400/25 text-cream text-sm px-4 py-2.5 rounded-xl shadow-card';
-        el.textContent = msg;
-        stack.appendChild(el);
-        setTimeout(function () {
-          el.style.transition = 'opacity .4s ease, transform .4s ease';
-          el.style.opacity = '0';
-          el.style.transform = 'translateY(-6px)';
-          setTimeout(function () { el.remove(); }, 400);
-        }, 2200);
-      }
-
-      // Sevimlilar va Savat tugmalari — haqiqiy mahsulotlar katalogi
-      // UyJihoz.html sahifasida joylashgan, shuning uchun shu yerdan
-      // o'sha sahifaga (tegishli bo'limga) olib o'tadi.
+      // Sevimlilar va Savat tugmalari — umumiy sahifalarga olib o'tadi.
       var wishlistBtn = document.getElementById('wishlist-btn');
       if (wishlistBtn) {
         wishlistBtn.addEventListener('click', function () {
-          window.location.href = './UyJihoz.html#wishlist';
+          window.location.href = './liked.html';
         });
       }
       var cartBtn = document.getElementById('cart-btn');
       if (cartBtn) {
         cartBtn.addEventListener('click', function () {
-          window.location.href = './UyJihoz.html#cart';
+          window.location.href = './addtocart.html';
         });
       }
-      var profileBtn = document.getElementById('profile-btn');
-      if (profileBtn) {
-        profileBtn.addEventListener('click', function () {
-          showHeaderToast("Shaxsiy kabinet tez orada ishga tushadi");
+      var cartBtnMobile = document.getElementById('cart-btn-mobile');
+      if (cartBtnMobile) {
+        cartBtnMobile.addEventListener('click', function () {
+          window.location.href = './addtocart.html';
         });
       }
 
@@ -1757,11 +1754,12 @@ footer p:last-child {
           var isOpen = mobileMenu.classList.contains('is-open');
           setMenu(!isOpen);
         });
-        // Mobil menyudagi istalgan havola bosilsa, menyu yopiladi
+        // Mobil menyudagi <a> havolalar bosilsa, menyu yopiladi
+        // (profil/savat kabi <button>lar o'z handlerida boshqariladi)
         mobileMenu.querySelectorAll('a').forEach(function (link) {
           link.addEventListener('click', function () { setMenu(false); });
         });
-        // Ekran lg o'lchamiga kengaytirilsa, menyu holatini tozalash
+        // Ekran xl o'lchamiga kengaytirilsa, menyu holatini tozalash
         window.addEventListener('resize', function () {
           if (window.innerWidth >= 1280) setMenu(false);
         });
@@ -1770,6 +1768,178 @@ footer p:last-child {
           if (e.key === 'Escape') setMenu(false);
         });
       }
+    })();
+
+    // ---------------------------------------------------------------
+    // PROFIL / RO'YXATDAN O'TISH
+    // "uybozor_profile_v1" — barcha UyBozor sahifalarida bir xil.
+    // Kirilgan bo'lsa: header'da profil rasmi+ismi ko'rinadi va
+    // bosilganda profile.html'ga o'tkazadi. Kirilmagan bo'lsa: odatiy
+    // svg ikonka ko'rinadi va bosilganda ushbu sahifadagi ro'yxatdan
+    // o'tish modali ochiladi (index.html'dagi bilan bir xil mantiq).
+    // ---------------------------------------------------------------
+    (function () {
+      "use strict";
+      var PROFILE_KEY = "uybozor_profile_v1";
+
+      var backdrop = document.getElementById("auth-modal-backdrop");
+      var form = document.getElementById("auth-form");
+      var errorEl = document.getElementById("auth-error");
+      var photoInput = document.getElementById("auth-photo-input");
+      var photoPreview = document.getElementById("auth-photo-preview");
+      var profileBtn = document.getElementById("profile-btn");
+      var profileBtnDefault = document.getElementById("profile-btn-default");
+      var profileBtnChip = document.getElementById("profile-btn-chip");
+      var profileChipPhoto = document.getElementById("profile-chip-photo");
+      var profileChipName = document.getElementById("profile-chip-name");
+
+      var profileBtnMobile = document.getElementById("profile-btn-mobile");
+      var profileIconMobile = document.getElementById("profile-icon-mobile");
+      var profilePhotoMobile = document.getElementById("profile-chip-photo-mobile");
+      var profileNameMobile = document.getElementById("profile-name-mobile");
+
+      var ctaRegisterBtn = document.getElementById("cta-register-btn");
+      var publishListingBtn = document.getElementById("publish-listing-btn");
+
+      var selectedPhotoDataUrl = null;
+
+      function getProfile() {
+        try {
+          var raw = localStorage.getItem(PROFILE_KEY);
+          return raw ? JSON.parse(raw) : null;
+        } catch (e) {
+          return null;
+        }
+      }
+      function saveProfile(p) {
+        try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch (e) {}
+      }
+
+      function openAuthModal() {
+        if (!backdrop) return;
+        backdrop.classList.remove("hidden");
+        backdrop.classList.add("flex");
+      }
+      function closeAuthModal() {
+        if (!backdrop) return;
+        backdrop.classList.add("hidden");
+        backdrop.classList.remove("flex");
+      }
+      var closeBtn = document.getElementById("auth-modal-close");
+      if (closeBtn) closeBtn.addEventListener("click", closeAuthModal);
+      if (backdrop) backdrop.addEventListener("click", function (e) { if (e.target === backdrop) closeAuthModal(); });
+
+      if (photoInput) {
+        photoInput.addEventListener("change", function (e) {
+          var file = e.target.files && e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function (ev) {
+            selectedPhotoDataUrl = ev.target.result;
+            photoPreview.innerHTML = '<img src="' + selectedPhotoDataUrl + '" class="w-full h-full object-cover" alt="Profil rasmi" />';
+          };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function renderHeaderProfile() {
+        var p = getProfile();
+        if (p && p.photoDataUrl) {
+          if (profileBtnDefault) profileBtnDefault.classList.add("hidden");
+          if (profileBtnChip) {
+            profileBtnChip.classList.remove("hidden");
+            profileBtnChip.classList.add("flex");
+          }
+          if (profileChipPhoto) profileChipPhoto.src = p.photoDataUrl;
+          if (profileChipName) profileChipName.textContent = (p.firstName + " " + p.lastName).trim();
+          if (profileBtn) {
+            profileBtn.classList.remove("w-9", "sm:w-10");
+            profileBtn.classList.add("w-auto", "px-1");
+          }
+
+          if (profileIconMobile) profileIconMobile.classList.add("hidden");
+          if (profilePhotoMobile) {
+            profilePhotoMobile.src = p.photoDataUrl;
+            profilePhotoMobile.classList.remove("hidden");
+          }
+          if (profileNameMobile) profileNameMobile.textContent = (p.firstName + " " + p.lastName).trim();
+        } else {
+          if (profileBtnDefault) profileBtnDefault.classList.remove("hidden");
+          if (profileBtnChip) {
+            profileBtnChip.classList.add("hidden");
+            profileBtnChip.classList.remove("flex");
+          }
+          if (profileBtn) {
+            profileBtn.classList.add("w-9", "sm:w-10");
+            profileBtn.classList.remove("w-auto", "px-1");
+          }
+
+          if (profileIconMobile) profileIconMobile.classList.remove("hidden");
+          if (profilePhotoMobile) profilePhotoMobile.classList.add("hidden");
+          if (profileNameMobile) profileNameMobile.textContent = "Profil";
+        }
+      }
+
+      function handleProfileClick() {
+        var p = getProfile();
+        if (p) {
+          window.location.href = "./profile.html";
+        } else {
+          openAuthModal();
+        }
+      }
+      if (profileBtn) profileBtn.addEventListener("click", handleProfileClick);
+      if (profileBtnMobile) profileBtnMobile.addEventListener("click", handleProfileClick);
+
+      // "Hozir ro'yxatdan o'tish" CTA tugmasi ham bir xil modalni ochadi
+      // (agar allaqachon kirilgan bo'lsa, to'g'ridan-to'g'ri profile.html'ga o'tadi)
+      if (ctaRegisterBtn) {
+        ctaRegisterBtn.addEventListener("click", function () {
+          handleProfileClick();
+        });
+      }
+      // E'lonni chop etish ham profil talab qiladi
+      if (publishListingBtn) {
+        publishListingBtn.addEventListener("click", function () {
+          if (!getProfile()) {
+            openAuthModal();
+          } else {
+            window.location.href = "./profile.html";
+          }
+        });
+      }
+
+      if (form) {
+        form.addEventListener("submit", function (e) {
+          e.preventDefault();
+          var firstName = document.getElementById("auth-first-name").value.trim();
+          var lastName = document.getElementById("auth-last-name").value.trim();
+          var phone = document.getElementById("auth-phone").value.trim();
+          var email = document.getElementById("auth-email").value.trim();
+          var field = document.getElementById("auth-field").value.trim();
+
+          if (!firstName || !lastName || !phone || !email || !field || !selectedPhotoDataUrl) {
+            errorEl.classList.remove("hidden");
+            return;
+          }
+          errorEl.classList.add("hidden");
+
+          saveProfile({ firstName: firstName, lastName: lastName, phone: phone, email: email, field: field, photoDataUrl: selectedPhotoDataUrl });
+          renderHeaderProfile();
+          closeAuthModal();
+          form.reset();
+          photoPreview.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>';
+          selectedPhotoDataUrl = null;
+        });
+      }
+
+      // Boshqa tab'da ro'yxatdan o'tilsa yoki profildan chiqilsa, shu
+      // sahifadagi header ham darhol yangilanadi.
+      window.addEventListener("storage", function (e) {
+        if (e.key === PROFILE_KEY) renderHeaderProfile();
+      });
+
+      renderHeaderProfile();
     })();
 
     // ---------------------------------------------------------------

@@ -80,6 +80,9 @@
   .qty-btn:active { transform: scale(.94); }
   #mobile-menu { transition: max-height .5s ease, opacity .4s ease; }
   a:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid #f0a860; outline-offset: 3px; border-radius: 6px; }
+  .header-icon-btn { transition: background-color .25s ease, border-color .25s ease, transform .2s ease; }
+  .header-icon-btn:hover { background-color: rgba(255,255,255,.06); transform: translateY(-1px); }
+  .header-icon-btn:active { transform: translateY(0) scale(.95); }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
   }
@@ -105,23 +108,35 @@
 
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <button id="wishlist-btn" type="button" aria-label="Sevimlilar"
-          class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5">
+          class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60">
           <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
           </svg>
           <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
         </button>
         <button id="cart-btn" type="button" aria-label="Savatcha"
-          class="relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5">
+          class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60">
           <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
           </svg>
           <span id="cart-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
         </button>
-        <span id="header-profile-chip" class="hidden sm:flex items-center gap-2 pl-1 pr-3 h-10 rounded-full border border-amber-400/40 bg-white/5">
-          <img id="header-profile-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover ring-2 ring-amber-400/50" />
-          <span id="header-profile-name" class="text-xs font-semibold text-sand-100 whitespace-nowrap"></span>
-        </span>
+
+        <!-- Profil tugmasi: chiqib ketilganda standart SVG ikonka ko'rinadi;
+             ro'yxatdan o'tilgan bo'lsa profil surati/ismi ko'rinadi. Standart
+             holatda bosilsa ro'yxatdan o'tish modali ochiladi. -->
+        <button id="profile-btn" type="button" class="ml-2" aria-label="Profil"
+          class="header-icon-btn flex w-10 h-10 rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60 max-w-[150px]">
+          <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
+            <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/>
+            </svg>
+          </span>
+          <span id="profile-btn-chip" class="hidden items-center gap-2 pr-1 whitespace-nowrap">
+            <img id="header-profile-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
+            <span id="header-profile-name" class="hidden sm:inline text-xs font-semibold text-sand-100 whitespace-nowrap"></span>
+          </span>
+        </button>
 
         <button id="menu-toggle" class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10" aria-label="Menyu" aria-expanded="false">
           <svg id="menu-icon" class="w-5 h-5 text-sand-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -337,24 +352,51 @@
 
   const fmt = (n) => n.toLocaleString("fr-FR").replace(/,/g, " ") + " so'm";
 
+  // Boshqa sahifalar (UyJihoz.html, dekor.html, index.html) savat
+  // ma'lumotini har xil ko'rinishda saqlashi mumkin: rasm maydoni ba'zan
+  // "image", narx esa ko'pincha tayyor formatlangan matn ("450 000 UZS")
+  // bo'ladi, raqam emas. Shu funksiya har ikkalasini ishonchli o'qiydi —
+  // avval sonli "priceValue" ni qidiradi, topilmasa "price" matnidan
+  // raqamlarni ajratib oladi. Shu tufayli qaysi sahifada qo'shilgan
+  // mahsulot bo'lmasin, rasm va narx to'g'ri chiqadi.
+  function getMetaPriceValue(meta) {
+    if (!meta) return 0;
+    if (typeof meta.priceValue === "number" && !isNaN(meta.priceValue)) return meta.priceValue;
+    const parsed = parseInt(String(meta.price || "").replace(/[^\d]/g, ""), 10);
+    return isNaN(parsed) ? 0 : parsed;
+  }
+  function getMetaImage(meta) {
+    return (meta && (meta.image || meta.img)) || "";
+  }
+
   /* ---------------- header counts ---------------- */
   function refreshHeaderCounts() {
     document.getElementById("wishlist-count").textContent = String(getWishlistCount());
     document.getElementById("cart-count").textContent = String(Object.keys(getCart()).length);
   }
 
-  /* ---------------- header profile chip ---------------- */
+  /* ---------------- header profile button ---------------- */
+  // Chiqib ketilganda (profil yo'q) standart SVG ikonka ko'rinadi;
+  // ro'yxatdan o'tilgan bo'lsa surat + ism-familya chiqadi.
   function renderHeaderChip() {
     const p = getProfile();
-    const chip = document.getElementById("header-profile-chip");
+    const btn = document.getElementById("profile-btn");
+    const defaultIcon = document.getElementById("profile-btn-default");
+    const chip = document.getElementById("profile-btn-chip");
     if (p && p.photoDataUrl) {
       document.getElementById("header-profile-photo").src = p.photoDataUrl;
       document.getElementById("header-profile-name").textContent = `${p.firstName} ${p.lastName}`.trim();
+      defaultIcon.classList.add("hidden");
       chip.classList.remove("hidden");
       chip.classList.add("flex");
+      btn.classList.remove("w-10");
+      btn.classList.add("w-auto", "px-1");
     } else {
+      defaultIcon.classList.remove("hidden");
       chip.classList.add("hidden");
       chip.classList.remove("flex");
+      btn.classList.add("w-10");
+      btn.classList.remove("w-auto", "px-1");
     }
   }
 
@@ -380,12 +422,15 @@
 
   /* ---------------- cart panel (left side) ---------------- */
   function cartItemRowHtml(id, qty, meta) {
-    const lineTotal = meta.price * qty;
+    const priceValue = getMetaPriceValue(meta);
+    const lineTotal = priceValue * qty;
+    const image = getMetaImage(meta);
+    const title = (meta && meta.title) || "Mahsulot";
     return `
       <div class="glass-card rounded-2xl p-4 flex items-center gap-4" data-cart-row="${id}">
-        <img src="${meta.img}" alt="${meta.title}" class="w-16 h-16 rounded-xl object-cover shrink-0" />
+        <img src="${image}" alt="${title}" class="w-16 h-16 rounded-xl object-cover shrink-0 bg-white/5" />
         <div class="flex-1 min-w-0">
-          <p class="text-sm font-semibold text-sand-50 truncate">${meta.title}</p>
+          <p class="text-sm font-semibold text-sand-50 truncate">${title}</p>
           <p class="text-amber-300 text-sm font-bold mt-1" data-line-total>${fmt(lineTotal)}</p>
         </div>
         <div class="qty-stepper flex items-center rounded-xl overflow-hidden h-10 shrink-0">
@@ -413,7 +458,7 @@
     }
 
     let total = 0;
-    ids.forEach((id) => { total += meta[id].price * cart[id]; });
+    ids.forEach((id) => { total += getMetaPriceValue(meta[id]) * cart[id]; });
     document.getElementById("cart-total").textContent = fmt(total);
     refreshHeaderCounts();
   }
@@ -460,6 +505,9 @@
   payBackdrop.addEventListener("click", (e) => { if (e.target === payBackdrop) document.getElementById("pay-success-close").click(); });
 
   /* ---------------- logout ---------------- */
+  // Profildan chiqilganda profil o'chiriladi va header darhol
+  // standart profil SVG ikonkasiga qaytadi (renderProfilePanel ->
+  // renderHeaderChip orqali).
   document.getElementById("logout-btn").addEventListener("click", () => {
     clearProfile();
     renderProfilePanel();
@@ -478,6 +526,15 @@
   document.getElementById("auth-modal-close").addEventListener("click", closeAuthModal);
   authBackdrop.addEventListener("click", (e) => { if (e.target === authBackdrop) closeAuthModal(); });
   document.getElementById("open-register-btn").addEventListener("click", openAuthModal);
+
+  // Header'dagi profil tugmasi: chiqib ketilgan holatda (standart SVG
+  // ikonka ko'rinib turganda) bosilsa, xuddi shu ro'yxatdan o'tish
+  // modali ochiladi va ishlaydi. Ro'yxatdan o'tilgan bo'lsa, tugma
+  // hech narsa qilmaydi — profil ma'lumoti allaqachon shu sahifada
+  // o'ng panelda ko'rinib turibdi.
+  document.getElementById("profile-btn").addEventListener("click", () => {
+    if (!getProfile()) openAuthModal();
+  });
 
   photoInput.addEventListener("change", (e) => {
     const file = e.target.files && e.target.files[0];

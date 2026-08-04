@@ -1,14 +1,12 @@
-
-
 <!doctype html>
 <html lang="uz">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dekor — UyBozor</title>
+    <title>Bog'lanish — UyBozor</title>
     <meta
       name="description"
-      content="O'zbekistondagi birinchi ko'chmas mulk va interyer dizayni yagona ekotizimi."
+      content="O'zbekistondagi birinchi ko'chmas mulk va interyer dizayni yagona ekotizimi. Biz bilan bog'laning."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -292,10 +290,6 @@
         width: 100%;
       }
 
-      [data-carousel-item] {
-        transition: opacity 0.6s ease;
-      }
-
       .filter-pill {
         transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       }
@@ -309,11 +303,6 @@
         color: #140f0c;
         box-shadow: 0 8px 24px -6px rgba(224, 86, 143, 0.55);
         border-color: transparent;
-      }
-
-      .product-card {
-        opacity: 0;
-        animation: fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
       }
 
       .social-icon {
@@ -336,6 +325,18 @@
         transition:
           max-height 0.5s ease,
           opacity 0.4s ease;
+      }
+
+      /* ---- header: o'ng tomondagi ikonka tugmalar ---- */
+      .header-icon-btn {
+        transition: background-color .25s ease, border-color .25s ease, transform .2s ease;
+      }
+      .header-icon-btn:hover {
+        background-color: rgba(255,255,255,.06);
+        transform: translateY(-1px);
+      }
+      .header-icon-btn:active {
+        transform: translateY(0) scale(.95);
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -361,7 +362,7 @@
       <div class="ambient-orb orb4"></div>
     </div>
 
-    <!-- ================= HEADER ================= -->
+    <!-- ================= HEADER (dekor.html bilan bir xil) ================= -->
     <header class="border-b border-white/5 bg-ink-900/80 backdrop-blur-xl">
       <nav class="max-w-7xl mx-auto px-5 lg:px-8">
         <div class="flex items-center justify-between h-20">
@@ -386,21 +387,23 @@
             <a href="./UyJihoz.html" class="nav-link pb-1 text-white"
               >Uy jihozlari</a
             >
-            <a href="./dekor.html" class="nav-link active pb-1 text-white"
+            <a href="./dekor.html" class="nav-link pb-1 text-white"
               >Dekor</a
             >
             <a href="./sotuvchi.html" class="nav-link pb-1 text-white"
               >Sotuvchi bo'ling</a
             >
+            <a href="./boglanish.html" class="nav-link active pb-1 text-white"
+              >Bog'lanish</a
+            >
           </div>
 
-          <div class="hidden md:flex items-center gap-4">
-           
-           
-
+          <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
             <button
+              id="wishlist-btn"
+              type="button"
               aria-label="Sevimlilar"
-              class="relative w-10 text-white h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+              class="header-icon-btn relative w-10 text-white h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60"
             >
               <svg
                 class="w-[18px] h-[18px] text-sand-200"
@@ -416,13 +419,16 @@
                 />
               </svg>
               <span
+                id="wishlist-count"
                 class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center"
                 >0</span
               >
             </button>
             <button
+              id="cart-btn"
+              type="button"
               aria-label="Savatcha"
-              class="relative text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+              class="header-icon-btn relative text-white w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60"
             >
               <svg
                 class="w-[18px] h-[18px] text-sand-200"
@@ -438,16 +444,46 @@
                 />
               </svg>
               <span
+                id="cart-count"
                 class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center"
                 >0</span
               >
             </button>
             <button
+              id="profile-btn"
+              type="button"
               aria-label="Profil"
-              class="w-10 h-10 text-white rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60 hover:bg-white/5 transition-all duration-300 hover:-translate-y-0.5"
+              class="header-icon-btn flex w-10 h-10 text-white rounded-full items-center justify-center border border-white/10 hover:border-amber-400/60"
+            >
+              <span id="profile-btn-default" class="w-full h-full flex items-center justify-center">
+                <svg
+                  class="w-[18px] h-[18px] text-sand-200"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.8"
+                    d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                  />
+                </svg>
+              </span>
+              <span id="profile-btn-chip" class="hidden items-center gap-2 pr-1 whitespace-nowrap">
+                <img id="profile-chip-photo" src="" alt="" class="w-7 h-7 rounded-full object-cover shrink-0 ring-2 ring-amber-400/50" />
+                <span id="profile-chip-name" class="hidden sm:inline text-xs font-semibold text-sand-100"></span>
+              </span>
+            </button>
+
+            <button
+              id="menu-toggle"
+              class="header-icon-btn lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
+              aria-label="Menyu"
+              aria-expanded="false"
             >
               <svg
-                class="w-[18px] h-[18px] text-sand-200"
+                class="w-5 h-5 text-sand-100"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -455,33 +491,12 @@
                 <path
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  stroke-width="1.8"
-                  d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                  stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
             </button>
           </div>
-
-          <button
-            id="menu-toggle"
-            class="lg:hidden w-10 h-10 flex items-center justify-center rounded-full border border-white/10"
-            aria-label="Menyu"
-            aria-expanded="false"
-          >
-            <svg
-              class="w-5 h-5 text-sand-100"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
         </div>
 
         <div
@@ -492,422 +507,506 @@
             class="flex flex-col gap-4 pb-6 pt-2 text-sand-200/90 text-sm font-medium"
           >
             <a href="/" class="nav-link">Bosh sahifa</a>
-            <a href="./KochmasMulk.html" class="nav-link">Ko'chmas mulk</a>
+            <a href="./Ko'chmasMulk.html" class="nav-link">Ko'chmas mulk</a>
             <a href="./UyJihoz.html" class="nav-link">Uy jihozlari</a>
-            <a href="./dekor.html" class="nav-link active">Dekor</a>
+            <a href="./dekor.html" class="nav-link">Dekor</a>
             <a href="./sotuvchi.html" class="nav-link">Sotuvchi bo'ling</a>
+            <a href="./boglanish.html" class="nav-link active">Bog'lanish</a>
+          </div>
+          <!-- Mobil menyudagi wishlist/savat/profil -->
+          <div class="flex items-center justify-between gap-3 pb-5 pt-3 border-t border-white/10 text-xs text-sand-300 flex-wrap">
+            <a href="./liked.html" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              Sevimlilar (<span id="wishlist-count-mobile">0</span>)
+            </a>
+            <button type="button" id="cart-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+              Savat (<span id="cart-count-mobile">0</span>)
+            </button>
+            <button type="button" id="profile-btn-mobile" class="flex items-center gap-1.5 hover:text-amber-300 transition-colors">
+              <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+              <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+              <span id="profile-name-mobile">Profil</span>
+            </button>
           </div>
         </div>
       </nav>
       <div class="fade-line"></div>
     </header>
-<div class="bg-bgbase font-body text-cream antialiased selection:bg-violet/40 selection:text-white overflow-x-hidden">
 
-  <!-- ============================================================ -->
-  <!-- BACKGROUND DECOR LAYER                                        -->
-  <!-- ============================================================ -->
-  <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
-    <!-- Base gradient -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_#1a1130_0%,_#0b0710_55%,_#08050c_100%)]"></div>
+    <div class="bg-ink-900 font-body text-sand-100 antialiased selection:bg-amber-400 overflow-x-hidden">
 
-    <!-- Subtle grain / noise texture -->
-    <div class="absolute inset-0 opacity-[0.05] mix-blend-overlay"
-         style="background-image:url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%220.9%22 numOctaves=%222%22 stitchTiles=%22stitch%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>')"></div>
+      <!-- ============================================================ -->
+      <!-- MAIN WRAPPER                                                  -->
+      <!-- ============================================================ -->
+      <main class="relative max-w-6xl mx-auto px-5 sm:px-8 lg:px-6 py-16 sm:py-20">
 
-    <!-- Floating soft blobs -->
-    <div class="absolute -top-24 left-1/4 w-[420px] h-[420px] rounded-full bg-violet/10 blur-[120px] animate-floatSlow"></div>
-    <div class="absolute top-1/3 -right-32 w-[520px] h-[520px] rounded-full bg-amber/10 blur-[140px] animate-floatSlower"></div>
-    <div class="absolute bottom-0 left-0 w-[380px] h-[380px] rounded-full bg-violet/10 blur-[130px] animate-floatSlow" style="animation-delay:2s"></div>
+        <!-- ============================================================ -->
+        <!-- SECTION: HERO / TITLE                                         -->
+        <!-- ============================================================ -->
+        <section class="mb-12 sm:mb-16 animate-fadeUp">
+          <p class="text-[11px] tracking-[0.25em] uppercase text-amber-350 mb-3">Aloqa</p>
+          <h1 class="font-display text-4xl sm:text-5xl text-stone-50 tracking-tight mb-3">
+            Biz bilan bog'laning
+          </h1>
+          <p class="text-stone-400 text-sm sm:text-base max-w-xl leading-relaxed">
+            Sizga qanday yordam berishimiz mumkin? Savollaringiz bo'lsa, xabar qoldiring
+            yoki ofisimizga tashrif buyuring.
+          </p>
+        </section>
 
-    <!-- Top hairline -->
-    <div class="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-panelBorder to-transparent"></div>
-  </div>
+        <!-- ============================================================ -->
+        <!-- SECTION: CONTACT FORM + INFO CARDS                            -->
+        <!-- ============================================================ -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24 sm:mb-32">
 
-  <!-- ============================================================ -->
-  <!-- MAIN WRAPPER                                                  -->
-  <!-- ============================================================ -->
-  <main class="relative max-w-6xl mx-auto px-5 sm:px-8 lg:px-6 py-16 sm:py-20">
+          <!-- ---------------------------------------------------------- -->
+          <!-- FORM CARD                                                   -->
+          <!-- ---------------------------------------------------------- -->
+          <div class="lg:col-span-2 group/card relative rounded-2xl bg-ink-850 border border-white/10 p-6 sm:p-8
+                      shadow-card transition-all duration-500 hover:border-amber-400/40 hover:shadow-glow
+                      animate-fadeUp" style="animation-delay:0.05s">
 
-    <!-- ============================================================ -->
-    <!-- SECTION: HERO / TITLE                                         -->
-    <!-- ============================================================ -->
-    <section class="mb-12 sm:mb-16 animate-fadeUp">
-      <h1 class="font-display italic text-4xl sm:text-5xl text-cream tracking-tight mb-3">
-        Biz bilan bog'laning
-      </h1>
-      <p class="text-muted text-sm sm:text-base max-w-xl leading-relaxed">
-        Sizga qanday yordam berishimiz mumkin? Savollaringiz bo'lsa, xabar qoldiring
-        yoki ofisimizga tashrif buyuring.
-      </p>
-    </section>
+            <!-- corner glow accent on hover -->
+            <div class="pointer-events-none absolute -top-1 -left-1 w-24 h-24 rounded-full bg-purple-500/20 blur-3xl opacity-0
+                        group-hover/card:opacity-100 transition-opacity duration-700"></div>
 
-    <!-- ============================================================ -->
-    <!-- SECTION: CONTACT FORM + INFO CARDS                            -->
-    <!-- ============================================================ -->
-    <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-24 sm:mb-32">
+            <h2 class="font-display text-2xl sm:text-[26px] text-stone-50 mb-6 relative">
+              Xabar yuborish
+            </h2>
 
-      <!-- ---------------------------------------------------------- -->
-      <!-- FORM CARD                                                   -->
-      <!-- ---------------------------------------------------------- -->
-      <div class="lg:col-span-2 group/card relative rounded-2xl bg-panel border border-panelBorder p-6 sm:p-8
-                  shadow-card transition-all duration-500 hover:border-violet/40 hover:shadow-glow
-                  animate-fadeUp" style="animation-delay:0.05s">
+            <form id="contact-form" class="space-y-4 relative" novalidate>
 
-        <!-- corner glow accent on hover -->
-        <div class="pointer-events-none absolute -top-1 -left-1 w-24 h-24 rounded-full bg-violet/20 blur-3xl opacity-0
-                    group-hover/card:opacity-100 transition-opacity duration-700"></div>
-
-        <h2 class="font-display italic text-2xl sm:text-[26px] text-cream mb-6 relative">
-          Xabar yuborish
-        </h2>
-
-        <form class="space-y-4 relative" onsubmit="return false;">
-
-          <!-- Name + Email row -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="relative">
-              <input type="text" name="fullname" placeholder="To'liq ismingiz"
-                     class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
-                            placeholder:text-muted/70 outline-none transition-all duration-300
-                            focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
-                            hover:border-panelBorder hover:bg-panel2" />
-              <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
-                           bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
-            </div>
-
-            <div class="relative">
-              <input type="email" name="email" placeholder="Email manzilingiz"
-                     class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
-                            placeholder:text-muted/70 outline-none transition-all duration-300
-                            focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
-                            hover:border-panelBorder hover:bg-panel2" />
-              <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
-                           bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
-            </div>
-          </div>
-
-          <!-- Phone -->
-          <div class="relative">
-            <input type="tel" name="phone" placeholder="Telefon raqamingiz"
-                   class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
-                          placeholder:text-muted/70 outline-none transition-all duration-300
-                          focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
-                          hover:border-panelBorder hover:bg-panel2" />
-            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
-                         bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
-          </div>
-
-          <!-- Message -->
-          <div class="relative">
-            <textarea name="message" rows="5" placeholder="Xabaringiz"
-                      class="peer w-full bg-panel2/70 border border-panelBorder rounded-xl px-4 py-3.5 text-sm text-cream
-                             placeholder:text-muted/70 outline-none transition-all duration-300 resize-none
-                             focus:border-violet focus:bg-panel2 focus:ring-2 focus:ring-violet/25
-                             hover:border-panelBorder hover:bg-panel2"></textarea>
-            <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
-                         bg-gradient-to-r from-violet via-amber to-violet transition-transform duration-500 origin-left rounded-full"></span>
-          </div>
-
-          <!-- Submit button -->
-          <button type="submit"
-                  class="relative w-full overflow-hidden rounded-xl py-3.5 text-sm font-semibold text-white
-                         bg-[length:200%_100%] bg-gradient-to-r from-violet via-fuch-400 to-amber
-                         shadow-[0_10px_30px_-8px_rgba(157,124,232,0.55)]
-                         transition-all duration-500 hover:bg-[position:100%_0] hover:shadow-[0_14px_38px_-6px_rgba(228,162,92,0.6)]
-                         active:scale-[0.98] group/btn">
-            <span class="relative z-10 flex items-center justify-center gap-2">
-              Yuborish
-              <svg class="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </span>
-            <span class="absolute inset-0 bg-white/10 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 skew-x-12"></span>
-          </button>
-        </form>
-      </div>
-
-      <!-- ---------------------------------------------------------- -->
-      <!-- INFO CARDS COLUMN                                           -->
-      <!-- ---------------------------------------------------------- -->
-      <div class="flex flex-col gap-4">
-
-        <!-- Address -->
-        <div class="group relative flex gap-4 items-start rounded-2xl bg-panel border border-panelBorder p-5
-                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
-                    animate-fadeUp" style="animation-delay:0.1s">
-          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-panel2 border border-panelBorder flex items-center justify-center
-                      text-violet transition-all duration-400 group-hover:bg-violet group-hover:text-white group-hover:rotate-6 group-hover:scale-110">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-cream mb-1">Bizning manzil</h3>
-            <p class="text-xs text-muted leading-relaxed">
-              Toshkent shahri, Yunusobod tumani, Amir Temur ko'chasi, 108-uy
-            </p>
-          </div>
-        </div>
-
-        <!-- Phone -->
-        <div class="group relative flex gap-4 items-start rounded-2xl bg-panel border border-panelBorder p-5
-                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
-                    animate-fadeUp" style="animation-delay:0.15s">
-          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-panel2 border border-panelBorder flex items-center justify-center
-                      text-violet transition-all duration-400 group-hover:bg-violet group-hover:text-white group-hover:rotate-6 group-hover:scale-110">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372a1.125 1.125 0 00-.85-1.09l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a1.125 1.125 0 01-1.21.38 12.035 12.035 0 01-7.143-7.143 1.125 1.125 0 01.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.6a1.125 1.125 0 00-1.09-.85H4.5A2.25 2.25 0 002.25 5v1.75z" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-cream mb-1">Telefon raqamlar</h3>
-            <p class="text-xs text-muted leading-relaxed">
-              +998 71 200 00 00<br />
-              +998 90 123 45 67
-            </p>
-          </div>
-        </div>
-
-        <!-- Working hours -->
-        <div class="group relative flex gap-4 items-start rounded-2xl bg-panel border border-panelBorder p-5
-                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
-                    animate-fadeUp" style="animation-delay:0.2s">
-          <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-panel2 border border-panelBorder flex items-center justify-center
-                      text-violet transition-all duration-400 group-hover:bg-violet group-hover:text-white group-hover:rotate-6 group-hover:scale-110">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
-              <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-          </div>
-          <div>
-            <h3 class="text-sm font-semibold text-cream mb-1">Ish vaqti</h3>
-            <p class="text-xs text-muted leading-relaxed">
-              Dushanba - Juma: 09:00 - 18:00<br />
-              Shanba: 10:00 - 15:00
-            </p>
-          </div>
-        </div>
-
-        <!-- Social -->
-        <div class="group relative rounded-2xl bg-panel border border-panelBorder p-5
-                    shadow-card transition-all duration-400 hover:border-violet/40 hover:-translate-y-1 hover:shadow-glow
-                    animate-fadeUp" style="animation-delay:0.25s">
-          <h3 class="text-sm font-semibold text-cream mb-4">Ijtimoiy tarmoqlar</h3>
-          <div class="flex items-center gap-3">
-            <a href="#" aria-label="Veb-sayt"
-               class="w-9 h-9 rounded-lg bg-panel2 border border-panelBorder flex items-center justify-center text-cream/80
-                      transition-all duration-300 hover:bg-violet hover:text-white hover:-translate-y-1 hover:shadow-glow">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <circle cx="12" cy="12" r="9" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3c2.5 2.7 3.75 6 3.75 9s-1.25 6.3-3.75 9c-2.5-2.7-3.75-6-3.75-9S9.5 5.7 12 3z" />
-              </svg>
-            </a>
-            <a href="#" aria-label="Email"
-               class="w-9 h-9 rounded-lg bg-panel2 border border-panelBorder flex items-center justify-center text-cream/80
-                      transition-all duration-300 hover:bg-violet hover:text-white hover:-translate-y-1 hover:shadow-glow">
-              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
-                <circle cx="12" cy="12" r="9" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0v1.5a2.25 2.25 0 004.5 0V12a9 9 0 10-4.42 7.74" />
-              </svg>
-            </a>
-            <a href="#" aria-label="Telegram"
-               class="w-9 h-9 rounded-lg bg-panel2 border border-panelBorder flex items-center justify-center text-cream/80
-                      transition-all duration-300 hover:bg-violet hover:text-white hover:-translate-y-1 hover:shadow-glow">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21.5 4.5L2.7 11.9c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.5 0 .7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.6-1.4z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================================ -->
-    <!-- SECTION: MAP (bonus — implied by "ofisimizga tashrif buyuring") -->
-    <!-- kept minimal / decorative, faithful to source which has no map -->
-    <!-- ============================================================ -->
-
-    <!-- ============================================================ -->
-    <!-- SECTION: FAQ                                                  -->
-    <!-- ============================================================ -->
-    <section class="animate-fadeUp" style="animation-delay:0.1s">
-      <h2 class="font-display italic text-3xl sm:text-4xl text-center text-cream mb-10">
-        Ko'p so'raladigan savollar
-      </h2>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
-
-        <!-- ---------------- COLUMN 1: Xarid va to'lov ---------------- -->
-        <div>
-          <h3 class="text-amber font-semibold text-base mb-4">Xarid va to'lov</h3>
-
-          <div id="accordion-purchase" data-accordion="collapse" class="space-y-3">
-
-            <!-- Item 1 -->
-            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
-              <h4 id="pq-heading-1">
-                <button type="button"
-                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
-                        data-accordion-target="#pq-body-1" aria-expanded="false" aria-controls="pq-body-1">
-                  <span>Qanday qilib buyurtma berish mumkin?</span>
-                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </h4>
-              <div id="pq-body-1" class="hidden" aria-labelledby="pq-heading-1">
-                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
-                  Saytimizdagi mahsulotni tanlab, savatga qo'shing va buyurtma
-                  ma'lumotlarini to'ldiring. Buyurtmangiz tasdiqlanganidan so'ng operatorimiz
-                  siz bilan bog'lanadi.
+              <!-- Name + Email row -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="relative">
+                  <input id="contact-fullname" type="text" name="fullname" placeholder="To'liq ismingiz"
+                         class="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-stone-100
+                                placeholder:text-stone-500 outline-none transition-all duration-300
+                                focus:border-amber-400 focus:bg-white/[0.07] focus:ring-2 focus:ring-amber-400/25
+                                hover:border-white/20" />
+                  <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                               bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 transition-transform duration-500 origin-left rounded-full"></span>
                 </div>
+
+                <div class="relative">
+                  <input id="contact-email" type="email" name="email" placeholder="Email manzilingiz"
+                         class="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-stone-100
+                                placeholder:text-stone-500 outline-none transition-all duration-300
+                                focus:border-amber-400 focus:bg-white/[0.07] focus:ring-2 focus:ring-amber-400/25
+                                hover:border-white/20" />
+                  <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                               bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 transition-transform duration-500 origin-left rounded-full"></span>
+                </div>
+              </div>
+
+              <!-- Phone -->
+              <div class="relative">
+                <input id="contact-phone" type="tel" name="phone" placeholder="Telefon raqamingiz"
+                       class="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-stone-100
+                              placeholder:text-stone-500 outline-none transition-all duration-300
+                              focus:border-amber-400 focus:bg-white/[0.07] focus:ring-2 focus:ring-amber-400/25
+                              hover:border-white/20" />
+                <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                             bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 transition-transform duration-500 origin-left rounded-full"></span>
+              </div>
+
+              <!-- Message -->
+              <div class="relative">
+                <textarea id="contact-message" name="message" rows="5" placeholder="Xabaringiz"
+                          class="peer w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3.5 text-sm text-stone-100
+                                 placeholder:text-stone-500 outline-none transition-all duration-300 resize-none
+                                 focus:border-amber-400 focus:bg-white/[0.07] focus:ring-2 focus:ring-amber-400/25
+                                 hover:border-white/20"></textarea>
+                <span class="pointer-events-none absolute inset-x-0 bottom-0 h-px scale-x-0 peer-focus:scale-x-100
+                             bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 transition-transform duration-500 origin-left rounded-full"></span>
+              </div>
+
+              <!-- Submit button -->
+              <button type="submit"
+                      class="relative w-full overflow-hidden rounded-xl py-3.5 text-sm font-semibold text-white
+                             bg-brand-gradient bg-[length:200%_auto]
+                             shadow-glow
+                             transition-all duration-500 hover:bg-[position:100%_0] hover:shadow-[0_0_45px_-6px_rgba(224,86,143,0.7)]
+                             active:scale-[0.98] group/btn">
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                  Yuborish
+                  <svg class="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </span>
+                <span class="absolute inset-0 bg-white/10 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 skew-x-12"></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- ---------------------------------------------------------- -->
+          <!-- INFO CARDS COLUMN                                           -->
+          <!-- ---------------------------------------------------------- -->
+          <div class="flex flex-col gap-4">
+
+            <!-- Address -->
+            <div class="group relative flex gap-4 items-start rounded-2xl bg-ink-850 border border-white/10 p-5
+                        shadow-card transition-all duration-400 hover:border-amber-400/40 hover:-translate-y-1 hover:shadow-glow
+                        animate-fadeUp" style="animation-delay:0.1s">
+              <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center
+                          text-amber-350 transition-all duration-400 group-hover:bg-amber-400 group-hover:text-ink-900 group-hover:rotate-6 group-hover:scale-110">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-stone-100 mb-1">Bizning manzil</h3>
+                <p class="text-xs text-stone-400 leading-relaxed">
+                  Toshkent shahri, Yunusobod tumani, Amir Temur ko'chasi, 108-uy
+                </p>
               </div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
-              <h4 id="pq-heading-2">
-                <button type="button"
-                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
-                        data-accordion-target="#pq-body-2" aria-expanded="false" aria-controls="pq-body-2">
-                  <span>Bo'lib to'lash imkoniyati bormi?</span>
-                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </h4>
-              <div id="pq-body-2" class="hidden" aria-labelledby="pq-heading-2">
-                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
-                  Ha, hamkor banklarimiz orqali 3, 6 va 12 oylik muddatlarga bo'lib
-                  to'lash xizmati mavjud. Batafsil ma'lumot uchun menejerimizga murojaat qiling.
-                </div>
+            <!-- Phone -->
+            <div class="group relative flex gap-4 items-start rounded-2xl bg-ink-850 border border-white/10 p-5
+                        shadow-card transition-all duration-400 hover:border-amber-400/40 hover:-translate-y-1 hover:shadow-glow
+                        animate-fadeUp" style="animation-delay:0.15s">
+              <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center
+                          text-amber-350 transition-all duration-400 group-hover:bg-amber-400 group-hover:text-ink-900 group-hover:rotate-6 group-hover:scale-110">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a2.25 2.25 0 002.25-2.25v-1.372a1.125 1.125 0 00-.85-1.09l-4.423-1.106a1.125 1.125 0 00-1.173.417l-.97 1.293a1.125 1.125 0 01-1.21.38 12.035 12.035 0 01-7.143-7.143 1.125 1.125 0 01.38-1.21l1.293-.97a1.125 1.125 0 00.417-1.173L6.963 3.6a1.125 1.125 0 00-1.09-.85H4.5A2.25 2.25 0 002.25 5v1.75z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-stone-100 mb-1">Telefon raqamlar</h3>
+                <p class="text-xs text-stone-400 leading-relaxed">
+                  <a href="tel:+998712000000" class="hover:text-amber-350 transition-colors">+998 71 200 00 00</a><br />
+                  <a href="tel:+998901234567" class="hover:text-amber-350 transition-colors">+998 90 123 45 67</a>
+                </p>
               </div>
             </div>
 
-            <!-- Item 3 -->
-            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
-              <h4 id="pq-heading-3">
-                <button type="button"
-                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
-                        data-accordion-target="#pq-body-3" aria-expanded="false" aria-controls="pq-body-3">
-                  <span>Qaysi to'lov usullari qabul qilinadi?</span>
-                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </h4>
-              <div id="pq-body-3" class="hidden" aria-labelledby="pq-heading-3">
-                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
-                  Naqd pul, plastik kartalar (Uzcard, Humo, Visa, Mastercard) va
-                  onlayn to'lov tizimlari orqali to'lovni amalga oshirishingiz mumkin.
-                </div>
+            <!-- Working hours -->
+            <div class="group relative flex gap-4 items-start rounded-2xl bg-ink-850 border border-white/10 p-5
+                        shadow-card transition-all duration-400 hover:border-amber-400/40 hover:-translate-y-1 hover:shadow-glow
+                        animate-fadeUp" style="animation-delay:0.2s">
+              <div class="flex-shrink-0 w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center
+                          text-amber-350 transition-all duration-400 group-hover:bg-amber-400 group-hover:text-ink-900 group-hover:rotate-6 group-hover:scale-110">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2" />
+                  <circle cx="12" cy="12" r="9" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-sm font-semibold text-stone-100 mb-1">Ish vaqti</h3>
+                <p class="text-xs text-stone-400 leading-relaxed">
+                  Dushanba - Juma: 09:00 - 18:00<br />
+                  Shanba: 10:00 - 15:00
+                </p>
               </div>
             </div>
 
+            <!-- Social -->
+            <div class="group relative rounded-2xl bg-ink-850 border border-white/10 p-5
+                        shadow-card transition-all duration-400 hover:border-amber-400/40 hover:-translate-y-1 hover:shadow-glow
+                        animate-fadeUp" style="animation-delay:0.25s">
+              <h3 class="text-sm font-semibold text-stone-100 mb-4">Ijtimoiy tarmoqlar</h3>
+              <div class="flex items-center gap-3">
+                <a href="/" aria-label="Veb-sayt"
+                   class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-stone-300
+                          transition-all duration-300 hover:bg-amber-400 hover:text-ink-900 hover:-translate-y-1 hover:shadow-glow">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="9" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 12h18M12 3c2.5 2.7 3.75 6 3.75 9s-1.25 6.3-3.75 9c-2.5-2.7-3.75-6-3.75-9S9.5 5.7 12 3z" />
+                  </svg>
+                </a>
+                <a href="mailto:info@uybozor.uz" aria-label="Email"
+                   class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-stone-300
+                          transition-all duration-300 hover:bg-amber-400 hover:text-ink-900 hover:-translate-y-1 hover:shadow-glow">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+                    <circle cx="12" cy="12" r="9" />
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0v1.5a2.25 2.25 0 004.5 0V12a9 9 0 10-4.42 7.74" />
+                  </svg>
+                </a>
+                <a href="https://t.me/uybozor" target="_blank" rel="noopener noreferrer" aria-label="Telegram"
+                   class="w-9 h-9 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-stone-300
+                          transition-all duration-300 hover:bg-amber-400 hover:text-ink-900 hover:-translate-y-1 hover:shadow-glow">
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M21.5 4.5L2.7 11.9c-1.2.5-1.2 1.2-.2 1.5l4.8 1.5 1.8 5.6c.2.6.4.8.9.8.5 0 .7-.2 1-.5l2.4-2.3 4.9 3.6c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.6-1.4z"/>
+                  </svg>
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <!-- ---------------- COLUMN 2: Xizmatlar ---------------- -->
-        <div>
-          <h3 class="text-amber font-semibold text-base mb-4">Xizmatlar</h3>
+        <!-- ============================================================ -->
+        <!-- SECTION: FAQ                                                  -->
+        <!-- ============================================================ -->
+        <section class="animate-fadeUp" style="animation-delay:0.1s">
+          <h2 class="font-display text-3xl sm:text-4xl text-center text-stone-50 mb-10">
+            Ko'p so'raladigan savollar
+          </h2>
 
-          <div id="accordion-services" data-accordion="collapse" class="space-y-3">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-8">
 
-            <!-- Item 1 -->
-            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
-              <h4 id="sq-heading-1">
-                <button type="button"
-                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
-                        data-accordion-target="#sq-body-1" aria-expanded="false" aria-controls="sq-body-1">
-                  <span>Yetkazib berish bepulmi?</span>
-                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </h4>
-              <div id="sq-body-1" class="hidden" aria-labelledby="sq-heading-1">
-                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
-                  Toshkent shahri bo'ylab 500 000 so'mdan yuqori buyurtmalar uchun
-                  yetkazib berish bepul. Boshqa hududlarga tarif buyurtma summasiga qarab hisoblanadi.
+            <!-- ---------------- COLUMN 1: Xarid va to'lov ---------------- -->
+            <div>
+              <h3 class="text-amber-350 font-semibold text-base mb-4">Xarid va to'lov</h3>
+
+              <div id="accordion-purchase" data-accordion="collapse" class="space-y-3">
+
+                <!-- Item 1 -->
+                <div class="rounded-xl bg-ink-850 border border-white/10 overflow-hidden transition-colors duration-300 hover:border-amber-400/40">
+                  <h4 id="pq-heading-1">
+                    <button type="button"
+                            class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-stone-100/90 font-medium gap-3"
+                            data-accordion-target="#pq-body-1" aria-expanded="false" aria-controls="pq-body-1">
+                      <span>Qanday qilib buyurtma berish mumkin?</span>
+                      <svg class="faq-icon w-4 h-4 flex-shrink-0 text-stone-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </h4>
+                  <div id="pq-body-1" class="hidden" aria-labelledby="pq-heading-1">
+                    <div class="px-5 pb-4 text-xs text-stone-400 leading-relaxed border-t border-white/10 pt-3">
+                      Saytimizdagi mahsulotni tanlab, savatga qo'shing va buyurtma
+                      ma'lumotlarini to'ldiring. Buyurtmangiz tasdiqlanganidan so'ng operatorimiz
+                      siz bilan bog'lanadi.
+                    </div>
+                  </div>
                 </div>
+
+                <!-- Item 2 -->
+                <div class="rounded-xl bg-ink-850 border border-white/10 overflow-hidden transition-colors duration-300 hover:border-amber-400/40">
+                  <h4 id="pq-heading-2">
+                    <button type="button"
+                            class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-stone-100/90 font-medium gap-3"
+                            data-accordion-target="#pq-body-2" aria-expanded="false" aria-controls="pq-body-2">
+                      <span>Bo'lib to'lash imkoniyati bormi?</span>
+                      <svg class="faq-icon w-4 h-4 flex-shrink-0 text-stone-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </h4>
+                  <div id="pq-body-2" class="hidden" aria-labelledby="pq-heading-2">
+                    <div class="px-5 pb-4 text-xs text-stone-400 leading-relaxed border-t border-white/10 pt-3">
+                      Ha, hamkor banklarimiz orqali 3, 6 va 12 oylik muddatlarga bo'lib
+                      to'lash xizmati mavjud. Batafsil ma'lumot uchun menejerimizga murojaat qiling.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="rounded-xl bg-ink-850 border border-white/10 overflow-hidden transition-colors duration-300 hover:border-amber-400/40">
+                  <h4 id="pq-heading-3">
+                    <button type="button"
+                            class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-stone-100/90 font-medium gap-3"
+                            data-accordion-target="#pq-body-3" aria-expanded="false" aria-controls="pq-body-3">
+                      <span>Qaysi to'lov usullari qabul qilinadi?</span>
+                      <svg class="faq-icon w-4 h-4 flex-shrink-0 text-stone-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </h4>
+                  <div id="pq-body-3" class="hidden" aria-labelledby="pq-heading-3">
+                    <div class="px-5 pb-4 text-xs text-stone-400 leading-relaxed border-t border-white/10 pt-3">
+                      Naqd pul, plastik kartalar (Uzcard, Humo, Visa, Mastercard) va
+                      onlayn to'lov tizimlari orqali to'lovni amalga oshirishingiz mumkin.
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
-            <!-- Item 2 -->
-            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
-              <h4 id="sq-heading-2">
-                <button type="button"
-                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
-                        data-accordion-target="#sq-body-2" aria-expanded="false" aria-controls="sq-body-2">
-                  <span>Kafolat muddati qancha?</span>
-                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </h4>
-              <div id="sq-body-2" class="hidden" aria-labelledby="sq-heading-2">
-                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
-                  Barcha mahsulotlarga standart 12 oylik rasmiy kafolat beriladi.
-                  Ayrim mahsulotlar uchun kafolat muddatini uzaytirish xizmati ham mavjud.
-                </div>
-              </div>
-            </div>
+            <!-- ---------------- COLUMN 2: Xizmatlar ---------------- -->
+            <div>
+              <h3 class="text-amber-350 font-semibold text-base mb-4">Xizmatlar</h3>
 
-            <!-- Item 3 -->
-            <div class="rounded-xl bg-panel border border-panelBorder overflow-hidden transition-colors duration-300 hover:border-violet/40">
-              <h4 id="sq-heading-3">
-                <button type="button"
-                        class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-cream/90 font-medium gap-3"
-                        data-accordion-target="#sq-body-3" aria-expanded="false" aria-controls="sq-body-3">
-                  <span>Mahsulotni qaytarish mumkinmi?</span>
-                  <svg class="faq-icon w-4 h-4 flex-shrink-0 text-muted transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-              </h4>
-              <div id="sq-body-3" class="hidden" aria-labelledby="sq-heading-3">
-                <div class="px-5 pb-4 text-xs text-muted leading-relaxed border-t border-panelBorder pt-3">
-                  Xarid qilingan sanadan 14 kun ichida, mahsulot asl holatini
-                  saqlagan taqdirda uni qaytarish yoki almashtirish mumkin.
+              <div id="accordion-services" data-accordion="collapse" class="space-y-3">
+
+                <!-- Item 1 -->
+                <div class="rounded-xl bg-ink-850 border border-white/10 overflow-hidden transition-colors duration-300 hover:border-amber-400/40">
+                  <h4 id="sq-heading-1">
+                    <button type="button"
+                            class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-stone-100/90 font-medium gap-3"
+                            data-accordion-target="#sq-body-1" aria-expanded="false" aria-controls="sq-body-1">
+                      <span>Yetkazib berish bepulmi?</span>
+                      <svg class="faq-icon w-4 h-4 flex-shrink-0 text-stone-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </h4>
+                  <div id="sq-body-1" class="hidden" aria-labelledby="sq-heading-1">
+                    <div class="px-5 pb-4 text-xs text-stone-400 leading-relaxed border-t border-white/10 pt-3">
+                      Toshkent shahri bo'ylab 500 000 so'mdan yuqori buyurtmalar uchun
+                      yetkazib berish bepul. Boshqa hududlarga tarif buyurtma summasiga qarab hisoblanadi.
+                    </div>
+                  </div>
                 </div>
+
+                <!-- Item 2 -->
+                <div class="rounded-xl bg-ink-850 border border-white/10 overflow-hidden transition-colors duration-300 hover:border-amber-400/40">
+                  <h4 id="sq-heading-2">
+                    <button type="button"
+                            class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-stone-100/90 font-medium gap-3"
+                            data-accordion-target="#sq-body-2" aria-expanded="false" aria-controls="sq-body-2">
+                      <span>Kafolat muddati qancha?</span>
+                      <svg class="faq-icon w-4 h-4 flex-shrink-0 text-stone-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </h4>
+                  <div id="sq-body-2" class="hidden" aria-labelledby="sq-heading-2">
+                    <div class="px-5 pb-4 text-xs text-stone-400 leading-relaxed border-t border-white/10 pt-3">
+                      Barcha mahsulotlarga standart 12 oylik rasmiy kafolat beriladi.
+                      Ayrim mahsulotlar uchun kafolat muddatini uzaytirish xizmati ham mavjud.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Item 3 -->
+                <div class="rounded-xl bg-ink-850 border border-white/10 overflow-hidden transition-colors duration-300 hover:border-amber-400/40">
+                  <h4 id="sq-heading-3">
+                    <button type="button"
+                            class="faq-toggle flex items-center justify-between w-full px-5 py-4 text-left text-sm text-stone-100/90 font-medium gap-3"
+                            data-accordion-target="#sq-body-3" aria-expanded="false" aria-controls="sq-body-3">
+                      <span>Mahsulotni qaytarish mumkinmi?</span>
+                      <svg class="faq-icon w-4 h-4 flex-shrink-0 text-stone-500 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+                  </h4>
+                  <div id="sq-body-3" class="hidden" aria-labelledby="sq-heading-3">
+                    <div class="px-5 pb-4 text-xs text-stone-400 leading-relaxed border-t border-white/10 pt-3">
+                      Xarid qilingan sanadan 14 kun ichida, mahsulot asl holatini
+                      saqlagan taqdirda uni qaytarish yoki almashtirish mumkin.
+                    </div>
+                  </div>
+                </div>
+
               </div>
             </div>
 
           </div>
-        </div>
+        </section>
 
-      </div>
-    </section>
+      </main>
 
-  </main>
-
-  <!-- ============================================================ -->
-  <!-- Rotate the chevron icon on open (Flowbite handles show/hide;   -->
-  <!-- this tiny listener only toggles the arrow direction & border)  -->
-  <!-- ============================================================ -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('.faq-toggle').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          var expandedNow = btn.getAttribute('aria-expanded') === 'true';
-          var icon = btn.querySelector('.faq-icon');
-          document.querySelectorAll('.faq-toggle').forEach(function (other) {
-            if (other !== btn) {
-              other.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
-            }
+      <!-- ============================================================ -->
+      <!-- FAQ akkordeonlarining strelkasini aylantirish                 -->
+      <!-- ============================================================ -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          document.querySelectorAll('.faq-toggle').forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              var icon = btn.querySelector('.faq-icon');
+              document.querySelectorAll('.faq-toggle').forEach(function (other) {
+                if (other !== btn) {
+                  other.querySelector('.faq-icon').style.transform = 'rotate(0deg)';
+                }
+              });
+              setTimeout(function () {
+                var nowExpanded = btn.getAttribute('aria-expanded') === 'true';
+                icon.style.transform = nowExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
+              }, 10);
+            });
           });
-          setTimeout(function () {
-            var nowExpanded = btn.getAttribute('aria-expanded') === 'true';
-            icon.style.transform = nowExpanded ? 'rotate(180deg)' : 'rotate(0deg)';
-          }, 10);
         });
-      });
-    });
-  </script>
+      </script>
 
-</div>
+      <!-- ============================================================ -->
+      <!-- KONTAKT FORMASI: yuborish, validatsiya, natija modali          -->
+      <!-- ============================================================ -->
+      <div id="contact-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bg-ink-850 border border-white/10 rounded-3xl w-full max-w-sm p-7 sm:p-8 relative shadow-card text-center">
+          <button id="contact-modal-close" type="button" aria-label="Yopish"
+            class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-stone-300">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
 
+          <div id="contact-modal-icon" class="mx-auto mb-5 w-16 h-16 rounded-full flex items-center justify-center">
+            <svg id="contact-modal-icon-svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path id="contact-modal-icon-path" stroke-linecap="round" stroke-linejoin="round" d="" />
+            </svg>
+          </div>
+
+          <h3 id="contact-modal-title" class="font-display text-xl sm:text-2xl font-semibold text-stone-50 mb-2"></h3>
+          <p id="contact-modal-message" class="text-stone-400 text-sm leading-relaxed mb-6"></p>
+
+          <button id="contact-modal-ok" type="button" class="w-full rounded-xl bg-brand-gradient text-white font-semibold text-sm py-3.5">
+            Tushunarli
+          </button>
+        </div>
+      </div>
+
+      <script>
+        (function () {
+          "use strict";
+
+          var form = document.getElementById("contact-form");
+          var backdrop = document.getElementById("contact-modal-backdrop");
+          var closeBtn = document.getElementById("contact-modal-close");
+          var okBtn = document.getElementById("contact-modal-ok");
+          var titleEl = document.getElementById("contact-modal-title");
+          var messageEl = document.getElementById("contact-modal-message");
+          var iconWrap = document.getElementById("contact-modal-icon");
+          var iconPath = document.getElementById("contact-modal-icon-path");
+
+          var CHECK_PATH = "M5 13l4 4L19 7";
+          var WARN_PATH = "M12 9v4m0 4h.01M10.29 3.86l-8.18 14.18A1.5 1.5 0 003.34 20h17.32a1.5 1.5 0 001.23-2.36L13.71 3.86a1.5 1.5 0 00-2.42 0z";
+
+          function openModal(success) {
+            if (!backdrop) return;
+            if (success) {
+              iconWrap.className = "mx-auto mb-5 w-16 h-16 rounded-full flex items-center justify-center bg-emerald-500/15 text-emerald-400";
+              iconPath.setAttribute("d", CHECK_PATH);
+              titleEl.textContent = "Yuborildi!";
+              messageEl.textContent = "Xabaringiz muvaffaqiyatli yuborildi. Tez orada operatorlarimiz siz bilan bog'lanadi.";
+            } else {
+              iconWrap.className = "mx-auto mb-5 w-16 h-16 rounded-full flex items-center justify-center bg-rose-500/15 text-rose-400";
+              iconPath.setAttribute("d", WARN_PATH);
+              titleEl.textContent = "Ma'lumotlar to'liq emas";
+              messageEl.textContent = "Xabaringiz jo'nashi uchun barcha maydonlarni to'liq to'ldiring.";
+            }
+            backdrop.classList.remove("hidden");
+            backdrop.classList.add("flex");
+          }
+
+          function closeModal() {
+            if (!backdrop) return;
+            backdrop.classList.add("hidden");
+            backdrop.classList.remove("flex");
+          }
+
+          if (closeBtn) closeBtn.addEventListener("click", closeModal);
+          if (okBtn) okBtn.addEventListener("click", closeModal);
+          if (backdrop) {
+            backdrop.addEventListener("click", function (e) {
+              if (e.target === backdrop) closeModal();
+            });
+          }
+
+          if (form) {
+            form.addEventListener("submit", function (e) {
+              e.preventDefault();
+
+              var fullname = document.getElementById("contact-fullname").value.trim();
+              var email = document.getElementById("contact-email").value.trim();
+              var phone = document.getElementById("contact-phone").value.trim();
+              var message = document.getElementById("contact-message").value.trim();
+
+              if (!fullname || !email || !phone || !message) {
+                openModal(false);
+                return;
+              }
+
+              openModal(true);
+              form.reset();
+            });
+          }
+        })();
+      </script>
+
+    </div>
 
     <!-- back to top -->
     <button
@@ -994,7 +1093,7 @@
             <ul class="space-y-3.5 text-sm text-sand-400">
               <li>
                 <a
-                  href="./KochmasMulk.html"
+                  href="./Ko'chmasMulk.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Ko'chmas mulk</a
                 >
@@ -1077,7 +1176,7 @@
               </li>
               <li>
                 <a
-                  href="#"
+                  href="./boglanish.html"
                   class="hover:text-amber-300 transition-colors duration-300"
                   >Bog'lanish</a
                 >
@@ -1107,7 +1206,71 @@
       </div>
     </footer>
 
-    <!-- ================= SCRIPT ================= -->
+    <!-- ============================================================
+       RO'YXATDAN O'TISH MODALI (profil yaratish) — barcha sahifalarda bir xil
+       localStorage kaliti: "uybozor_profile_v1"
+  ============================================================ -->
+    <div id="auth-modal-backdrop" class="hidden fixed inset-0 z-[200] items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+      <div class="bg-ink-850 border border-white/10 rounded-3xl w-full max-w-md p-6 sm:p-8 relative shadow-card max-h-[90vh] overflow-y-auto">
+        <button id="auth-modal-close" type="button" aria-label="Yopish"
+          class="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 flex items-center justify-center text-stone-300">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+
+        <p class="text-amber-350 text-xs font-semibold tracking-[0.2em] uppercase mb-2">Kirish talab qilinadi</p>
+        <h3 class="font-display text-xl sm:text-2xl font-semibold text-stone-50 mb-1">Iltimos, avval ro'yxatdan o'ting</h3>
+        <p class="text-stone-400 text-sm mb-6 leading-relaxed">Davom etish uchun quyidagi profil ma'lumotlarini to'ldiring.</p>
+
+        <form id="auth-form" class="space-y-4" novalidate>
+          <div class="flex items-center gap-4">
+            <label for="auth-photo-input" class="shrink-0 cursor-pointer">
+              <div id="auth-photo-preview" class="w-16 h-16 rounded-full border-2 border-dashed border-white/15 flex items-center justify-center overflow-hidden text-stone-500 hover:border-amber-400/50 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>
+              </div>
+              <input id="auth-photo-input" type="file" accept="image/*" required class="hidden" />
+            </label>
+            <div class="text-xs text-stone-400 leading-relaxed">
+              <span class="text-stone-100 font-medium">Rasm yuklang</span><br/>
+              Profil rasmi (majburiy)
+            </div>
+          </div>
+
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <span class="text-[10px] uppercase tracking-wider text-stone-400">Ism</span>
+              <input id="auth-first-name" type="text" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="Ism" />
+            </div>
+            <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+              <span class="text-[10px] uppercase tracking-wider text-stone-400">Familya</span>
+              <input id="auth-last-name" type="text" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="Familya" />
+            </div>
+          </div>
+
+          <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-stone-400">Telefon raqam</span>
+            <input id="auth-phone" type="tel" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="+998 90 123 45 67" />
+          </div>
+
+          <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-stone-400">Email</span>
+            <input id="auth-email" type="email" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="email@misol.com" />
+          </div>
+
+          <div class="field-shell rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <span class="text-[10px] uppercase tracking-wider text-stone-400">Soha</span>
+            <input id="auth-field" type="text" required class="bare w-full text-sm font-medium focus:outline-none" placeholder="Masalan: Dizayner, Muhandis..." />
+          </div>
+
+          <p id="auth-error" class="hidden text-xs text-rose-400">Iltimos, barcha maydonlarni (rasm bilan birga) to'ldiring.</p>
+
+          <button type="submit" class="relative overflow-hidden w-full rounded-xl bg-brand-gradient text-white font-semibold text-sm py-3.5 mt-2">
+            Ro'yxatdan o'tish
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ================= SCRIPT: mobil menyu + tepaga qaytish ================= -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         // ---- Mobile menu ----
@@ -1126,45 +1289,6 @@
           });
         }
 
-        // ---- Filter tabs + live search over the product grid ----
-        var pills = document.querySelectorAll("#filterTabs .filter-pill");
-        var cards = document.querySelectorAll("#productGrid .product-card");
-        var searchInput = document.getElementById("searchInput");
-        var emptyState = document.getElementById("emptyState");
-        var activeFilter = "all";
-
-        function applyFilters() {
-          if (!searchInput || !emptyState) return;
-          var query = searchInput.value.trim().toLowerCase();
-          var visibleCount = 0;
-
-          cards.forEach(function (card) {
-            var matchesCategory =
-              activeFilter === "all" ||
-              card.getAttribute("data-cat") === activeFilter;
-            var matchesSearch =
-              card.getAttribute("data-name").indexOf(query) !== -1;
-            var show = matchesCategory && matchesSearch;
-            card.style.display = show ? "" : "none";
-            if (show) visibleCount++;
-          });
-
-          emptyState.classList.toggle("hidden", visibleCount !== 0);
-        }
-
-        pills.forEach(function (pill) {
-          pill.addEventListener("click", function () {
-            pills.forEach(function (p) {
-              p.setAttribute("data-active", "false");
-            });
-            pill.setAttribute("data-active", "true");
-            activeFilter = pill.getAttribute("data-filter");
-            applyFilters();
-          });
-        });
-
-        if (searchInput) searchInput.addEventListener("input", applyFilters);
-
         // ---- Back to top button ----
         var backToTop = document.getElementById("backToTop");
         if (backToTop) {
@@ -1178,27 +1302,244 @@
             window.scrollTo({ top: 0, behavior: "smooth" });
           });
         }
-
-        // ---- Reveal-on-scroll for cards ----
-        var revealTargets = document.querySelectorAll(
-          ".card-tilt, .product-card",
-        );
-        var io = new IntersectionObserver(
-          function (entries) {
-            entries.forEach(function (entry) {
-              if (entry.isIntersecting) {
-                entry.target.style.opacity = 1;
-                io.unobserve(entry.target);
-              }
-            });
-          },
-          { threshold: 0.15 },
-        );
-        revealTargets.forEach(function (el) {
-          io.observe(el);
-        });
       });
+    </script>
+
+    <!-- ============================================================
+       SEVIMLILAR (like) va SAVATCHA (cart) — headerdagi hisoblagichlar
+       BARCHA UyBozor sahifalari bilan bir xil umumiy localStorage
+       kalitlaridan foydalanadi:
+         "uybozor_wishlist_v1" -> [productId, ...]
+         "uybozor_cart_v1"     -> { productId: qty, ... }
+       Bu sahifada mahsulot katakchalari yo'q, shuning uchun faqat
+       header ichidagi hisoblagichlar va navigatsiya boshqariladi.
+  ============================================================ -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var WISHLIST_KEY = "uybozor_wishlist_v1";
+        var CART_KEY = "uybozor_cart_v1";
+
+        function loadWishlist() {
+          try {
+            var raw = localStorage.getItem(WISHLIST_KEY);
+            var arr = raw ? JSON.parse(raw) : [];
+            return new Set(Array.isArray(arr) ? arr : []);
+          } catch (e) {
+            return new Set();
+          }
+        }
+
+        function loadCart() {
+          try {
+            var raw = localStorage.getItem(CART_KEY);
+            var obj = raw ? JSON.parse(raw) : {};
+            return obj && typeof obj === "object" ? obj : {};
+          } catch (e) {
+            return {};
+          }
+        }
+
+        var wishlist = loadWishlist();
+        var cart = loadCart();
+
+        function updateWishlistBadge() {
+          ["wishlist-count", "wishlist-count-mobile"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = wishlist.size;
+          });
+        }
+
+        function updateCartBadge() {
+          var count = Object.keys(cart).length;
+          ["cart-count", "cart-count-mobile"].forEach(function (id) {
+            var el = document.getElementById(id);
+            if (el) el.textContent = count;
+          });
+        }
+
+        // ---- Header wishlist/cart navigation ----
+        var wishlistBtn = document.getElementById("wishlist-btn");
+        if (wishlistBtn) {
+          wishlistBtn.addEventListener("click", function () {
+            window.location.href = "./liked.html";
+          });
+        }
+        var cartBtn = document.getElementById("cart-btn");
+        if (cartBtn) {
+          cartBtn.addEventListener("click", function () {
+            window.location.href = "./addtocart.html";
+          });
+        }
+        var cartBtnMobile = document.getElementById("cart-btn-mobile");
+        if (cartBtnMobile) {
+          cartBtnMobile.addEventListener("click", function () {
+            window.location.href = "./addtocart.html";
+          });
+        }
+
+        // ---- Cross-tab sync ----
+        window.addEventListener("storage", function (e) {
+          if (e.key === WISHLIST_KEY) {
+            wishlist = loadWishlist();
+            updateWishlistBadge();
+          }
+          if (e.key === CART_KEY) {
+            cart = loadCart();
+            updateCartBadge();
+          }
+        });
+
+        // ---- Initial badge render (saqlangan holat qaytariladi) ----
+        updateWishlistBadge();
+        updateCartBadge();
+      });
+    </script>
+
+    <!-- ============================================================
+       PROFIL / RO'YXATDAN O'TISH
+       "uybozor_profile_v1" — barcha UyBozor sahifalarida bir xil.
+  ============================================================ -->
+    <script>
+      (function () {
+        "use strict";
+        var PROFILE_KEY = "uybozor_profile_v1";
+
+        var backdrop = document.getElementById("auth-modal-backdrop");
+        var form = document.getElementById("auth-form");
+        var errorEl = document.getElementById("auth-error");
+        var photoInput = document.getElementById("auth-photo-input");
+        var photoPreview = document.getElementById("auth-photo-preview");
+        var profileBtn = document.getElementById("profile-btn");
+        var profileBtnDefault = document.getElementById("profile-btn-default");
+        var profileBtnChip = document.getElementById("profile-btn-chip");
+        var profileChipPhoto = document.getElementById("profile-chip-photo");
+        var profileChipName = document.getElementById("profile-chip-name");
+
+        var profileBtnMobile = document.getElementById("profile-btn-mobile");
+        var profileIconMobile = document.getElementById("profile-icon-mobile");
+        var profilePhotoMobile = document.getElementById("profile-chip-photo-mobile");
+        var profileNameMobile = document.getElementById("profile-name-mobile");
+
+        var selectedPhotoDataUrl = null;
+
+        function getProfile() {
+          try {
+            var raw = localStorage.getItem(PROFILE_KEY);
+            return raw ? JSON.parse(raw) : null;
+          } catch (e) {
+            return null;
+          }
+        }
+        function saveProfile(p) {
+          try { localStorage.setItem(PROFILE_KEY, JSON.stringify(p)); } catch (e) {}
+        }
+
+        function openAuthModal() {
+          if (!backdrop) return;
+          backdrop.classList.remove("hidden");
+          backdrop.classList.add("flex");
+        }
+        function closeAuthModal() {
+          if (!backdrop) return;
+          backdrop.classList.add("hidden");
+          backdrop.classList.remove("flex");
+        }
+        var closeBtn = document.getElementById("auth-modal-close");
+        if (closeBtn) closeBtn.addEventListener("click", closeAuthModal);
+        if (backdrop) backdrop.addEventListener("click", function (e) { if (e.target === backdrop) closeAuthModal(); });
+
+        if (photoInput) {
+          photoInput.addEventListener("change", function (e) {
+            var file = e.target.files && e.target.files[0];
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function (ev) {
+              selectedPhotoDataUrl = ev.target.result;
+              photoPreview.innerHTML = '<img src="' + selectedPhotoDataUrl + '" class="w-full h-full object-cover" alt="Profil rasmi" />';
+            };
+            reader.readAsDataURL(file);
+          });
+        }
+
+        function renderHeaderProfile() {
+          var p = getProfile();
+          if (p && p.photoDataUrl) {
+            if (profileBtnDefault) profileBtnDefault.classList.add("hidden");
+            if (profileBtnChip) {
+              profileBtnChip.classList.remove("hidden");
+              profileBtnChip.classList.add("flex");
+            }
+            if (profileChipPhoto) profileChipPhoto.src = p.photoDataUrl;
+            if (profileChipName) profileChipName.textContent = (p.firstName + " " + p.lastName).trim();
+            if (profileBtn) {
+              profileBtn.classList.remove("w-10");
+              profileBtn.classList.add("w-auto", "px-1");
+            }
+
+            if (profileIconMobile) profileIconMobile.classList.add("hidden");
+            if (profilePhotoMobile) {
+              profilePhotoMobile.src = p.photoDataUrl;
+              profilePhotoMobile.classList.remove("hidden");
+            }
+            if (profileNameMobile) profileNameMobile.textContent = (p.firstName + " " + p.lastName).trim();
+          } else {
+            if (profileBtnDefault) profileBtnDefault.classList.remove("hidden");
+            if (profileBtnChip) {
+              profileBtnChip.classList.add("hidden");
+              profileBtnChip.classList.remove("flex");
+            }
+            if (profileBtn) {
+              profileBtn.classList.add("w-10");
+              profileBtn.classList.remove("w-auto", "px-1");
+            }
+
+            if (profileIconMobile) profileIconMobile.classList.remove("hidden");
+            if (profilePhotoMobile) profilePhotoMobile.classList.add("hidden");
+            if (profileNameMobile) profileNameMobile.textContent = "Profil";
+          }
+        }
+
+        function handleProfileClick() {
+          var p = getProfile();
+          if (p) {
+            window.location.href = "./profile.html";
+          } else {
+            openAuthModal();
+          }
+        }
+        if (profileBtn) profileBtn.addEventListener("click", handleProfileClick);
+        if (profileBtnMobile) profileBtnMobile.addEventListener("click", handleProfileClick);
+
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var firstName = document.getElementById("auth-first-name").value.trim();
+            var lastName = document.getElementById("auth-last-name").value.trim();
+            var phone = document.getElementById("auth-phone").value.trim();
+            var email = document.getElementById("auth-email").value.trim();
+            var field = document.getElementById("auth-field").value.trim();
+
+            if (!firstName || !lastName || !phone || !email || !field || !selectedPhotoDataUrl) {
+              errorEl.classList.remove("hidden");
+              return;
+            }
+            errorEl.classList.add("hidden");
+
+            saveProfile({ firstName: firstName, lastName: lastName, phone: phone, email: email, field: field, photoDataUrl: selectedPhotoDataUrl });
+            renderHeaderProfile();
+            closeAuthModal();
+            form.reset();
+            photoPreview.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/><circle cx="12" cy="13" r="3.2" stroke-width="1.6"/></svg>';
+            selectedPhotoDataUrl = null;
+          });
+        }
+
+        window.addEventListener("storage", function (e) {
+          if (e.key === PROFILE_KEY) renderHeaderProfile();
+        });
+
+        renderHeaderProfile();
+      })();
     </script>
   </body>
 </html>
-
