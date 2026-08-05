@@ -339,6 +339,12 @@
         transform: translateY(0) scale(.95);
       }
 
+      /* ---- kontakt yuborish tugmasi: yuborilayotgan holat ---- */
+      #contact-submit-btn:disabled {
+        opacity: .6;
+        cursor: not-allowed;
+      }
+
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -623,13 +629,13 @@
               </div>
 
               <!-- Submit button -->
-              <button type="submit"
+              <button type="submit" id="contact-submit-btn"
                       class="relative w-full overflow-hidden rounded-xl py-3.5 text-sm font-semibold text-white
                              bg-brand-gradient bg-[length:200%_auto]
                              shadow-glow
                              transition-all duration-500 hover:bg-[position:100%_0] hover:shadow-[0_0_45px_-6px_rgba(224,86,143,0.7)]
                              active:scale-[0.98] group/btn">
-                <span class="relative z-10 flex items-center justify-center gap-2">
+                <span id="contact-submit-label" class="relative z-10 flex items-center justify-center gap-2">
                   Yuborish
                   <svg class="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
@@ -943,6 +949,8 @@
           "use strict";
 
           var form = document.getElementById("contact-form");
+          var submitBtn = document.getElementById("contact-submit-btn");
+          var submitLabel = document.getElementById("contact-submit-label");
           var backdrop = document.getElementById("contact-modal-backdrop");
           var closeBtn = document.getElementById("contact-modal-close");
           var okBtn = document.getElementById("contact-modal-ok");
@@ -954,18 +962,53 @@
           var CHECK_PATH = "M5 13l4 4L19 7";
           var WARN_PATH = "M12 9v4m0 4h.01M10.29 3.86l-8.18 14.18A1.5 1.5 0 003.34 20h17.32a1.5 1.5 0 001.23-2.36L13.71 3.86a1.5 1.5 0 00-2.42 0z";
 
-          function openModal(success) {
+          // ---- Telegram bot sozlamalari ----
+          var TELEGRAM_BOT_TOKEN = "8983561393:AAE6MssPKjJCU7fpMe17mJomV39UHgsE_X4";
+          var TELEGRAM_CHAT_ID = "7528347929";
+
+          function escapeHtml(str) {
+            return String(str || "")
+              .replace(/&/g, "&amp;")
+              .replace(/</g, "&lt;")
+              .replace(/>/g, "&gt;");
+          }
+
+          function buildContactMessage(fullname, email, phone, message) {
+            var now = new Date();
+            var dateStr = now.toLocaleString("uz-UZ", { dateStyle: "medium", timeStyle: "short" });
+            var lines = [];
+            lines.push("✉️ <b>Yangi xabar — UyBozor</b>");
+            lines.push("━━━━━━━━━━━━━━━━━━");
+            lines.push("👤 <b>Ism:</b> " + escapeHtml(fullname));
+            lines.push("📧 <b>Email:</b> " + escapeHtml(email));
+            lines.push("📞 <b>Telefon:</b> " + escapeHtml(phone));
+            lines.push("📝 <b>Xabar:</b> " + escapeHtml(message).slice(0, 800));
+            lines.push("━━━━━━━━━━━━━━━━━━");
+            lines.push("🕒 " + escapeHtml(dateStr));
+            return lines.join("\n");
+          }
+
+          async function sendContactToTelegram(text) {
+            var res = await fetch("https://api.telegram.org/bot" + TELEGRAM_BOT_TOKEN + "/sendMessage", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ chat_id: TELEGRAM_CHAT_ID, text: text, parse_mode: "HTML" }),
+            });
+            return res.ok;
+          }
+
+          function openModal(success, customMessage) {
             if (!backdrop) return;
             if (success) {
               iconWrap.className = "mx-auto mb-5 w-16 h-16 rounded-full flex items-center justify-center bg-emerald-500/15 text-emerald-400";
               iconPath.setAttribute("d", CHECK_PATH);
               titleEl.textContent = "Yuborildi!";
-              messageEl.textContent = "Xabaringiz muvaffaqiyatli yuborildi. Tez orada operatorlarimiz siz bilan bog'lanadi.";
+              messageEl.textContent = customMessage || "Xabaringiz muvaffaqiyatli yuborildi. Tez orada operatorlarimiz siz bilan bog'lanadi.";
             } else {
               iconWrap.className = "mx-auto mb-5 w-16 h-16 rounded-full flex items-center justify-center bg-rose-500/15 text-rose-400";
               iconPath.setAttribute("d", WARN_PATH);
-              titleEl.textContent = "Ma'lumotlar to'liq emas";
-              messageEl.textContent = "Xabaringiz jo'nashi uchun barcha maydonlarni to'liq to'ldiring.";
+              titleEl.textContent = "Yuborilmadi";
+              messageEl.textContent = customMessage || "Xabaringiz yuborilmadi. Ma'lumotlaringizni to'liq kiriting.";
             }
             backdrop.classList.remove("hidden");
             backdrop.classList.add("flex");
@@ -985,6 +1028,20 @@
             });
           }
 
+          function setSubmitBusy(busy) {
+            if (submitBtn) submitBtn.disabled = busy;
+            if (submitLabel) {
+              submitLabel.textContent = busy ? "Yuborilmoqda..." : "";
+              if (!busy) {
+                // asl matn + strelka ikonkasini tiklash
+                submitLabel.innerHTML =
+                  'Yuborish' +
+                  '<svg class="w-4 h-4 transition-transform duration-300 group-hover/btn:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">' +
+                  '<path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>';
+              }
+            }
+          }
+
           if (form) {
             form.addEventListener("submit", function (e) {
               e.preventDefault();
@@ -994,13 +1051,29 @@
               var phone = document.getElementById("contact-phone").value.trim();
               var message = document.getElementById("contact-message").value.trim();
 
+              // Bitta maydon bo'sh qolsa ham — "yuborilmadi" modali
               if (!fullname || !email || !phone || !message) {
-                openModal(false);
+                openModal(false, "Xabaringiz yuborilmadi. Ma'lumotlaringizni to'liq kiriting.");
                 return;
               }
 
-              openModal(true);
-              form.reset();
+              setSubmitBusy(true);
+
+              sendContactToTelegram(buildContactMessage(fullname, email, phone, message))
+                .then(function (ok) {
+                  if (ok) {
+                    openModal(true, "Xabaringiz muvaffaqiyatli yuborildi. Tez orada operatorlarimiz siz bilan bog'lanadi.");
+                    form.reset();
+                  } else {
+                    openModal(false, "Xabaringiz yuborilmadi. Ma'lumotlaringizni to'liq kiriting yoki birozdan so'ng qayta urinib ko'ring.");
+                  }
+                })
+                .catch(function () {
+                  openModal(false, "Xabaringiz yuborilmadi. Ma'lumotlaringizni to'liq kiriting yoki birozdan so'ng qayta urinib ko'ring.");
+                })
+                .finally(function () {
+                  setSubmitBusy(false);
+                });
             });
           }
         })();
