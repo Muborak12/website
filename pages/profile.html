@@ -330,14 +330,14 @@
 
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         <button id="wishlist-btn" type="button" aria-label="Sevimlilar"
-          class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60">
+          class="header-icon-btn relative w-10 h-10 rounded-full hidden md:flex items-center justify-center border border-white/10 hover:border-amber-400/60">
           <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
           </svg>
           <span id="wishlist-count" class="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-amber-400 text-[10px] font-bold text-ink-900 flex items-center justify-center">0</span>
         </button>
         <button id="cart-btn" type="button" aria-label="Savatcha"
-          class="header-icon-btn relative w-10 h-10 rounded-full flex items-center justify-center border border-white/10 hover:border-amber-400/60">
+          class="header-icon-btn relative w-10 h-10 rounded-full hidden md:flex items-center justify-center border border-white/10 hover:border-amber-400/60">
           <svg class="w-[18px] h-[18px] text-sand-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/>
           </svg>
@@ -376,6 +376,21 @@
         <a href="./dekor.html" class="nav-link">Dekor</a>
         <a href="./sotuvchi.html" class="nav-link">Hamkorlik qiling</a>
       </div>
+       <div class="flex items-center gap-3 pt-3 border-t border-white/10 mt-1 flex-wrap">
+              <a href="./liked.html" class="nav-link inline-flex items-center gap-2 text-white">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                Sevimlilar (<span id="wishlist-count-mobile">0</span>)
+              </a>
+              <button type="button" id="cart-btn-mobile" class="nav-link inline-flex items-center gap-2 text-white">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m-10 0a2 2 0 100 4 2 2 0 000-4zm10 0a2 2 0 100 4 2 2 0 000-4z"/></svg>
+                Savat (<span id="cart-count-mobile">0</span>)
+              </button>
+              <button type="button" id="profile-btn-mobile" class="nav-link inline-flex items-center gap-2 text-white">
+                <img id="profile-chip-photo-mobile" src="" alt="" class="hidden w-5 h-5 rounded-full object-cover ring-1 ring-amber-400/50" />
+                <svg id="profile-icon-mobile" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"/></svg>
+                <span id="profile-name-mobile">Profil</span>
+              </button>
+            </div>
     </div>
   </nav>
   <div class="fade-line"></div>
